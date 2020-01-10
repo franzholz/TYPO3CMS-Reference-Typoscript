@@ -1,16 +1,11 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
-
 
 .. _cobj-user:
 .. _cobj-user-int:
 
+==================
 USER and USER\_INT
-^^^^^^^^^^^^^^^^^^
+==================
 
 This calls either a PHP function or a method in a class. This is very
 useful if you want to incorporate your own data processing or content.
@@ -19,14 +14,17 @@ Basically USER and USER\_INT are user defined cObjects, because they
 just call a function or method, which you control!
 
 If you call a method in a class (which is of course instantiated as an
-object), the internal variable '$cObj' of that class is set with a
+object), the internal variable :php:`$cObj` of that class is set with a
 *reference* to the parent cObject. This offers you an API of functions,
 which might be more or less relevant for you. See
-ContentObjectRenderer.php in the TYPO3 source code; access to typolink
-or stdWrap are only two of the gimmicks you get.
+:file:`ContentObjectRenderer.php` in the TYPO3 source code; access to :ts:`typolink`
+or :ts:`stdWrap` are only two of the gimmicks you get.
 
-If you create this object as USER\_INT, it will be rendered non-cached,
+If you create this object as :ts:`USER_INT`, it will be rendered non-cached,
 outside the main page-rendering.
+
+userFunc
+========
 
 .. ### BEGIN~OF~TABLE ###
 
@@ -36,7 +34,7 @@ outside the main page-rendering.
          userFunc
 
    Data type
-         function name
+         :ref:`data-type-function-name`
 
    Description
          The name of the function, which should be called. If you specify the
@@ -49,42 +47,35 @@ outside the main page-rendering.
          .preUserFunc). The second parameter is an array with the properties of
          this cObject, if any.
 
+.. ###### END~OF~TABLE ######
+
+(properties you define)
+=======================
+
+.. ### BEGIN~OF~TABLE ###
 
 .. container:: table-row
 
    Property
-         includeLibs
+         (properties you define)
 
    Data type
-         *(list of resources)* /:ref:`stdWrap <stdwrap>`
+         (the data type you want)
 
    Description
-         **This property applies only if the object is created as USER\_INT.**
+         Apart from the properties "userFunc" and "stdWrap", which are defined for
+         all USER/USER\_INT objects by default, you can add additional properties
+         with any name and any data type to your USER/USER\_INT object. These
+         properties and their values will then be available in PHP; they will be
+         passed to your function (in the second parameter). This allows you to
+         process them further in any way you wish.
 
-         This is a comma-separated list of resources that are included as PHP-
-         scripts (with include\_once() function) if this script is included.
+.. ###### END~OF~TABLE ######
 
-         This is possible to do because any include-files will be known before
-         the scripts are included.
+stdWrap
+=======
 
-
-.. container:: table-row
-
-   Property
-         *(properties you define)*
-
-   Data type
-         *(the data type you want)*
-
-   Description
-         Apart from the properties "userFunc", "stdWrap" and possibly
-         "includeLibs", which are defined for all USER/USER\_INT objects by
-         default, you can add additional properties with any name and any data
-         type to your USER/USER\_INT object. These properties and their values
-         will then be available in PHP; they will be passed to your function (in
-         the second parameter). This allows you to process them further in any
-         way you wish.
-
+.. ### BEGIN~OF~TABLE ###
 
 .. container:: table-row
 
@@ -92,51 +83,77 @@ outside the main page-rendering.
          stdWrap
 
    Data type
-         :ref:`->stdWrap <stdwrap>`
-
+         Everything that's made available by :ref:`stdWrap`.
 
 .. ###### END~OF~TABLE ######
 
-[tsref:(cObject).USER/(cObject).USER\_INT]
+
+cache
+=====
+
+.. ### BEGIN~OF~TABLE ###
+
+.. include:: ../../DataTypes/Properties/Cache.rst.txt
+
+.. ###### END~OF~TABLE ######
 
 
 .. _cobj-user-examples:
 .. _cobj-user-int-examples:
 
 Examples:
-"""""""""
+=========
+
+.. attention::
+
+   The property `includeLibs` has been removed in TYPO3 8.0. In earlier versions
+   the userFunc classes were sometimes stored in :file:`fileadmin/` - this is no
+   longer possible out of the box and not recommended.
+
+   For the best result you should *always*, without exception, place your class files in
+   an extension, define composer class loading for this extension and add this extension as
+   a dependency of your project. Then, your classes will load without issues when you refer
+   to them by their class name.
+
+Example 1
+---------
 
 This example shows how to include your own PHP script and how to use it
 from TypoScript. Use this TypoScript configuration::
 
-   # Include the PHP file with our custom code
-   includeLibs.time = fileadmin/example_time.php
-
    page = PAGE
    page.10 = USER_INT
    page.10 {
-     userFunc = user_printTime
+     userFunc = Vendor\ExtensionName\ExampleTime->printTime
    }
 
-The file fileadmin/example_time.php might amongst other things
-contain::
+The file typo3conf/ext/extension_name/Classes/ExampleTime.php might amongst other things
+contain:
 
-   /**
-    * Output the current time in red letters
-    *
-    * @param	string		Empty string (no content to process)
-    * @param	array		TypoScript configuration
-    * @return	string		HTML output, showing the current server time.
-    */
-   function user_printTime($content, $conf) {
-     return '<p style="color: red;">Dynamic time: ' . date('H:i:s') . '</p><br />';
+.. code-block:: php
+
+   namespace Vendor\ExtensionName;
+   class ExampleTime {
+     /**
+      * Output the current time in red letters
+      *
+      * @param	string		Empty string (no content to process)
+      * @param	array		TypoScript configuration
+      * @return	string		HTML output, showing the current server time.
+      */
+     public function printTime(string $content, array $conf): string
+     {
+       return '<p style="color: red;">Dynamic time: ' . date('H:i:s') . '</p><br />';
+     }
    }
 
-Here page.10 will give back what the PHP function user_printTime()
+Here page.10 will give back what the PHP function printTime()
 returned. Since we did not use a USER object, but a USER\_INT object,
 this function is executed on every page hit. So this example each time
 outputs the current time in red letters.
 
+Example 2
+---------
 
 Now let us have a look at another example:
 
@@ -145,85 +162,104 @@ order. To do that we use the following TypoScript::
 
    page = PAGE
    page.typeNum = 0
-   # Include the PHP file with our custom code
-   includeLibs.listRecords = fileadmin/example_listRecords.php
 
    page.30 = USER
    page.30 {
-     userFunc = user_various->listContentRecordsOnPage
-     # reverseOrder is a boolean variable (see PHP code below)
-     reverseOrder = 1
-     # debugOutput is a boolean variable with /stdWrap (see PHP code below)
-     debugOutput = 1
+      userFunc = Vendor\ExtensionName\ExampleListRecords->listContentRecordsOnPage
+      # reverseOrder is a boolean variable (see PHP code below)
+      reverseOrder = 1
    }
 
-The file fileadmin/example_listRecords.php might amongst other
-things contain::
+The file typo3conf/ext/extension_name/Classes/ExampleListRecords.php might amongst other
+things contain:
+
+.. code-block:: php
+
+   namespace Vendor\ExtensionName;
+
+   use TYPO3\CMS\Core\Database\ConnectionPool;
+   use TYPO3\CMS\Core\Utility\GeneralUtility;
+   use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
    /**
     * Example of a method in a PHP class to be called from TypoScript
     *
     */
-   class user_various {
+   class ExampleListRecords {
      /**
       * Reference to the parent (calling) cObject set from TypoScript
+      *
+      * @var ContentObjectRenderer
       */
      public $cObj;
 
      /**
-      * List the headers of the content elements on the page
-      *
-      *
-      * @param	string		Empty string (no content to process)
-      * @param	array		TypoScript configuration
-      * @return	string		HTML output, showing content elements (in reverse order, if configured)
-      */
-     public function listContentRecordsOnPage($content, $conf) {
-       $query = $GLOBALS['TYPO3_DB']->SELECTquery(
-         'header',
-         'tt_content',
-         'pid=' . intval($GLOBALS['TSFE']->id) .
-           $this->cObj->enableFields('tt_content'),
-         '',
-         'sorting' . ($conf['reverseOrder'] ? ' DESC' : '')
-       );
-
-       $output = '';
-       if (isset($conf['debugOutput.'])) {
-         $conf['debugOutput'] = $this->cObj->stdWrap($conf['debugOutput'], $conf['debugOutput.']);
-       }
-       if ($conf['debugOutput']) {
-         $output = 'This is the query: <strong>' . $query . '</strong><br /><br />';
-       }
-
-       return $output . $this->selectThem($query);
-     }
-
-     /**
-      * Select the records by input $query and returning the header field values
-      *
-      * @param	string		SQL query selecting the content elements
-      * @return	string		The header field values of the content elements imploded by a <br /> tag
-      */
-     protected function selectThem($query) {
-       $res = $GLOBALS['TYPO3_DB']->sql_query($query);
-       $output = array();
-       while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
-         $output[] = $row['header'];
-       }
-       return implode($output, '<br />');
+       * List the headers of the content elements on the page
+       *
+       *
+       * @param	string		Empty string (no content to process)
+       * @param	array		TypoScript configuration
+       * @return	string		HTML output, showing content elements (in reverse order, if configured)
+       */
+     public function listContentRecordsOnPage(string $content, array $conf): string
+     {
+         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tt_content');
+         $result = $connection->select(
+             ['header'],
+             'tt_content',
+             ['pid' => (int)$GLOBALS['TSFE']->id],
+             [],
+             ['sorting' => $conf['reverseOrder'] ? 'DESC' : 'ASC']
+         );
+         $output = [];
+         foreach ($result as $row) {
+             $output[] = $row['header'];
+         }
+         return implode($output, '<br />');
      }
    }
 
-page.30 will give back what the function listContentRecordsOnPage() of
-the class user_various returned. This example returns some debug output
+:ts:`page.30` will give back what the function :php:`listContentRecordsOnPage()` of
+the class YourClass returned. This example returns some debug output
 at the beginning and then the headers of the content elements on the
-page in reversed order. Note how we defined the properties
-"reverseOrder" and "debugOutput" for this USER object and how we used
-them in the PHP code.
+page in reversed order. Note how we defined the property
+"reverseOrder" for this USER object and how we used it in the PHP code.
 
+
+Example 3
+---------
 
 Another example can be found in the documentation of the stdWrap
-property "postUserFunc". There you can also see how to work with $cObj,
-the reference to the parent (calling) cObject.
+property :ref:`stdwrap-postUserFunc` There you can also see how to work with
+:php:`$cObj`, the reference to the parent (calling) cObject.
 
+Example 4
+---------
+
+PHP has a function :php:`gethostname()` to "get the standard host name for
+the local machine". You can make it available like this::
+
+   page.20 = USER_INT
+   page.20 {
+      userFunc = Vendor\ExtensionName\Hostname->getHostname
+   }
+
+Contents of :file:`typo3conf/ext/extension_name/Classes/Hostname.php`:
+
+.. code-block:: php
+
+   namespace Vendor\ExtensionName;
+
+      class Hostname {
+         /**
+          * Return standard host name for the local machine
+          *
+          * @param  string          Empty string (no content to process)
+          * @param  array           TypoScript configuration
+          * @return string          HTML result
+          */
+         public function getHostname(string $content, array $conf): string
+         {
+            return gethostname() ?: '';
+         }
+      }

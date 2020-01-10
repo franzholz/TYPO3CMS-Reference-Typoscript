@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -60,14 +55,14 @@ otherwise noted!
          minItems
 
    Data type
-         integer
+         integer / :ref:`stdWrap <stdwrap>`
 
    Description
          The minimum items in the menu. If the number of pages does not reach
          this level, a dummy-page with the title "..." and
          uid=[currentpage\_id] is inserted.
 
-         Takes precedence over HMENU.minItems.
+         Takes precedence over :ref:`HMENU.minItems <hmenu-minitems>`.
 
 
 .. container:: table-row
@@ -76,7 +71,7 @@ otherwise noted!
          maxItems
 
    Data type
-         integer
+         integer / :ref:`stdWrap <stdwrap>`
 
    Description
          The maximum items in the menu. More items will be ignored.
@@ -90,7 +85,7 @@ otherwise noted!
          begin
 
    Data type
-         integer +calc
+         integer / :ref:`stdWrap <stdwrap>` :ref:`+calc <objects-calc>`
 
    Description
          The first item in the menu.
@@ -102,7 +97,7 @@ otherwise noted!
 
             begin = 3
 
-         Takes precedence over HMENU.begin.
+         Takes precedence over :ref:`HMENU.begin <hmenu-begin>`.
 
 
 .. container:: table-row
@@ -125,8 +120,6 @@ otherwise noted!
 
             JSWindow.params = width=200,height=300,status=0,menubar=0
 
-         **Note:** Does not work with JSMENU's.
-
 
 .. container:: table-row
 
@@ -136,12 +129,17 @@ otherwise noted!
    Data type
          string
 
+   Default
+         "img"
+
    Description
+         .. important::
+
+            `imgNamePrefix` is deprecated since version 9.4 and will be removed in version 10.
+
          Prefix for the image names. This prefix is appended with the uid of the
          page.
 
-   Default
-         "img"
 
 
 .. container:: table-row
@@ -153,6 +151,10 @@ otherwise noted!
          boolean
 
    Description
+         .. important::
+
+            `imgNameNotRandom` is deprecated since version 9.4 and will be removed in version 10.
+
          If set, the image names of menu items is not randomly assigned. Useful
          switch if you're manipulating these images with some external
          JavaScript.
@@ -215,6 +217,10 @@ otherwise noted!
 
          Applies to GMENU, TMENU and IMGMENU.
 
+.. _menu-common-properties-showaccessrestrictedpages:
+
+showAccessRestrictedPages
+=========================
 
 .. container:: table-row
 
@@ -233,7 +239,10 @@ otherwise noted!
 
          If the value is "NONE" the link will not be changed and the site will
          perform page-not-found handling when clicked (which can be used to
-         capture the event and act accordingly of course).
+         capture the event and act accordingly of course). This means that the
+         link's URL will point to the page even if it is not accessible by the
+         current frontend user. Note that the default behavior of page-not-found
+         handling is to show the parent page instead.
 
          **Properties:**
 
@@ -256,6 +265,25 @@ otherwise noted!
 .. container:: table-row
 
    Property
+         additionalWhere
+
+   Data type
+         string / :ref:`stdWrap <stdwrap>`
+
+   Description
+         Adds an additional part to the WHERE clause for this menu.
+         Make sure to start the part with "AND "!
+
+         **Example:** ::
+
+            lib.authormenu = HMENU
+            lib.authormenu.1 = TMENU
+            lib.authormenu.1.additionalWhere = AND author!=""
+
+
+.. container:: table-row
+
+   Property
          itemArrayProcFunc
 
    Data type
@@ -271,15 +299,14 @@ otherwise noted!
          **Note:**
 
          .parentObj property is **hardcoded** to be a reference to the calling
-         typo3/sysext/frontend/Classes/ContentObject/Menu/ (tslib\_menu) object.
-         Here you'll find e.g. ->id to be the uid of the menu item generating a
-         submenu and such.
+         typo3/sysext/frontend/Classes/ContentObject/Menu/ object. Here you'll
+         find e.g. ->id to be the uid of the menu item generating a submenu and
+         such.
 
          **Presetting element state**
 
          You can override element states like SPC, IFSUB, ACT, CUR or USR by
-         setting the key ITEM\_STATE in the page records. See cObject
-         HMENU/special=userdefined for more information.
+         setting the key ITEM\_STATE in the page records.
 
 
 .. container:: table-row
@@ -331,8 +358,7 @@ otherwise noted!
          .. figure:: ../../Images/MenuObjectsCommonPropertiesSubmenuObjSuffixes.png
             :alt: Output of the above example.
 
-         Applies to GMENU, TMENU, GMENU\_LAYERS, TMENU\_LAYERS and
-         GMENU\_FOLDOUT on >= 2 :sup:`nd` level in a menu.
+         Applies to GMENU and TMENU on >= 2 :sup:`nd` level in a menu.
 
 
 .. ###### END~OF~TABLE ######

@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -37,6 +32,9 @@ into account.
    Data type
          :ref:`menu object <data-type-menuobj>`
 
+   Default
+         (no menu)
+
    Description
          For every menu level, that should be rendered, an according entry must
          exist. It defines the menu object that should render the menu items on
@@ -69,8 +67,6 @@ into account.
 
          TYPO3 offers :ref:`a variety of menu objects <menu-objects>`.
 
-   Default
-         (no menu)
 
 
 .. container:: table-row
@@ -94,6 +90,9 @@ into account.
          3) 86400 (= 1 day)
 
 
+.. include:: ../../DataTypes/Properties/Cache.rst.txt
+
+
 .. container:: table-row
 
    Property
@@ -103,6 +102,9 @@ into account.
 
    Data type
          integer /:ref:`stdWrap <stdwrap>`
+
+   Default
+         0
 
    Description
          Defines at which level in the rootLine the menu should start.
@@ -114,8 +116,44 @@ into account.
          rootLine. Thus "-1" is a menu with items from the outermost level,
          "-2" is the level before the outermost...
 
-   Default
-         0
+         **Note:** :ts:`entryLevel` does not show a menu **of a certain level of pages**
+         (use :ts:`special = directory` for that)
+         but it means that it will start to be visible **from that level on**.
+
+         So, for example if you build a simple "sitemap" menu like this one::
+
+            page.10 = HMENU
+            page.10 {
+              entryLevel = 4
+              1 = TMENU
+              1.wrap = <ul> | </ul>
+              1.NO.wrapItemAndSub = <li> | </li>
+              1.expAll = 1
+              2 < .1
+              3 < .2
+              4 < .3
+              5 < .4
+              6 < .5
+              7 < .6
+            }
+
+         it will start to be visible from the 4th level (and will contain only the subpages from that level).
+         Please note also that this affects also the menu generated with :ts:`MenuProcessor`. Example::
+
+            page.10{
+               dataProcessing {
+                10 = TYPO3\CMS\Frontend\DataProcessing\MenuProcessor
+                10 {
+                   special = list
+                   special.value.field = pages
+                   levels = 7
+                   entryLevel = 4
+                   as = menu
+                   expandAll = 1
+                   titleField = nav_title // title
+                }
+              }
+            }
 
 
 .. container:: table-row
@@ -159,9 +197,7 @@ into account.
          minItems
 
    Data type
-         Until TYPO3 4.6: integer
-
-         Since TYPO3 4.7: integer /:ref:`stdWrap <stdwrap>`
+         integer /:ref:`stdWrap <stdwrap>`
 
    Description
          The minimum number of items in the menu. If the number of pages does
@@ -181,9 +217,7 @@ into account.
          maxItems
 
    Data type
-         Until TYPO3 4.6: integer
-
-         Since TYPO3 4.7: integer /:ref:`stdWrap <stdwrap>`
+         integer /:ref:`stdWrap <stdwrap>`
 
    Description
          The maximum number of items in the menu. Additional items will be
@@ -201,9 +235,7 @@ into account.
          begin
 
    Data type
-         Until TYPO3 4.6: integer :ref:`+calc <objects-calc>`
-
-         Since TYPO3 4.7: integer /:ref:`stdWrap <stdwrap>` :ref:`+calc <objects-calc>`
+         integer /:ref:`stdWrap <stdwrap>` :ref:`+calc <objects-calc>`
 
    Description
          The first item in the menu.
@@ -252,13 +284,14 @@ into account.
    Data type
          list of integers
 
+   Default
+         5,6
+
    Description
          Enter the list of page document types (doktype) to exclude from menus.
          By default pages that are "not in menu" (5) are excluded and those
          marked for backend user access only (6).
 
-   Default
-         5,6
 
 
 .. container:: table-row
@@ -305,7 +338,7 @@ into account.
    Description
          If set, then for each page in the menu it will be checked if an
          Alternative Page Language record for the language defined in
-         "config.sys\_language\_uid" (typically defined via &L) exists for the
+         "config.sys\_language\_uid" exists for the
          page. If that is not the case and the pages "Localization settings"
          have the "Hide page if no translation for current language exists"
          flag set, then the menu item will link to a non accessible page that
@@ -427,8 +460,8 @@ certain page" and so on.
 
 .. note::
 
-   :code:`.entryLevel` generally is not supported together with the
-   :code:.special` property! The only exception is :code:special = keywords`.
+   :ts:`.entryLevel` generally is not supported together with the
+   :ts:`.special` property! The only exception is :ts:`special = keywords`.
 
 Also be aware that this property selects pages for the first level in
 the menu. Submenus by menuObjects 2+ will be created as usual.
@@ -457,6 +490,9 @@ Mount pages are supported.
    Data type
          list of page ids /:ref:`stdWrap <stdwrap>`
 
+   Default
+         current page id
+
    Description
          This will generate a menu of all pages with pid = 35 and pid = 56. ::
 
@@ -464,8 +500,6 @@ Mount pages are supported.
             20.special = directory
             20.special.value = 35, 56
 
-   Default
-         current page id
 
 
 .. ###### END~OF~TABLE ######
@@ -495,6 +529,9 @@ Mount pages are supported.
    Data type
          list of page ids /:ref:`stdWrap <stdwrap>`
 
+   Default
+         0
+
    Description
          This will generate a menu with the two pages (uid=35 and uid=56)
          listed::
@@ -506,8 +543,6 @@ Mount pages are supported.
          If .value is not set, the default uid is 0, so that only your homepage
          will be listed.
 
-   Default
-         0
 
 
 .. ###### END~OF~TABLE ######
@@ -562,6 +597,9 @@ Mount pages are supported.
    Data type
          string
 
+   Default
+         SYS\_LASTCHANGED
+
    Description
          The field in the database which should be used to get the information
          about the last update from.
@@ -583,8 +621,6 @@ Mount pages are supported.
 
          Fields with empty values are generally not selected.
 
-   Default
-         SYS\_LASTCHANGED
 
 
 .. container:: table-row
@@ -597,6 +633,9 @@ Mount pages are supported.
    Data type
          integer
 
+   Default
+         20
+
    Description
          Defines the tree depth.
 
@@ -607,8 +646,6 @@ Mount pages are supported.
 
          **Note:** "depth" is relative to "beginAtLevel".
 
-   Default
-         20
 
 
 .. container:: table-row
@@ -620,6 +657,9 @@ Mount pages are supported.
 
    Data type
          integer
+
+   Default
+         0
 
    Description
          Determines starting level for the page trees generated based on .value
@@ -633,8 +673,6 @@ Mount pages are supported.
 
          **Note:** "depth" is relative to this property.
 
-   Default
-         0
 
 
 .. container:: table-row
@@ -666,11 +704,12 @@ Mount pages are supported.
    Data type
          integer
 
+   Default
+         10
+
    Description
          Maximal number of items in the menu. Default is 10, max is 100.
 
-   Default
-         10
 
 
 .. container:: table-row
@@ -683,11 +722,12 @@ Mount pages are supported.
    Data type
          boolean
 
+   Default
+         0 (false)
+
    Description
          If set, pages marked "No search" are not included.
 
-   Default
-         0
 
 
 .. ###### END~OF~TABLE ######
@@ -771,44 +811,13 @@ Mount pages are supported.
    Data type
          boolean
 
+   Default
+         0 (false)
+
    Description
          If set to true, the order of the rootline menu elements will be
          reversed.
 
-   Default
-         false
-
-
-.. container:: table-row
-
-   Property
-         .. _hmenu-special-rootline-targets:
-
-         targets.[level number]
-
-   Data type
-         string
-
-   Description
-         For framesets. You can set a default target and a target for each
-         level by using the level number as sub-property.
-
-         **Example:**
-
-         Here the links to pages on level 3 will have target="page", while all
-         other levels will have target="\_top" as defined for the TMENU
-         property .target. ::
-
-            page.2 = HMENU
-            page.2.special = rootline
-            page.2.special.range = 1|-2
-            page.2.special.targets.3 = page
-            page.2.1 = TMENU
-            page.2.1.target = _top
-            page.2.1.wrap = <HR> | <HR>
-            page.2.1.NO {
-              linkWrap = | >
-            }
 
 
 .. ###### END~OF~TABLE ######
@@ -875,13 +884,14 @@ list from the property ".items".
    Data type
          integer /:ref:`stdWrap <stdwrap>`
 
+   Default
+         current page id
+
    Description
          Default is the current page id. Seldom you might want to override this
          value with another page-uid which will then act as the base point for
          the menu and the predefined items.
 
-   Default
-         current page id
 
 
 .. container:: table-row
@@ -923,7 +933,7 @@ list from the property ".items".
          **nextsection\_last** / **prevsection\_last:** Where
          nextsection/prevsection links to the first page in a section, these
          link to the last pages. If there is only one page in the section that
-         will be both first and last.Will not work if the parent page of the
+         will be both first and last. Will not work if the parent page of the
          current page is the root page of the site.
 
          **first** / **last:** First / last page on the current level. If
@@ -933,7 +943,7 @@ list from the property ".items".
          **up:** Links to the parent (pid) page of the current page (up 1
          level). Will always be available.
 
-         **index:** Links to the parent of the parent pageof the current
+         **index:** Links to the parent of the parent page of the current
          page(up 2 levels). May not be available, if that page is out of the
          rootline.
 
@@ -1025,6 +1035,24 @@ list from the property ".items".
          This gives the link to the previous page the linktext "« zurück".
 
 
+.. container:: table-row
+
+   Property
+         .. _hmenu-special-browser-excludenosearchpages:
+
+         excludeNoSearchPages
+
+   Data type
+         boolean
+
+   Default
+         0 (false)
+
+   Description
+         If set, pages marked with the "no search" checkbox will be excluded from the menu.
+
+
+
 .. ###### END~OF~TABLE ######
 
 [tsref:(cObject).HMENU.special = browse]
@@ -1084,6 +1112,9 @@ Mount pages are supported.
    Data type
          string
 
+   Default
+         SYS\_LASTCHANGED
+
    Description
          Which field in the pages table to use for sorting.
 
@@ -1102,8 +1133,6 @@ Mount pages are supported.
 
          **starttime:** Uses the starttime field.
 
-   Default
-         SYS\_LASTCHANGED
 
 
 .. container:: table-row
@@ -1132,11 +1161,12 @@ Mount pages are supported.
    Data type
          integer
 
+   Default
+         20
+
    Description
          (same as in section "special = updated")
 
-   Default
-         20
 
 
 .. container:: table-row
@@ -1149,11 +1179,12 @@ Mount pages are supported.
    Data type
          integer
 
+   Default
+         10
+
    Description
          (same as in section "special = updated")
 
-   Default
-         10
 
 
 .. container:: table-row
@@ -1210,13 +1241,14 @@ Mount pages are supported.
    Data type
          string
 
+   Default
+         keywords
+
    Description
          Defines the field in the pages table in which to search for the
          keywords. Default is the field name "keyword". No check is done to see
          if the field you enter here exists, so make sure to enter an existing field!
 
-   Default
-         keywords
 
 
 .. container:: table-row
@@ -1229,14 +1261,15 @@ Mount pages are supported.
    Data type
          string
 
+   Default
+         keywords
+
    Description
          Defines the field from the current page from which to take the
          keywords being matched. The default is "keyword". (Notice that
          ".keywordsField" is only setting the page-record field to *search
          in*!)
 
-   Default
-         keywords
 
 
 .. ###### END~OF~TABLE ######
@@ -1300,13 +1333,14 @@ like any other field.
    Data type
          :ref:`string <data-type-string>` / :ref:`stdWrap <stdwrap>`
 
+   Default
+         categories
+
    Description
          Name of the categories-relation field to use for
          building the list of categorized pages, as there can
          be several such fields on a given table.
 
-   Default
-         categories
 
 
 .. container:: table-row
@@ -1337,13 +1371,14 @@ like any other field.
    Data type
          "asc" or "desc" / :ref:`stdWrap <stdwrap>`
 
+   Default
+         asc
+
    Description
-         Order in which the pages should be orderd, ascending or
+         Order in which the pages should be ordered, ascending or
          descending. Should be "asc" or "desc", case-insensitive.
          Will default to "asc" in case of invalid value.
 
-   Default
-         asc
 
 
 .. ###### END~OF~TABLE ######
@@ -1358,13 +1393,11 @@ special = language
 
 Creates a language selector menu. Typically this is made as a menu
 with flags for each language a page is translated to and when the user
-clicks any element the same page id is hit but with a change to the
-"&L" parameter in the URL.
+clicks any element the translated page is hit.
 
 The "language" type will create menu items based on the current page
 record but with the language record for each language overlaid if
-available. The items all link to the current page id and only "&L" is
-changed.
+available.
 
 Note on item states:
 
@@ -1390,11 +1423,12 @@ error if tried accessed (depending on site configuration).
          value
 
    Data type
-         comma list of sys\_language uids /:ref:`stdWrap <stdwrap>`
+         comma list of sys\_language uids /:ref:`stdWrap <stdwrap>` or `auto`
 
    Description
          The number of elements in this list determines the number of menu
-         items.
+         items. Setting to `auto` will include all available languages from
+         the current site.
 
 
 .. container:: table-row
@@ -1451,118 +1485,13 @@ Creates a language menu with flags (notice that some lines break):
    lib.langMenu.1.USERDEF1.noLink = 1
 
 
-.. _hmenu-special-userdefined:
-
-special = userdefined
-~~~~~~~~~~~~~~~~~~~~~
-
-Lets you write your own little PHP script that generates the array of
-menu items.
-
-**Note:** The special type "userdefined" has been removed in TYPO3
-4.6. Use the special type "userfunction" instead!
-
-.. ### BEGIN~OF~TABLE ###
-
-.. container:: table-row
-
-   Property
-         .. _hmenu-special-userdefined-file:
-
-         file
-
-   Data type
-         :ref:`resource <data-type-resource>`
-
-   Description
-         Filename of the PHP file to include.
-
-
-.. container:: table-row
-
-   Property
-         .. _hmenu-special-userdefined-other:
-
-         [any other key]
-
-   Data type
-         *(whatever)*
-
-   Description
-         Your own variables to your script. They are all accessible in the
-         array $conf in your script.
-
-
-.. ###### END~OF~TABLE ######
-
-[tsref:(cObject).HMENU.special = userdefined]
-
-
-.. _hmenu-special-userdefined-examples:
-
-How-to:
-'''''''
-
-You must populate an array called $menuItemsArray with page-records of
-the menu items you want to be in the menu.
-
-It works like this::
-
-   $menuItemsArray[] = pageRow1;
-   $menuItemsArray[] = pageRow2;
-   $menuItemsArray[] = pageRow3;
-   ...
-
-A "pageRow" is a record from the table "pages" with all fields
-selected (SELECT \* FROM...)
-
-If you create fake page rows, make sure to add at least "title" and
-"uid" field values.
-
-Note:
-
-If you work with mount-points you can set the MP param which should be
-set for the page by setting the internal field "\_MP\_PARAM" in the
-page-record (xxx-xxx).
-
-Overriding URLs:
-
-You can also use the internal field "\_OVERRIDE\_HREF" to set a custom
-href-value (e.g. "http://www.typo3.org") which will in any case be used
-rather than a link to the page that the page otherwise might
-represent. If you use "\_OVERRIDE\_HREF" then "\_OVERRIDE\_TARGET" can
-be used to override the target value as well (See example below).
-
-Other reserved keys:
-
-"\_ADD\_GETVARS" can be used to add get parameters to the URL, e.g.
-"&L=xxx".
-
-"\_SAFE" can be used to protect the element to make sure it is not
-filtered out for any reason.
-
-Creating submenus:
-
-You can create submenus for the next level easily by just adding an
-array of menu items in the internal field "\_SUB\_MENU" (See example
-below).
-
-Presetting element state
-
-If you would like to preset an element to be recognized as a SPC,
-IFSUB, ACT, CUR or USR mode item, you can do so by specifying one of
-these values in the key "ITEM\_STATE" of the page record. This setting
-will override the natural state-evaluation.
-
-
 .. _hmenu-special-userfunction:
 
 special = userfunction
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Calls a user function/method in class which should (similar to how
-"userdefined" worked above) return an array with page records for the
-menu.
+Calls a user function/method in class which should return an array with
+page records for the menu.
 
 .. ### BEGIN~OF~TABLE ###
 
@@ -1603,62 +1532,65 @@ the same page id in TYPO3 but where the difference would be in some
 parameter value.
 
 First, this listing creates a menu in three levels where the first two
-are graphical items::
+are graphical items:
 
-      0: # ************************
-      1: # MENU LEFT
-      2: # ************************
-      3: lib.leftmenu.20 = HMENU
-      4: lib.leftmenu.20.special = userfunction
-      5: lib.leftmenu.20.special.userFunc = user_3dsplm_pi2->makeMenuArray
-      6: lib.leftmenu.20.1 = GMENU
-      7: lib.leftmenu.20.1.NO {
-      8:   wrap = <tr><td>|</td></tr><tr><td class="bckgdgrey1" height="1"></td></tr>
-      9:   XY = 163,19
-     10:   backColor = white
-     11:   10 = TEXT
-     12:   10.text.field = title
-     13:   10.text.case = upper
-     14:   10.fontColor = red
-     15:   10.fontFile = fileadmin/fonts/ARIALNB.TTF
-     16:   10.niceText = 1
-     17:   10.offset = 14,12
-     18:   10.fontSize = 10
-     19: }
-     20: lib.leftmenu.20.2 = GMENU
-     21: lib.leftmenu.20.2.wrap = | <tr><td></td></tr><tr><td></td></tr>
-     22: lib.leftmenu.20.2.NO {
-     23:   wrap = <tr><td class="bckgdwhite" height="4"></td></tr><tr><td>|</td></tr>
-     24:   XY = 163,16
-     25:   backColor = white
-     26:   10 = TEXT
-     27:   10.text.field = title
-     28:   10.text.case = upper
-     29:   10.fontColor = #666666
-     30:   10.fontFile = fileadmin/fonts/ARIALNB.TTF
-     31:   10.niceText = 1
-     32:   10.offset = 14,12
-     33:   10.fontSize = 11
-     34: }
-     35: lib.leftmenu.20.2.RO < lib.leftmenu.20.2.NO
-     36: lib.leftmenu.20.2.RO = 1
-     37: lib.leftmenu.20.2.RO.backColor = #eeeeee
-     38: lib.leftmenu.20.2.ACT < lib.leftmenu.20.2.NO
-     39: lib.leftmenu.20.2.ACT = 1
-     40: lib.leftmenu.20.2.ACT.10.fontColor = red
-     41: lib.leftmenu.20.3 = TMENU
-     42: lib.leftmenu.20.3.NO {
-     43:   allWrap = <tr><td>|</td></tr>
-     44:   linkWrap (
-     45:    <table border="0" cellpadding="0" cellspacing="0">
-     46:       <tr>
-     47:         <td><img src="clear.gif" width="15" height="1" /></td>
-     48:         <td><img src="fileadmin/arrow_gray.gif" height="9" width="9" /></td>
-     49:         <td>|</td>
-     50:       </tr>
-     51:    </table>
-     52:   )
-     53: }
+.. code-block:: typoscript
+   :linenos:
+
+   # ************************
+   # MENU LEFT
+   # ************************
+   lib.leftmenu.20 = HMENU
+   lib.leftmenu.20.special = userfunction
+   lib.leftmenu.20.special.userFunc = user_3dsplm_pi2->makeMenuArray
+   lib.leftmenu.20.1 = GMENU
+   lib.leftmenu.20.1.NO {
+     wrap = <tr><td>|</td></tr><tr><td class="bckgdgrey1" height="1"></td></tr>
+     XY = 163,19
+     backColor = white
+     10 = TEXT
+     10.text.field = title
+     10.text.case = upper
+     10.fontColor = red
+     10.fontFile = fileadmin/fonts/ARIALNB.TTF
+     10.niceText = 1
+     10.offset = 14,12
+     10.fontSize = 10
+   }
+   lib.leftmenu.20.2 = GMENU
+   lib.leftmenu.20.2.wrap = | <tr><td></td></tr><tr><td></td></tr>
+   lib.leftmenu.20.2.NO {
+     wrap = <tr><td class="bckgdwhite" height="4"></td></tr><tr><td>|</td></tr>
+     XY = 163,16
+     backColor = white
+     10 = TEXT
+     10.text.field = title
+     10.text.case = upper
+     10.fontColor = #666666
+     10.fontFile = fileadmin/fonts/ARIALNB.TTF
+     10.niceText = 1
+     10.offset = 14,12
+     10.fontSize = 11
+   }
+   lib.leftmenu.20.2.RO < lib.leftmenu.20.2.NO
+   lib.leftmenu.20.2.RO = 1
+   lib.leftmenu.20.2.RO.backColor = #eeeeee
+   lib.leftmenu.20.2.ACT < lib.leftmenu.20.2.NO
+   lib.leftmenu.20.2.ACT = 1
+   lib.leftmenu.20.2.ACT.10.fontColor = red
+   lib.leftmenu.20.3 = TMENU
+   lib.leftmenu.20.3.NO {
+     allWrap = <tr><td>|</td></tr>
+     linkWrap (
+      <table border="0" cellpadding="0" cellspacing="0">
+         <tr>
+           <td><img src="clear.gif" width="15" height="1" /></td>
+           <td><img src="fileadmin/arrow_gray.gif" height="9" width="9" /></td>
+           <td>|</td>
+         </tr>
+      </table>
+     )
+   }
 
 The menu looks like this on a web page:
 
@@ -1668,51 +1600,54 @@ The menu looks like this on a web page:
 The TypoScript code above generates this menu, but the items do not
 link straight to pages as usual. This is because the *whole* menu is
 generated from this array, which was returned from the function
-"menuMenuArray" called in TypoScript line 4+5 ::
+"makeMenuArray" called in TypoScript line 5+6 :
 
-      1:  function makeMenuArray($content, $conf) {
-      2:    return array(
-      3:      array(
-      4:          'title' => 'Contact',
-      5:          '_OVERRIDE_HREF' => 'index.php?id=10',
-      6:          '_SUB_MENU' => array(
-      7:              array(
-      8:                  'title' => 'Offices',
-      9:                  '_OVERRIDE_HREF' => 'index.php?id=11',
-     10:                  '_OVERRIDE_TARGET' => '_top',
-     11:                  'ITEM_STATE' => 'ACT',
-     12:                  '_SUB_MENU' => array(
-     13:                      array(
-     14:                          'title' => 'Copenhagen Office',
-     15:                          '_OVERRIDE_HREF' => 'index.php?id=11&officeId=cph',
-     16:                      ),
-     17:                      array(
-     18:                          'title' => 'Paris Office',
-     19:                          '_OVERRIDE_HREF' => 'index.php?id=11&officeId=paris',
-     20:                      ),
-     21:                      array(
-     22:                          'title' => 'New York Office',
-     23:                          '_OVERRIDE_HREF' => 'http://www.example.com',
-     24:                          '_OVERRIDE_TARGET' => '_blank',
-     25:                      )
-     26:                  )
-     27:              ),
-     28:              array(
-     29:                  'title' => 'Form',
-     30:                  '_OVERRIDE_HREF' => 'index.php?id=10&cmd=showform',
-     31:              ),
-     32:              array(
-     33:                  'title' => 'Thank you',
-     34:                  '_OVERRIDE_HREF' => 'index.php?id=10&cmd=thankyou',
-     35:              ),
-     36:          ),
-     37:      ),
-     38:      array(
-     39:          'title' => 'Products',
-     40:          '_OVERRIDE_HREF' => 'index.php?id=14',
-     41:      )
-     42:    );
-     43:  }
+.. code-block:: php
+   :linenos:
+
+   function makeMenuArray($content, $conf) {
+     return array(
+       array(
+           'title' => 'Contact',
+           '_OVERRIDE_HREF' => 'index.php?id=10',
+           '_SUB_MENU' => array(
+               array(
+                   'title' => 'Offices',
+                   '_OVERRIDE_HREF' => 'index.php?id=11',
+                   '_OVERRIDE_TARGET' => '_top',
+                   'ITEM_STATE' => 'ACT',
+                   '_SUB_MENU' => array(
+                       array(
+                           'title' => 'Copenhagen Office',
+                           '_OVERRIDE_HREF' => 'index.php?id=11&officeId=cph',
+                       ),
+                       array(
+                           'title' => 'Paris Office',
+                           '_OVERRIDE_HREF' => 'index.php?id=11&officeId=paris',
+                       ),
+                       array(
+                           'title' => 'New York Office',
+                           '_OVERRIDE_HREF' => 'http://www.example.com',
+                           '_OVERRIDE_TARGET' => '_blank',
+                       )
+                   )
+               ),
+               array(
+                   'title' => 'Form',
+                   '_OVERRIDE_HREF' => 'index.php?id=10&cmd=showform',
+               ),
+               array(
+                   'title' => 'Thank you',
+                   '_OVERRIDE_HREF' => 'index.php?id=10&cmd=thankyou',
+               ),
+           ),
+       ),
+       array(
+           'title' => 'Products',
+           '_OVERRIDE_HREF' => 'index.php?id=14',
+       )
+     );
+   }
 
 Notice how the array contains "fake" page-records which has *no* uid
 field, only a "title" and "\_OVERRIDE\_HREF" as required and some

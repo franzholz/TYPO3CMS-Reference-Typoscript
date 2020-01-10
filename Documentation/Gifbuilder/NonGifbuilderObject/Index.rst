@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -47,27 +42,6 @@ the image file. This is especially used with the IMGMENU menu object.
 
    Description
          target for link
-
-   Default
-         For IMGMENU menu objects provided automatically
-
-
-.. container:: table-row
-
-   Property
-         noBlur
-
-   Data type
-         boolean
-
-   Description
-         Normally graphical links are "blurred" if the browser is MSIE. This
-         removes the ugly box around a link.
-
-         If this property is set, the link is **not** blurred with "onFocus".
-
-         **Note:** This option and the JavaScript for blurring have been
-         removed in TYPO3 6.0.
 
    Default
          For IMGMENU menu objects provided automatically

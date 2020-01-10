@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -192,7 +187,7 @@ match the basename of the main font face with an alternative font.
          properties of split rendering with the relationship between the
          fontsize and this value.
 
-         In other words; Since pixel space may vary depending on the font size
+         In other words: Since pixel space may vary depending on the font size
          used you can simply specify by this value at what fontsize the pixel
          space settings are optimized and for other fontsizes this will
          automatically be adjusted according to this font size.

@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -37,7 +32,7 @@ TMENU
          boolean
 
    Description
-         If set, "active" menu items that has expanded the next level on the
+         If set, the "active" menu item that has expanded the next level on the
          menu will now collapse that menu again.
 
 
@@ -56,35 +51,17 @@ TMENU
 .. container:: table-row
 
    Property
-         noBlur
-
-   Data type
-         boolean
-
-   Description
-         Normally links are "blurred" if the browser is MSIE. Blurring removes
-         the ugly box around a clicked link.
-
-         If this property is set, the link is **not** blurred (browser-default)
-         with "onFocus".
-
-         **Note:** This option and the JavaScript for blurring have been
-         removed in TYPO3 6.0.
-
-
-.. container:: table-row
-
-   Property
          target
 
    Data type
          target
+
+   Default
+         self
 
    Description
          Target of the menu links
 
-   Default
-         self
 
 
 .. container:: table-row
@@ -106,10 +83,10 @@ TMENU
          stdWrap
 
    Data type
-         ->stdWrap
+         :ref:`stdWrap <stdwrap>`
 
    Description
-         Wraps the whole item using stdWrap
+         Wraps the whole block of sub items.
 
          **Example:** see GMENU.stdWrap
 
@@ -120,10 +97,10 @@ TMENU
          wrap
 
    Data type
-         wrap
+         :ref:`wrap <data-type-wrap>`
 
    Description
-         Wraps only if there were items in the menu!
+         Wraps the whole block of sub items, but only if there were items in the menu!
 
 
 .. container:: table-row

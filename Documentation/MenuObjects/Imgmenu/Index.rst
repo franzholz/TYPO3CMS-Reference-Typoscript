@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -25,11 +20,12 @@ GIFBUILDER objects for each item (NO, ACT, SPC... and so on).
    Data type
          target
 
+   Default
+         self
+
    Description
          Target of the menu links
 
-   Default
-         self
 
 
 .. container:: table-row
@@ -43,25 +39,6 @@ GIFBUILDER objects for each item (NO, ACT, SPC... and so on).
    Description
          If set, the &type parameter of the link is forced to this value
          regardless of target.
-
-
-.. container:: table-row
-
-   Property
-         noBlur
-
-   Data type
-         boolean
-
-   Description
-         Normally graphical links are "blurred" if the browser is MSIE.
-         Blurring removes the ugly box around a clicked link.
-
-         If this property is set, the link is **not** blurred (browser-default)
-         with "onFocus".
-
-         **Note:** This option and the JavaScript for blurring have been
-         removed in TYPO3 6.0.
 
 
 .. container:: table-row

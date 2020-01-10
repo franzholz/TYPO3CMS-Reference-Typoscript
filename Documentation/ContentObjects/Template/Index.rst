@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -10,6 +5,11 @@
 
 TEMPLATE
 ^^^^^^^^
+
+.. tip::
+
+  You can use :ref:`cobj-fluidtemplate` to use Fluid templates in combination
+  with TypoScript- This works very similar to TEMPLATE.
 
 With this cObject you can define a template (e.g. an HTML file) which
 should be used as a basis for your whole website. Inside the template
@@ -33,9 +33,10 @@ content by TYPO3.
 
          **Example:** ::
 
+            page.10 = TEMPLATE
             page.10 {
-              template = FILE
-              template.file = fileadmin/template.html
+               template = FILE
+               template.file = fileadmin/template.html
             }
 
          This will use the file fileadmin/template.html as template for your
@@ -45,10 +46,10 @@ content by TYPO3.
 .. container:: table-row
 
    Property
-         subparts
+         subparts.[array]
 
    Data type
-         *(array of cObjects)*
+         array of :ref:`cObjects <data-type-cobject>`
 
    Description
          This is an array of subpart-markers (case-sensitive).
@@ -98,7 +99,7 @@ content by TYPO3.
          relPathPrefix
 
    Data type
-         *string / properties*
+         string / properties
 
    Description
          Finds all relative references (e.g. to images or stylesheets) and
@@ -131,7 +132,7 @@ content by TYPO3.
          marks
 
    Data type
-         *(array of cObjects)*
+         array of :ref:`cObjects <data-type-cobject>`
 
    Description
          This is an array of marks-markers (case-sensitive).
@@ -167,10 +168,10 @@ content by TYPO3.
 .. container:: table-row
 
    Property
-         wraps
+         wraps.[array]
 
    Data type
-         *(array of cObjects)*
+         array of :ref:`cObjects <data-type-cobject>`
 
    Description
          This is an array of wraps-markers (case-sensitive).
@@ -214,6 +215,9 @@ content by TYPO3.
    Data type
          :ref:`wrap <data-type-wrap>` /:ref:`stdWrap <stdwrap>`
 
+   Default
+         ### \| ###
+
    Description
          This is the wrap the markers are wrapped with. The default value is
          ### \| ### resulting in the markers to be presented as
@@ -222,8 +226,6 @@ content by TYPO3.
          Any whitespace around the wrap-items is stripped before they are set
          around the marker\_key.
 
-   Default
-         ### \| ###
 
 
 .. container:: table-row

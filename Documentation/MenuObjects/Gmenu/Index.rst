@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -24,14 +19,16 @@ graphical navigation, where each link is a separate gif-file.
    Data type
          boolean
 
+   Default
+         0 (false)
+
    Description
          RollOver configuration enabled / disabled.
 
          If this is true, RO becomes a GIFBUILDER object defining the layout of
          the menu item when the mouse rolls over it
 
-   Default
-         0
+
 
 
 .. container:: table-row
@@ -77,35 +74,18 @@ graphical navigation, where each link is a separate gif-file.
 .. container:: table-row
 
    Property
-         noBlur
-
-   Data type
-         boolean
-
-   Description
-         Normally graphical links are "blurred" if the browser is MSIE.
-         Blurring removes the ugly box around a clicked link.
-
-         If this property is set, the link is **not** blurred (browser-default)
-         with "onFocus".
-
-         **Note:** This option and the JavaScript for blurring have been
-         removed in TYPO3 6.0.
-
-
-.. container:: table-row
-
-   Property
          target
 
    Data type
          target
+
+   Default
+         self
 
    Description
          Target of the menu links
 
-   Default
-         self
+
 
 
 .. container:: table-row
@@ -352,175 +332,3 @@ graphical navigation, where each link is a separate gif-file.
 .. ###### END~OF~TABLE ######
 
 [tsref:(cObject).HMENU.(mObj).GMENU
-
-
-.. _gmenu-additional-properties:
-
-Additional properties for Menu item states
-""""""""""""""""""""""""""""""""""""""""""
-
-These properties are additionally available for the GMENU item states
-although the main object is declared to be GIFBUILDER.
-
-It is evident that it is an unclean solution to introduce these
-properties on the same level as the GIFBUILDER object in a single
-situation like this. However this is how it irreversibly is and has
-been for a long time.
-
-.. ### BEGIN~OF~TABLE ###
-
-.. container:: table-row
-
-   Property
-         noLink
-
-   Data type
-         boolean
-
-   Description
-         If set, the item is **not** linked!
-
-
-.. container:: table-row
-
-   Property
-         imgParams
-
-   Data type
-         params
-
-   Description
-         Parameters for the <img>-tag
-
-
-.. container:: table-row
-
-   Property
-         altTarget
-
-   Data type
-         string
-
-   Description
-         Alternative target which overrides the target defined for the GMENU
-
-
-.. container:: table-row
-
-   Property
-         altImgResource
-
-   Data type
-         imgResouce
-
-   Description
-         Defines an alternative image to use. If an image returns here, it will
-         override any GIFBUILDER configuration.
-
-
-.. container:: table-row
-
-   Property
-         ATagParams
-
-   Data type
-         string /:ref:`stdWrap <stdwrap>`
-
-   Description
-         Additional parameters
-
-
-.. container:: table-row
-
-   Property
-         ATagTitle
-
-   Data type
-         string /:ref:`stdWrap <stdwrap>`
-
-   Description
-         which defines the title attribute of the a-tag. (See TMENUITEM also)
-
-
-.. container:: table-row
-
-   Property
-         additionalParams
-
-   Data type
-         string /:ref:`stdWrap <stdwrap>`
-
-   Description
-         Define parameters that are added to the end of the URL. This must be
-         code ready to insert after the last parameter.
-
-         For details, see typolink->additionalParams
-
-
-.. container:: table-row
-
-   Property
-         wrap
-
-   Data type
-         wrap
-
-   Description
-         Wrap of the menu item.
-
-
-.. container:: table-row
-
-   Property
-         allWrap
-
-   Data type
-         wrap /:ref:`stdWrap <stdwrap>`
-
-   Description
-         Wraps the whole item.
-
-
-.. container:: table-row
-
-   Property
-         wrapItemAndSub
-
-   Data type
-         wrap /:ref:`stdWrap <stdwrap>`
-
-   Description
-         Wraps the whole item and any submenu concatenated to it.
-
-
-.. container:: table-row
-
-   Property
-         subst\_elementUid
-
-   Data type
-         boolean
-
-   Description
-         If set, "{elementUid}" is substituted with the item uid.
-
-   Default
-         0
-
-
-.. container:: table-row
-
-   Property
-         allStdWrap
-
-   Data type
-         ->stdWrap
-
-   Description
-         stdWrap of the whole item
-
-
-.. ###### END~OF~TABLE ######
-
-[tsref:(cObject).HMENU.(mObj).GMENU.(itemState)]
-

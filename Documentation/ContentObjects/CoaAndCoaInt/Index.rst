@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -10,20 +5,17 @@
 .. _cobj-coa:
 .. _cobj-coa-int:
 
-COA, COA\_INT (COBJ\_ARRAY)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+COA, COA\_INT
+^^^^^^^^^^^^^
 
-This is a cObject, in which you can place several other cObjects using
-numbers to enumerate them.
-
-COA stands for "content object array"; it has the alias COBJ\_ARRAY.
-You can also call it "COBJ\_ARRAY" instead of COA.
+COA stands for "content object array" and is a cObject, in which you
+can place several other cObjects using numbers to enumerate them.
 
 You can also create this object as a COA\_INT in which case it works
 exactly like the :ref:`USER_INT <cobj-user-int>` object does: It's
-rendered non-cached! That way COA\_INT allows you not only to render
-:ref:`USER_INT <cobj-user-int>` objects non-cached, but to render
-*every* cObject non-cached.
+rendered non-cached! That way you cannot only render non-cached
+:ref:`USER_INT <cobj-user-int>` objects, but COA\_INT allows
+you to render *every* cObject non-cached.
 
 
 .. ### BEGIN~OF~TABLE ###
@@ -70,31 +62,12 @@ rendered non-cached! That way COA\_INT allows you not only to render
    Data type
          :ref:`->stdWrap <stdwrap>`
 
-
-.. container:: table-row
-
-   Property
-         includeLibs
-
-   Data type
-         *(list of resources)* /:ref:`stdWrap <stdwrap>`
-
-   Description
-         **(This property is used only if the object is COA\_INT! See
-         introduction.)**
-
-         This is a comma-separated list of resources that are included as PHP-
-         scripts (with include\_once() function) if this script is included.
-
-         This is possible to do, because any include-files will be known before
-         the scripts are included. That is not the case with the regular
-         COA cObject.
-
+.. include:: ../../DataTypes/Properties/Cache.rst.txt
 
 .. ###### END~OF~TABLE ######
 
 
-[tsref:(cObject).COA/(cObject).COA\_INT/(cObject).COBJ\_ARRAY]
+[tsref:(cObject).COA/(cObject).COA\_INT]
 
 
 .. _cobj-cobj-array-examples:

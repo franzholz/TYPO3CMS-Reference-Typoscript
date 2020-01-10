@@ -1,15 +1,11 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../Includes.txt
 
 
 .. _setup:
 
+=====
 Setup
------
+=====
 
 
 .. toctree::
@@ -22,10 +18,3 @@ Setup
    Config/Index
    Constants/Index
    Page/Index
-   FeData/Index
-   FeTable/Index
-   Frameset/Index
-   Frame/Index
-   Meta/Index
-   Carray/Index
-

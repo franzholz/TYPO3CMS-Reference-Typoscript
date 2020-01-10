@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -17,6 +12,9 @@ with values. It does not return anything!
 The register is working like a stack: With each call new content can be
 put on top of the stack. :ref:`RESTORE_REGISTER <cobj-restore-register>`
 can be used to remove the element at the topmost position again.
+The registers are processed in the reverse order. The register with the highest number
+will be processed as the first, and the register with the lowest number will be processed
+as the last one. This corresponds to the stack priciple Last In – First Out (LIFO).
 
 Registers are used at many different places, e.g. css_styled_content
 uses registers to enumerate the classes of the headlines. The
@@ -75,20 +73,21 @@ Example:
        pidInList = this
        orderBy = sorting
        # Now we use the registered parameter
-       andWhere = uid = {REGISTER:param}
-       andWhere.insertData = 1
+       where = uid = {REGISTER:param}
+       where.insertData = 1
      }
      10.renderObj = COA
      10.renderObj {
        10 = TEXT
-       10.stdWrap.field = the_id
+       10.stdWrap.field = tx_my_text_field
      }
 
 In this example we first load a special value, which is given as a
 GET/POST parameter, into the register. Then we use a
 :ref:`CONTENT object <cobj-content>` to render content based on this
-value. This CONTENT object loads data from a table and looks up a
-special entry using the value from the register.
+value. This CONTENT object loads data from a table "tx_my_table" and looks up
+the entry using the value from the register as a unique id. The field "tx_my_text_field" 
+of this record will be rendered as output.
 
 For an example in combination with :ref:`RESTORE_REGISTER <cobj-restore-register>`
 see the :ref:`example on the page RESTORE_REGISTER <cobj-restore-register-examples>`.

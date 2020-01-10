@@ -1,8 +1,3 @@
-.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
 
 
@@ -15,10 +10,9 @@ Returns an image tag with the image file defined in the property
 "file" and processed according to the properties set.
 
 Defined as PHP function cImage() in
-typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php
-(/typo3/sysext/cms/tslib/class.tslib\_content.php).
+typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php.
 
-The array $GLOBALS['TSFE']->lastImageInfo is set with the info-array
+The array :php:`$GLOBALS['TSFE']->lastImageInfo` is set with the info-array
 of the returning image (if any) and contains width, height and so on:
 
 =============================  =============================================
@@ -73,7 +67,10 @@ for.
          params
 
    Data type
-         <IMG>-params /:ref:`stdWrap <stdwrap>`
+         string /:ref:`stdWrap <stdwrap>`
+
+   Description
+         HTML <IMG> parameters
 
 
 .. container:: table-row
@@ -98,17 +95,11 @@ for.
 
          titleText
 
-         (alttext)
-
    Data type
          string /:ref:`stdWrap <stdwrap>`
 
    Description
          If no alt text is specified, an empty alt text will be used.
-
-         ("alttext" is the old spelling of this attribute. It was deprecated
-         since TYPO3 4.3 and was used only if "altText" did not specify a value
-         or properties. In TYPO3 4.6 "alttext" has been removed.)
 
 
 .. container:: table-row
@@ -133,7 +124,7 @@ for.
          longdescURL
 
    Data type
-         string /:ref:`stdWrap <stdwrap>`
+         :ref:`string <data-type-string>`/:ref:`stdWrap <stdwrap>`
 
    Description
          "longdesc" attribute (URL pointing to document with extensive details
@@ -151,11 +142,11 @@ layoutKey
          layoutKey
 
    Data type
-         :ref:`string <data-type-string>`
+         :ref:`string <data-type-string>`/:ref:`stdWrap <stdwrap>`
 
    Description
          Defines the render layout for the IMAGE. The render layout is the HTML Code for the IMAGE itself.
-         Possible "out of the box" values are :code:`default`, :code:`srcset`, :code:`picture`, :code:`data`.
+         Possible "out of the box" values are :ts:`default`, :ts:`srcset`, :ts:`picture`, :ts:`data`.
          Each possibility represents a different solution to render the HTML Code of the IMAGE. The default code
          renders the img-tag as plain old html tag with the different attributes.
 
@@ -165,28 +156,27 @@ layoutKey
 
          If you don't have a responsive HTML layout you should use the default layout.
 
-         - :code:`default` renders a normal non-responsive image as a :code:`<img>` tag:
+         - :ts:`default` renders a normal non-responsive image as a :html:`<img>` tag:
 
-           .. code-block:: html
+           .. code-block:: text
 
               <img src="###SRC###"
                    width="###WIDTH###"
                    height="###HEIGHT###" ###PARAMS### ###ALTPARAMS### ###BORDER### ###SELFCLOSINGTAGSLASH###>
 
-         - :code:`srcset` renders an image tag pointing to a set of images for the different resolutions.
-           They are referenced inside the :code:`srcset` attribute the :code:`<img>` tag for each defined resolution.
+         - :ts:`srcset` renders an image tag pointing to a set of images for the different resolutions.
+           They are referenced inside the :ts:`srcset` attribute the :html:`<img>` tag for each defined resolution.
            Each image is actually rendered by TYPO3. Srcset is a proposed addition to HTML5 (http://www.w3.org/html/wg/drafts/srcset/w3c-srcset/).
 
-           .. code-block:: html
+           .. code-block:: text
 
               <img src="###SRC###"
                    srcset="|*|###SRC### ###SRCSETCANDIDATE###,|*|###SRC### ###SRCSETCANDIDATE###" ###PARAMS### ###ALTPARAMS######SELFCLOSINGTAGSLASH###>
 
-         - :code:`picture` renders a picture tag containing source tags for each resolutions:
-           and a :code:`<img>` tag for the default image. Picture is in the working draft
-           for HTML5 (http://www.w3.org/TR/html-picture-element/).
+         - :ts:`picture` renders a picture tag containing source tags for each resolution
+           and an :html:`<img>` tag for the default image.
 
-           .. code-block:: html
+           .. code-block:: text
 
               <picture>
                  <source srcset="###SRC###"
@@ -194,9 +184,9 @@ layoutKey
                  <img src="###SRC###" ###PARAMS### ###ALTPARAMS######SELFCLOSINGTAGSLASH###>
               </picture>
 
-         - :code:`data` renders an image tag containing data-keys for the different resolutions:
+         - :ts:`data` renders an image tag containing data-keys for the different resolutions:
 
-           .. code-block:: html
+           .. code-block:: text
 
               <img src="###SRC###"
                    data-###DATAKEY###="###SRC###" ###PARAMS### ###ALTPARAMS######SELFCLOSINGTAGSLASH###>
@@ -245,7 +235,7 @@ layout.layoutKey
 
           picture {
               element = <picture>###SOURCECOLLECTION###<img src="###SRC###" ###PARAMS### ###ALTPARAMS### ###SELFCLOSINGTAGSLASH###></picture>
-              source = <source src="###SRC###" media="###MEDIAQUERY###" ###SELFCLOSINGTAGSLASH###>
+              source = <source srcset="###SRC###" media="###MEDIAQUERY###" ###SELFCLOSINGTAGSLASH###>
           }
 
 
@@ -267,28 +257,28 @@ layout.layoutKey.element
          Possible markers are mainly all parameters which can be defined in the
          IMAGE object, e.g.:
 
-         - :code:`###SRC###` the file URL for the src attribute
+         - :html:`###SRC###` the file URL for the src attribute
 
-         - :code:`###WIDTH###` the width of the image for the width tag (only the
+         - :html:`###WIDTH###` the width of the image for the width tag (only the
            width value)
 
-         - :code:`###HEIGHT###` the height of the image for the height tag (only the
+         - :html:`###HEIGHT###` the height of the image for the height tag (only the
            width value)
 
-         - :code:`###PARAMS###` additional params defined in the IMAGE object (as
+         - :html:`###PARAMS###` additional params defined in the IMAGE object (as
            complete attribute)
 
-         - :code:`###ALTPARAMS###` additional alt params defined in the IMAGE object
+         - :html:`###ALTPARAMS###` additional alt params defined in the IMAGE object
            (as complete attribute)
 
-         - :code:`###BORDER###` border for the image tag (as complete attribute)
+         - :html:`###BORDER###` border for the image tag (as complete attribute)
 
-         - :code:`###SELFCLOSINGTAGSLASH###` renders the closing slash of the tag,
+         - :html:`###SELFCLOSINGTAGSLASH###` renders the closing slash of the tag,
            depending on the setting of
            :ref:`config.xhtmlDoctype <setup-config-xhtmldoctype>` and
            :ref:`config.Doctype <setup-config-doctype>`
 
-         - :code:`###SOURCECOLLECTION###` the additional sources of the image
+         - :html:`###SOURCECOLLECTION###` the additional sources of the image
            depending on the different usage in responsive webdesign. The
            definition of the sources is declared inside
            :ref:`layout.layoutKey.source <cobj-image-layout-layoutkey-source>`
@@ -308,23 +298,23 @@ layout.layoutKey.source
          :ref:`stdWrap <stdWrap>`
 
    Description
-        Defines the HTML code for the :code:`###SOURCECOLLECTION###`
+        Defines the HTML code for the :html:`###SOURCECOLLECTION###`
         of the :ref:`cobj-image-layout-layoutkey-element`.
         Possible markers in the out of the box configuration are:
 
-        - :code:`###SRC###` the file URL for the src attribute
+        - :html:`###SRC###` the file URL for the src attribute
 
-        - :code:`###WIDTH###` the width of the image for the width tag (only the width value)
+        - :html:`###WIDTH###` the width of the image for the width tag (only the width value)
 
-        - :code:`###HEIGHT###` the height of the image for the height tag (only the width value)
+        - :html:`###HEIGHT###` the height of the image for the height tag (only the width value)
 
-        - :code:`###SELFCLOSINGTAGSLASH###` renders the closing slash of the tag, depending on the setting of xhtmlDoctype
+        - :html:`###SELFCLOSINGTAGSLASH###` renders the closing slash of the tag, depending on the setting of xhtmlDoctype
 
-        - :code:`###SRCSETCANDIDATE###` is the value of the srcsetCandidate defined in each SourceCollection.DataKey
+        - :html:`###SRCSETCANDIDATE###` is the value of the srcsetCandidate defined in each SourceCollection.DataKey
 
-        - :code:`###MEDIAQUERY###` is the value of the mediaQuery defined in each SourceCollection.DataKey
+        - :html:`###MEDIAQUERY###` is the value of the mediaQuery defined in each SourceCollection.DataKey
 
-        - :code:`###DATAKEY###` is the name of the dataKey defined in the :ref:`sourceCollection <cobj-image-sourcecollection>`
+        - :html:`###DATAKEY###` is the name of the dataKey defined in the :ref:`sourceCollection <cobj-image-sourcecollection>`
 
         You can define additional markers by adding more datakeys to the collection.
         ###SRCSETCANDIDATE###, ###MEDIAQUERY###, ###DATAKEY### are already defined
@@ -348,16 +338,16 @@ sourceCollection
    Description
          For responsive images you need different image resolutions for each
          output device and output mode (portrait vs. landscape).
-         :code:`sourceCollection` defines the different resolutions for image
+         :ts:`sourceCollection` defines the different resolutions for image
          rendering, normally you would define al least one
-         :code:`sourceCollection` per layout breakpoint. The amount of
+         :ts:`sourceCollection` per layout breakpoint. The amount of
          sourceCollections, the name and the specification for the
          sourceCollections will be defined by the HTML/CSS/JS code you are
          using. The configuration of the sourceCollection defines the size of
          the image which is rendered.
 
          Each resolution should be set up as separate array in the
-         :code:`sourceCollection`. Each :code:`sourceCollection` consists of
+         :ts:`sourceCollection`. Each :ts:`sourceCollection` consists of
          different :ref:`dataKey <cobj-image-datakey>` properties which you can
          define to suit your needs.
 
@@ -555,6 +545,22 @@ dataKey.minH
          source collection. For the image file itself the minH will be multiplied by
          :ref:`dataKey.pixelDensity <cobj-image-datakey-pixeldensity>`.
 
+.. _cobj-image-datakey-quality:
+
+dataKey.quality
+"""""""""""""""
+
+.. container:: table-row
+
+   Property
+         sourceCollection.dataKey.quality
+
+   Data type
+         integer
+
+   Description
+         Defines the quality of the rendered images on a scale from 1-100.
+
 .. _cobj-image-datakey-others:
 
 dataKey.*
@@ -688,7 +694,7 @@ Responsive/adaptive rendering
 
             picture {
               element = <picture>###SOURCECOLLECTION###<img src="###SRC###" ###PARAMS### ###ALTPARAMS### ###SELFCLOSINGTAGSLASH###></picture>
-              source = <source src="###SRC###" media="###MEDIAQUERY###" ###SELFCLOSINGTAGSLASH###>
+              source = <source srcset="###SRC###" media="###MEDIAQUERY###" ###SELFCLOSINGTAGSLASH###>
             }
 
             data {
@@ -736,13 +742,13 @@ This returns as an example all per default possible HTML-Output:
      data-smallRetina="fileadmin/_processed_/imagefilenamename_42fb68d642.png"
      alt="" />
    <picture>
-     <source src="fileadmin/_processed_/imagefilenamename_595cc36c48.png"
+     <source srcset="fileadmin/_processed_/imagefilenamename_595cc36c48.png"
        media="(max-device-width: 600px)" />
-     <source src="fileadmin/_processed_/imagefilenamename_42fb68d642.png"
+     <source srcset="fileadmin/_processed_/imagefilenamename_42fb68d642.png"
        media="(max-device-width: 600px) AND (min-resolution: 192dpi)" />
      <img src="fileadmin/_processed_/imagefilenamename_595cc36c48.png"
        alt="" />
-   </picture><
+   </picture>
    <img src="fileadmin/_processed_/imagefilenamename_595cc36c48.png"
      srcset="fileadmin/_processed_/imagefilenamename_595cc36c48.png 600w,
        fileadmin/_processed_/imagefilenamename_42fb68d642.png 600w 2x"

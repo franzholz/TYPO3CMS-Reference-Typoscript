@@ -1,175 +1,114 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
 .. include:: ../../Includes.txt
-
 
 .. _config:
 
+======
 config
 ======
 
-In typo3/sysext/frontend/Classes/ (typo3/sysext/cms/tslib/) this is known
-as $GLOBALS['TSFE']->config['config'], thus the property "debug" below is
-accessible as $GLOBALS['TSFE']->config['config']['debug'].
-
-.. only:: html
-
-   .. contents::
-      :local:
-      :depth: 1
+In :file:`typo3/sysext/frontend/Classes/` this is known as
+:php:`$GLOBALS['TSFE']->config['config']`, thus the property :ts:`debug` below is
+accessible as :php:`$GLOBALS['TSFE']->config['config']['debug']`.
 
 Properties
-^^^^^^^^^^
+==========
 
 .. container:: ts-properties
 
-   ===================================================== ================================== ======================================================================
-   Property                                              Data Type                          Default
-   ===================================================== ================================== ======================================================================
+   ===================================================== ================================================== ======================================================================
+   Property                                              Data Type                                          Default
+   ===================================================== ================================================== ======================================================================
    `absRefPrefix`_                                       :ref:`data-type-string`
-   `additionalHeaders`_                                  strings divided by "\|"
+   `additionalHeaders`_                                  array with numeric indices
    `admPanel`_                                           :ref:`data-type-boolean`
    `ATagParams`_                                         *<A>-params*
    `baseURL`_                                            :ref:`data-type-string`
-   `beLoginLinkIPList`_                                  [IP-number]
-   `beLoginLinkIPList\_login`_                           :ref:`data-type-html-code`
-   `beLoginLinkIPList\_logout`_                          :ref:`data-type-html-code`
    `cache`_                                              array
-   `cache\_clearAtMidnight`_                             :ref:`data-type-boolean`           false
-   `cache\_period`_                                      :ref:`data-type-integer`           86400 *(= 24 hours)*
-   `compensateFieldWidth`_                               double
+   `cache\_clearAtMidnight`_                             :ref:`data-type-boolean`                           false
+   `cache\_period`_                                      :ref:`data-type-integer`                           86400 *(= 24 hours)*
    `compressCss`_                                        :ref:`data-type-boolean`
    `compressJs`_                                         :ref:`data-type-boolean`
    `concatenateCss`_                                     :ref:`data-type-boolean`
    `concatenateJs`_                                      :ref:`data-type-boolean`
-   `concatenateJsAndCss`_                                :ref:`data-type-boolean`           0
+   `concatenateJsAndCss`_                                :ref:`data-type-boolean`                           0
    `content\_from\_pid\_allowOutsideDomain`_             :ref:`data-type-boolean`
    `contentObjectExceptionHandler`_                      array
    `debug`_                                              :ref:`data-type-boolean`
    `defaultGetVars`_                                     array
-   `disableAllHeaderCode`_                               :ref:`data-type-boolean`           false
-   `disableBodyTag`_                                     :ref:`data-type-boolean`           0
+   `disableAllHeaderCode`_                               :ref:`data-type-boolean`                           false
+   `disableBodyTag`_                                     :ref:`data-type-boolean`                           0
    `disableCharsetHeader`_                               :ref:`data-type-boolean`
    `disableImgBorderAttr`_                               :ref:`data-type-boolean`
    `disablePageExternalUrl`_                             :ref:`data-type-boolean`
    `disablePrefixComment`_                               :ref:`data-type-boolean`
-   `disablePreviewNotification`_                         :ref:`data-type-boolean`           0
+   `disablePreviewNotification`_                         :ref:`data-type-boolean`                           0
+   `disableLanguageHeader`_                              :ref:`data-type-boolean`                           0
    `doctype`_                                            :ref:`data-type-string`
-   `doctypeSwitch`_                                      boolean / string
-   `enableContentLengthHeader`_                          :ref:`data-type-boolean`           1
-   `extTarget`_                                          :ref:`data-type-target`            \_top
+   `doctypeSwitch`_                                      :ref:`data-type-boolean` / :ref:`data-type-string`
+   `enableContentLengthHeader`_                          :ref:`data-type-boolean`                           1
+   `extTarget`_                                          :ref:`data-type-target`                            \_top
    `fileTarget`_                                         :ref:`data-type-target`
    `forceTypeValue`_                                     :ref:`data-type-integer`
-   `frameReloadIfNotInFrameset`_                         :ref:`data-type-boolean`
-   `ftu`_                                                :ref:`data-type-boolean`           false
+   `formMailCharset`_                                    :ref:`data-type-string`
+   `ftu`_                                                :ref:`data-type-boolean`                           false
    `headerComment`_                                      :ref:`data-type-string`
+   `htmlTag.attributes`_                                 array
    `htmlTag\_dir`_                                       :ref:`data-type-string`
-   `htmlTag\_langKey`_                                   :ref:`data-type-string`            en
+   `htmlTag\_langKey`_                                   :ref:`data-type-string`                            en
    `htmlTag\_setParams`_                                 :ref:`data-type-string`
-   `htmlTag\_stdWrap`_                                   ->:ref:`stdwrap`
-   `includeLibrary`_                                     :ref:`data-type-resource`
-   `incT3Lib\_htmlmail`_                                 :ref:`data-type-boolean`
-   `index\_descrLgd`_                                    :ref:`data-type-integer`           200
+   `htmlTag\_stdWrap`_                                   :ref:`stdwrap`
+   `index\_descrLgd`_                                    :ref:`data-type-integer`                           200
    `index\_enable`_                                      :ref:`data-type-boolean`
    `index\_externals`_                                   :ref:`data-type-boolean`
-   `index\_metatags`_                                    :ref:`data-type-boolean`           true
+   `index\_metatags`_                                    :ref:`data-type-boolean`                           true
    `inlineStyle2TempFile`_                               :ref:`data-type-boolean`
    `intTarget`_                                          :ref:`data-type-target`
-   `jumpurl\_enable`_                                    :ref:`data-type-boolean`           0
-   `jumpurl\_mailto\_disable`_                           :ref:`data-type-boolean`           0
    `language`_                                           :ref:`data-type-string`
    `language\_alt`_                                      :ref:`data-type-string`
    `linkVars`_                                           :ref:`data-type-list`
    `locale\_all`_                                        :ref:`data-type-string`
-   `lockFilePath`_                                       :ref:`data-type-string`            fileadmin/
-   `mainScript`_                                         :ref:`data-type-string`            index.php
-   `meaningfulTempFilePrefix`_                           :ref:`data-type-integer`
    `message\_page\_is\_being\_generated`_                :ref:`data-type-string`
    `message\_preview`_                                   :ref:`data-type-string`
    `message\_preview\_workspace`_                        :ref:`data-type-string`
-   `metaCharset`_                                        :ref:`data-type-string`            value of ".renderCharset"
-   `minifyCSS`_                                          :ref:`data-type-boolean`
-   `minifyJS`_                                           :ref:`data-type-boolean`
+   `metaCharset`_                                        :ref:`data-type-string`                            utf-8
    `moveJsFromHeaderToFooter`_                           :ref:`data-type-boolean`
    `MP\_defaults`_                                       :ref:`data-type-string`
    `MP\_disableTypolinkClosestMPvalue`_                  :ref:`data-type-boolean`
-   `MP\_mapRootPoints`_                                  list of PIDs/string
+   `MP\_mapRootPoints`_                                  list of PIDs / :ref:`data-type-string`
    `namespaces`_                                         *(array of strings)*
-   `no\_cache`_                                          :ref:`data-type-boolean`           -
-   `noPageTitle`_                                        :ref:`data-type-integer`           0
-   `noScaleUp`_                                          :ref:`data-type-boolean`
-   `pageGenScript`_                                      :ref:`data-type-resource`          typo3/sysext/frontend/Classes/Page/PageGenerator.php
+   `no\_cache`_                                          :ref:`data-type-boolean`                           0
+   `noPageTitle`_                                        :ref:`data-type-integer`                           0
    `pageRendererTemplateFile`_                           :ref:`data-type-string`
-   `pageTitleFirst`_                                     :ref:`data-type-boolean`           0
-   `pageTitleSeparator`_                                 Until TYPO3 6.0: string            : *(colon with following space)*
-   `prefixLocalAnchors`_                                 :ref:`data-type-string`
+   `pageTitle`_                                          :ref:`stdWrap`
+   `pageTitleFirst`_                                     :ref:`data-type-boolean`                           0
+   `pageTitleProviders`_                                 array
+   `pageTitleSeparator`_                                 :ref:`data-type-string` / :ref:`stdwrap`           ": " *(colon with following space)*
    `removeDefaultCss`_                                   :ref:`data-type-boolean`
-   `removeDefaultJS`_                                    boolean / string
+   `removeDefaultJS`_                                    :ref:`data-type-boolean` / :ref:`data-type-string`
    `removePageCss`_                                      :ref:`data-type-boolean`
-   `renderCharset`_                                      :ref:`data-type-string`            Until TYPO3 4.6: The value of $TYPO3\_CONF\_VARS['BE']['forceCharset']
    `sendCacheHeaders`_                                   :ref:`data-type-boolean`
    `sendCacheHeaders\_onlyWhenLoginDeniedInBranch`_      :ref:`data-type-boolean`
-   `setJS\_mouseOver`_                                   :ref:`data-type-boolean`
-   `setJS\_openPic`_                                     :ref:`data-type-boolean`
-   `simulateStaticDocuments`_                            boolean / string                   The default is defined by the configuration option
-   `simulateStaticDocuments\_addTitle`_                  :ref:`data-type-integer`
-   `simulateStaticDocuments\_dontRedirectPathInfoError`_ :ref:`data-type-boolean`
-   `simulateStaticDocuments\_noTypeIfNoTitle`_           :ref:`data-type-boolean`
-   `simulateStaticDocuments\_pEnc`_                      :ref:`data-type-string`
-   `simulateStaticDocuments\_pEnc\_onlyP`_               :ref:`data-type-string`
-   `simulateStaticDocuments\_replacementChar`_           :ref:`data-type-string`
    `spamProtectEmailAddresses`_                          "ascii" /
-   `spamProtectEmailAddresses\_atSubst`_                 :ref:`data-type-string`            (at)
-   `spamProtectEmailAddresses\_lastDotSubst`_            :ref:`data-type-string`            . *(just a simple dot)*
-   `stat`_                                               :ref:`data-type-boolean`           true
-   `stat\_apache`_                                       :ref:`data-type-boolean`           false
-   `stat\_apache\_logfile`_                              filename
-   `stat\_apache\_niceTitle`_                            boolean / string
-   `stat\_apache\_noHost`_                               :ref:`data-type-boolean`
-   `stat\_apache\_noRoot`_                               :ref:`data-type-boolean`
-   `stat\_apache\_notExtended`_                          :ref:`data-type-boolean`
-   `stat\_apache\_pagenames`_                            :ref:`data-type-string`
-   `stat\_excludeBEuserHits`_                            :ref:`data-type-boolean`           false
-   `stat\_excludeIPList`_                                list of strings
-   `stat\_IP\_anonymize`_                                :ref:`data-type-boolean`           0
-   `stat\_IP\_anonymize\_mask\_ipv4`_                    :ref:`data-type-integer`           24
-   `stat\_IP\_anonymize\_mask\_ipv6`_                    :ref:`data-type-integer`           64
-   `stat\_logUser`_                                      :ref:`data-type-boolean`           1
-   `stat\_mysql`_                                        :ref:`data-type-boolean`           false
-   `stat\_pageLen`_                                      integer (1-100)                    30
-   `stat\_titleLen`_                                     integer (1-100)                    20
-   `stat\_typeNumList`_                                  int/list                           0,1
+   `spamProtectEmailAddresses\_atSubst`_                 :ref:`data-type-string`                            (at)
+   `spamProtectEmailAddresses\_lastDotSubst`_            :ref:`data-type-string`                            . *(just a simple dot)*
    `sword\_noMixedCase`_                                 :ref:`data-type-boolean`
    `sword\_standAlone`_                                  :ref:`data-type-boolean`
+   `sys\_language\_isocode`_                             :ref:`data-type-string`
+   `sys\_language\_isocode\_default`_                    :ref:`data-type-string`
    `sys\_language\_mode`_                                :ref:`data-type-string`
-   `sys\_language\_overlay`_                             boolean / keyword
-   `sys\_language\_softExclude`_                         :ref:`data-type-string`
-   `sys\_language\_softMergeIfNotBlank`_                 :ref:`data-type-string`
+   `sys\_language\_overlay`_                             :ref:`data-type-boolean` / keyword
    `sys\_language\_uid`_                                 :ref:`data-type-integer`
-   `titleTagFunction`_                                   function name
-   `tx\_[extension key with no underscores]\_[\*]`_      -
+   `titleTagFunction`_                                   :ref:`data-type-function-name`
+   `tx\_[extension key with no underscores]\_[\*]`_      array
    `typolinkCheckRootline`_                              :ref:`data-type-boolean`
-   `typolinkEnableLinksAcrossDomains`_                   :ref:`data-type-boolean`           0
+   `typolinkEnableLinksAcrossDomains`_                   :ref:`data-type-boolean`                           0
    `typolinkLinkAccessRestrictedPages`_                  integer (page id) / keyword "NONE"
    `typolinkLinkAccessRestrictedPages\_addParams`_       :ref:`data-type-string`
-   `USERNAME\_substToken`_                               :ref:`data-type-string`            <!--###USERNAME###-->
+   `USERNAME\_substToken`_                               :ref:`data-type-string`                            <!--###USERNAME###-->
    `USERUID\_substToken`_                                :ref:`data-type-string`
-   `xhtml\_cleaning`_                                    :ref:`data-type-string`
    `xhtmlDoctype`_                                       :ref:`data-type-string`
    `xmlprologue`_                                        :ref:`data-type-string`
-   ===================================================== ================================== ======================================================================
-
-Property details
-^^^^^^^^^^^^^^^^
-
-.. only:: html
-
-   .. contents::
-      :local:
-      :depth: 1
+   ===================================================== ================================================== ======================================================================
 
 .. ### BEGIN~OF~TABLE ###
 
@@ -178,7 +117,7 @@ Property details
 .. _setup-config-absrefprefix:
 
 absRefPrefix
-""""""""""""
+============
 
 .. container:: table-row
 
@@ -186,26 +125,45 @@ absRefPrefix
          absRefPrefix
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          If this value is set, then all relative links in TypoScript are
-         prepended with this string. Used to convert relative paths to absolute
-         paths.
+         prepended with this string.
 
-         **Note:** If you're working on a server where you have both internal
-         and external access, you might do yourself a favor and set the
-         absRefPrefix to the URL and path of you site, e.g.
-         http://www.typo3.org/. If you do not, you risk to render pages to
-         cache from the internal network and thereby prefix image-references
-         and links with a non-accessible path from outside.
+         **Special keyword:** "auto" lets TYPO3 autodetect the site root based
+         on path prefixes (and not based on host name variables from the
+         server, making this value safe for multi-domain environments).
 
+         **Note:** Using an URI in :ts:`absRefPrefix` will require additional conditions
+         if you use different domains for your deployment stages in CI environments.
+
+         **Note:** If you're working on a server where you have different domain
+         names or different path segments leading to the same page (e.g. for internal
+         and external access), you might do yourself a favor and set `absRefPrefix` to
+         the URL and path of your site, e.g. `https://typo3.org/`. If you do not,
+         you risk to render pages to cache from the internal network and thereby
+         prefix image-references and links with a wrong path or a path not accessible
+         from outside.
+
+   Examples
+         1. Prefixing all links with a "/" results in absolute link paths::
+
+              config.absRefPrefix = /
+
+         2. Prefixing all links with the path to a subdirectory::
+
+              config.absRefPrefix = /some-subsite/
+
+         3. Prefixing all links with a URI scheme::
+
+              config.absRefPrefix = http://example.com/
 
 
 .. _setup-config-additionalheaders:
 
 additionalHeaders
-"""""""""""""""""
+=================
 
 .. container:: table-row
 
@@ -213,38 +171,50 @@ additionalHeaders
          additionalHeaders
 
    Data type
-         strings divided by "\|"
+         array with numeric indices
 
    Description
-         This property can be used to define additional HTTP headers. Separate
-         each header with a vertical line "\|".
+         This property can be used to define additional HTTP headers.
 
-         **Examples:**
+         For each numeric index, there are the following sub-properties:
 
-         Content-type: text/vnd.wap.wml
+         **header:** The header string
 
-         (this will send a content-header for a WAP-site)
+         **replace:** Optional. If set, previous headers with the same name
+         are replaced with the current one. Default is "1".
 
-         Content-type: image/gif \| Expires: Mon, 25 Jul 2017 05:00:00 GMT
-
-         (this will send a content-header for a GIF-file and an Expires header)
-
-         Location: www.typo3.org
-
-         (This redirects the page to `www.typo3.org <http://www.typo3.org/>`_ )
+         **httpResponseCode:** Optional. HTTP status code as an integer.
 
          By default TYPO3 sends a "Content-Type" header with the defined
-         encoding, unless this is disabled using config.disableCharsetHeader
-         (see above). It then sends cache headers, if configured (see above).
-         Then come the additional headers, plus finally a "Content-Length"
-         header, if enabled (see below).
+         encoding, unless this is disabled using :ref:`setup-config-disableCharsetHeader`.
+         It then sends cache headers, if configured via :ref:`setup-config-sendcacheheaders`.
+         Then additional headers are send, plus finally a "Content-Length"
+         header, if enabled via :ref:`setup-config-enablecontentlengthheader`.
+
+   Example
+         ::
+
+            config.additionalHeaders {
+                10 {
+                    # The header string
+                    header = foo
+
+                    # Do not replace previous headers with the same name.
+                    replace = 0
+
+                    # Force a 401 HTTP response code
+                    httpResponseCode = 401
+                }
+                # Always set cache headers to private, overwriting the default TYPO3 Cache-control header
+                20.header = Cache-control: Private
+            }
 
 
 
 .. _setup-config-admpanel:
 
 admPanel
-""""""""
+========
 
 .. container:: table-row
 
@@ -252,7 +222,7 @@ admPanel
          admPanel
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If set, the admin panel appears in the bottom of pages.
@@ -266,7 +236,7 @@ admPanel
 .. _setup-config-atagparams:
 
 ATagParams
-""""""""""
+==========
 
 .. container:: table-row
 
@@ -277,20 +247,14 @@ ATagParams
          *<A>-params*
 
    Description
-         Additional parameters to all links in TYPO3 (excluding menu-links)
-
-         **Example:**
-
-         To blur links, insert::
-
-            onFocus="blurLink(this)"
+         Additional parameters to all links in TYPO3 (excluding menu-links).
 
 
 
 .. _setup-config-baseurl:
 
 baseURL
-"""""""
+=======
 
 .. container:: table-row
 
@@ -298,88 +262,23 @@ baseURL
          baseURL
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         This writes the <base> tag in the header of the document. Set this to
+         This writes the :html:`<base>` tag in the header of the document. Set this to
          the value that is expected to be the URL and append a "/" to the end
          of the string.
 
-         If this is set, make sure that "prefixLocalAnchors" is set to "all".
-
-         **Example:** ::
+   Example
+         ::
 
             config.baseURL = http://typo3.org/sub_dir/
-
-
-
-.. _setup-config-beloginlinkiplist:
-
-beLoginLinkIPList
-"""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         beLoginLinkIPList
-
-   Data type
-         [IP-number]
-
-   Description
-         If set and REMOTE\_ADDR matches one of the listed IP-numbers (Wild-
-         card, \*, allowed) then a link to the typo3/ login script with redirect
-         pointing back to the page is shown.
-
-         **Note:** beLoginLinkIPList\_login and/or beLoginLinkIPList\_logout
-         (see below) must be defined if the link should show up!
-
-
-
-.. _setup-config-beloginlinkiplist-login:
-
-beLoginLinkIPList\_login
-""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         beLoginLinkIPList\_login
-
-   Data type
-         HTML
-
-   Description
-         HTML code wrapped with the login link, see 'beLoginLinkIPList'
-
-         **Example:** ::
-
-            <hr /><b>LOGIN</b>
-
-
-
-.. _setup-config-beloginlinkiplist-logout:
-
-beLoginLinkIPList\_logout
-"""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         beLoginLinkIPList\_logout
-
-   Data type
-         HTML
-
-   Description
-         HTML code wrapped with the logout link, see above
-
 
 
 .. _setup-config-cache:
 
 cache
-"""""
+=====
 
 .. container:: table-row
 
@@ -390,7 +289,7 @@ cache
          array
 
    Description
-         (Since TYPO3 4.6) Determine the maximum cache lifetime of a page.
+         Determine the maximum cache lifetime of a page.
 
          The maximum cache lifetime of a page can not only be determined by the
          start and stop times of content elements on the page itself, but also
@@ -400,9 +299,9 @@ cache
          start/stop date already passed by.
 
          To include records of type <table name> on page <pid> into the cache
-         lifetime calculation of page <page-id>, add the following TypoScript:
+         lifetime calculation of page <page-id>, add the following TypoScript::
 
-         config.cache.<page-id> = <table name>:<pid>
+            config.cache.<page-id> = <table name>:<pid>
 
          Multiple record sources can be added as comma-separated list, see the
          examples.
@@ -410,29 +309,29 @@ cache
          You can use the keyword "all" instead of a <page-id> to consider
          records for the cache lifetime of all pages.
 
-         **Examples:** ::
+   Examples
+         This includes the fe\_users records on page 2 in the cache lifetime
+         calculation for page 10::
 
             config.cache.10 = fe_users:2
 
-         This includes the fe\_users records on page 2 in the cache lifetime
-         calculation for page 10. ::
+         This includes records from multiple sources, namely the fe\_users
+         records on page 2 and the tt\_news records on page 11::
 
             config.cache.10 = fe_users:2,tt_news:11
 
-         This includes records from multiple sources, namely the fe\_users
-         records on page 2 and the tt\_news records on page 11. ::
+         Consider the fe\_user records on page 2 for the cache lifetime of all
+         pages::
 
             config.cache.all = fe_users:2
 
-         Consider the fe\_user records on page 2 for the cache lifetime of all
-         pages.
 
 
 
 .. _setup-config-cache-clearatmidnight:
 
 cache\_clearAtMidnight
-""""""""""""""""""""""
+======================
 
 .. container:: table-row
 
@@ -440,21 +339,22 @@ cache\_clearAtMidnight
          cache\_clearAtMidnight
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         false
 
    Description
          With this setting the cache always expires at midnight of the day, the
          page is scheduled to expire.
 
-   Default
-         false
 
 
 
 .. _setup-config-cache-period:
 
 cache\_period
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -462,7 +362,10 @@ cache\_period
          cache\_period
 
    Data type
-         integer
+         :ref:`data-type-integer`
+
+   Default
+         86400 *(= 24 hours)*
 
    Description
          The number of second a page may remain in cache.
@@ -470,49 +373,13 @@ cache\_period
          This value is overridden by the value set in the page-record
          (field="cache\_timeout") if this value is greater than zero.
 
-   Default
-         86400 *(= 24 hours)*
-
-
-
-.. _setup-config-compensatefieldwidth:
-
-compensateFieldWidth
-""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         compensateFieldWidth
-
-   Data type
-         double
-
-   Description
-         This floating point value will be used by the FORMS cObject to
-         compensate the length of the form fields text and input.
-
-         This feature was useful, if the page-option "smallFormFields"
-         (removed in TYPO3 6.0) was set. In that case Netscape rendered
-         form fields much longer than IE. If you wanted the two browsers
-         to display the same size form fields, you could use a value of
-         approx "0.6" for netscape-browsers.
-
-         **Example:** ::
-
-            [browser = netscape]
-              config.compensateFieldWidth = 0.6
-            [global]
-
-         This option may be overridden by the property of the same name in
-         the FORMS cObject.
 
 
 
 .. _setup-config-compresscss:
 
 compressCss
-"""""""""""
+===========
 
 .. container:: table-row
 
@@ -520,44 +387,43 @@ compressCss
          compressCss
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         0
 
    Description
-         (Since TYPO3 4.6) If set, CSS files will be minified and compressed.
+         If set, CSS files referenced in :ts:`page.includeCSS` and the like will be
+         minified and compressed. Does not work on files, which are referenced
+         in :ts:`page.headerData`.
 
          Minification will remove all excess space. The more significant
          compression step (using gzip compression) requires
-         $TYPO3\_CONF\_VARS['FE']['compressionLevel'] to be enabled in the
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel']` to be enabled in the
          Install Tool. For this to work you also need to activate the gzip-
-         related compressionLevel options in .htaccess, as otherwise the
+         related compressionLevel options in :file:`.htaccess`, as otherwise the
          compressed files will not be readable by the user agent.
 
-         **Example:** ::
+         TYPO3 comes with a built-in compression handler, but you can
+         also register your own one using
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler']`.
+
+         .. code-block:: php
+
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler'] =
+               \TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
+               'Classes/CssCompressHandler.php:Vendor\MyExt\CssCompressHandler->compressCss';
+
+   Example
+         ::
 
             config.compressCss = 1
-
-         **Note:** TYPO3 comes with a built-in compression handler, but you can
-         also register your own one using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['cssCompressHandler'].
-
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler'] =
-               TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_cssCompressHandler.php:tx_myext_cssCompressHandler->compressCss';
-
-            or before TYPO3 6.0:
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_cssCompressHandler.php:tx_myext_cssCompressHandler->compressCss';
-
 
 
 .. _setup-config-compressjs:
 
 compressJs
-""""""""""
+==========
 
 .. container:: table-row
 
@@ -565,47 +431,46 @@ compressJs
          compressJs
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         0
 
    Description
-         (Since TYPO3 4.6) Enabling this option together with
-         $TYPO3\_CONF\_VARS['FE']['compressionLevel'] in the Install Tool
-         delivers Frontend JavaScript files using GZIP compression.
+         Enabling this option together with
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel']` in the Install Tool
+         delivers Frontend JavaScript files referenced in :ts:`page.includeJS` and
+         the like using GZIP compression. Does not work on files, which are
+         referenced in :ts:`page.headerData`.
 
          This can significantly reduce file sizes of linked JavaScript files
          and thus decrease loading times.
 
-         Please note that this requires .htaccess to be adjusted, as otherwise
+         Please note that this requires :file:`.htaccess` to be adjusted, as otherwise
          the files will not be readable by the user agent. Please see the
-         description of $TYPO3\_CONF\_VARS['FE']['compressionLevel'] in the
+         description of :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel']` in the
          Install Tool.
 
-         **Example:** ::
+         TYPO3 comes with a built-in compression handler, but you can
+         also register your own one using
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler']`.
+
+         .. code-block:: php
+
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler'] =
+               \TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
+               'Classes/JsCompressHandler.php:Vendor\MyExt\JsCompressHandler->compressJs';
+
+   Example
+         ::
 
             config.compressJs = 1
-
-         **Note:** TYPO3 comes with a built-in compression handler, but you can
-         also register your own one using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['jsCompressHandler'].
-
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler'] =
-               TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_jsCompressHandler.php:tx_myext_jsCompressHandler->compressJs';
-
-            or before TYPO3 6.0:
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_jsCompressHandler.php:tx_myext_jsCompressHandler->compressJs';
-
 
 
 .. _setup-config-concatenatecss:
 
 concatenateCss
-""""""""""""""
+==============
 
 .. container:: table-row
 
@@ -613,38 +478,40 @@ concatenateCss
          concatenateCss
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         0
 
    Description
-         (Since TYPO3 4.6) Setting config.concatenateCss merges Stylesheet
-         files referenced in the Frontend together.
+         Setting :ts:`config.concatenateCss` merges Stylesheet files referenced in
+         the Frontend in page.includeCSS and the like together. Files are merged
+         only, if their media attribute has the same value, e.g. if it is "all"
+         for several files. Does not work on files, which are referenced in
+         :ts:`page.headerData`.
 
-         **Example:** ::
+         TYPO3 comes with a built-in concatenation handler, but you
+         can also register your own one using
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['cssConcatenateHandler']`.
+
+         .. code-block:: php
+
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler'] =
+               \TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
+               'Classes/CssCompressHandler.php:Vendor\MyExt\CssCompressHandler->compressCss';
+
+   Example
+         ::
 
             config.concatenateCss = 1
 
-         **Note:** TYPO3 comes with a built-in concatenation handler, but you
-         can also register your own one using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['cssConcatenateHandler'].
-
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssConcatenateHandler'] =
-               TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_cssConcatenateHandler.php:tx_myext_cssConcatenateHandler->concatenateCss';
-
-            or before TYPO3 6.0:
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssConcatenateHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_cssConcatenateHandler.php:tx_myext_cssConcatenateHandler->concatenateCss';
 
 
 
 .. _setup-config-concatenatejs:
 
 concatenateJs
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -652,38 +519,47 @@ concatenateJs
          concatenateJs
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         0
 
    Description
-         (Since TYPO3 4.6) Setting config.concatenateJs merges JavaScript files
-         referenced in the Frontend together.
+         Setting :ts:`config.concatenateJs` merges JavaScript files referenced in
+         the Frontend in :ts:`page.includeJS` and the like together. Does not work
+         on files, which are referenced in :ts:`page.headerData`.
 
-         **Example:** ::
+         If all files to be concatenated are marked with the async flag, the async attribute is assigned to the script tag.
+
+         TYPO3 comes with a built-in concatenation handler, but you
+         can also register your own one using
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['jsConcatenateHandler']`.
+
+         .. code-block:: php
+
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsConcatenateHandler'] =
+               \TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
+               'Classes/JsConcatenateHandler.php:Vendor\MyExt\JsConcatenateHandler->concatenateJs';
+
+   Example
+         ::
 
             config.concatenateJs = 1
 
-         **Note:** TYPO3 comes with a built-in concatenation handler, but you
-         can also register your own one using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['jsConcatenateHandler'].
+            page = PAGE
+            page.includeJSFooter {
+                test = fileadmin/user_upload/test.js
+                test.async = 1
 
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsConcatenateHandler'] =
-               TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_jsConcatenateHandler.php:tx_myext_jsConcatenateHandler->concatenateJs';
-
-            or before TYPO3 6.0:
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsConcatenateHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_jsConcatenateHandler.php:tx_myext_jsConcatenateHandler->concatenateJs';
-
+                test2 = fileadmin/user_upload/test2.js
+                test2.async = 1
+            }
 
 
 .. _setup-config-concatenatejsandcss:
 
 concatenateJsAndCss
-"""""""""""""""""""
+===================
 
 .. container:: table-row
 
@@ -691,38 +567,39 @@ concatenateJsAndCss
          concatenateJsAndCss
 
    Data type
-         boolean
-
-   Description
-         Setting config.concatenateJsAndCss bundles JS and CSS files in the FE.
-
-         **Example:** ::
-
-            config.concatenateJsAndCss = 1
-
-         **Note:** There are no default concatenation handlers, which could do
-         the concatenation. A custom concatenation handler must be provided and
-         registered using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['concatenateHandler'].
-
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['concatenateHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_concatenateHandler.php:tx_myext_concatenateHandler->concatenateFiles';
-
-         **Note:** This property was deprecated and has been removed with TYPO3
-         6.0! Use config.concatenateJs and config.concatenateCss instead.
+         :ref:`data-type-boolean`
 
    Default
          0
+
+   Description
+         **Note:** This property was deprecated and is planned to be removed!
+         Use :ts:`config.concatenateJs` and :ts:`config.concatenateCss` instead.
+
+         Setting :ts:`config.concatenateJsAndCss` bundles JS and CSS files in the FE.
+
+         TYPO3 comes with a built-in concatenation handler, but you
+         can also register your own one using
+         :php:`$GLOBALS['TYPO3_CONF_VARS']['FE']['concatenateHandler']`.
+
+         .. code-block:: php
+
+            $GLOBALS['TYPO3_CONF_VARS']['FE']['concatenateHandler'] =
+               \TYPO3\CMS\Core\Extension\ExtensionManager::extPath($_EXTKEY) .
+               'Classes/ConcatenateHandler.php:Vendor\MyExt\ConcatenateHandler->concatenateFiles';
+
+   Example
+         ::
+
+            config.concatenateJsAndCss = 1
+
 
 
 
 .. _setup-config-content-from-pid-allowoutsidedomain:
 
 content\_from\_pid\_allowOutsideDomain
-""""""""""""""""""""""""""""""""""""""
+======================================
 
 .. container:: table-row
 
@@ -730,19 +607,24 @@ content\_from\_pid\_allowOutsideDomain
          content\_from\_pid\_allowOutsideDomain
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          Using the "Show content from this page instead" feature allows you to
          insert content from the current domain only. Setting this option will
          allow content included from anywhere in the page tree!
 
+         Another use case is mount points: By means of the page type "Mount Point" you can virtually
+         insert a whole subtree from somewhere else by just pointing to it. However, usually this
+         only works within the page tree of the given domain. Setting
+         :ts:`config.content_from_pid_allowOutsideDomain = 1` removes that restriction.
+
 
 
 .. _setup-config-contentObjectExceptionHandler:
 
 contentObjectExceptionHandler
-"""""""""""""""""""""""""""""
+=============================
 
 .. container:: table-row
 
@@ -762,34 +644,6 @@ contentObjectExceptionHandler
          By default this error message contains a random code which references
          the exception and is also logged by the logging framework for developer reference.
 
-         **Usage**
-
-         .. code-block:: typoscript
-
-			# Use 1 for the default exception handler (enabled by default in production context)
-			config.contentObjectExceptionHandler = 1
-
-			# Use a class name for individual exception handlers
-			config.contentObjectExceptionHandler = TYPO3\CMS\Frontend\ContentObject\Exception\ProductionExceptionHandler
-
-			# Customize the error message. A randomly generated code is replaced within the message if needed.
-			config.contentObjectExceptionHandler.errorMessage = Oops an error occurred. Code: %s
-
-			# Configure exception codes which will not be handled, but bubble up again (useful for temporary fatal errors)
-			tt_content.login.20.exceptionHandler.ignoreCodes.10 = 1414512813
-
-			# Disable the exception handling for an individual plugin/ content object
-			tt_content.login.20.exceptionHandler = 0
-
-			# ignoreCodes and errorMessage can be both configured globally …
-			config.contentObjectExceptionHandler.errorMessage = Oops an error occurred. Code: %s
-			config.contentObjectExceptionHandler.ignoreCodes.10 = 1414512813
-
-			# … or locally for individual content objects
-			tt_content.login.20.exceptionHandler.errorMessage = Oops an error occurred. Code: %s
-			tt_content.login.20.exceptionHandler.ignoreCodes.10 = 1414512813
-
-
          .. important::
 
             Instead of breaking the whole page when an exception occurs, an error message
@@ -799,12 +653,36 @@ contentObjectExceptionHandler
             To get rid of the error message not only the actual error needs to be fixed,
             but the cache must be cleared for this page.
 
+   Examples
+         ::
 
+            # Use 1 for the default exception handler (enabled by default in production context)
+            config.contentObjectExceptionHandler = 1
+
+            # Use a class name for individual exception handlers
+            config.contentObjectExceptionHandler = TYPO3\CMS\Frontend\ContentObject\Exception\ProductionExceptionHandler
+
+            # Customize the error message. A randomly generated code is replaced within the message if needed.
+            config.contentObjectExceptionHandler.errorMessage = Oops an error occurred. Code: %s
+
+            # Configure exception codes which will not be handled, but bubble up again (useful for temporary fatal errors)
+            tt_content.login.20.exceptionHandler.ignoreCodes.10 = 1414512813
+
+            # Disable the exception handling for an individual plugin/ content object
+            tt_content.login.20.exceptionHandler = 0
+
+            # ignoreCodes and errorMessage can be both configured globally …
+            config.contentObjectExceptionHandler.errorMessage = Oops an error occurred. Code: %s
+            config.contentObjectExceptionHandler.ignoreCodes.10 = 1414512813
+
+            # … or locally for individual content objects
+            tt_content.login.20.exceptionHandler.errorMessage = Oops an error occurred. Code: %s
+            tt_content.login.20.exceptionHandler.ignoreCodes.10 = 1414512813
 
 .. _setup-config-debug:
 
 debug
-"""""
+=====
 
 .. container:: table-row
 
@@ -812,18 +690,19 @@ debug
          debug
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         If set any debug-information in the TypoScript code is output.
-         Currently this applies only to the menu objects.
+         If set then debug information in the TypoScript code is sent.
+         This applies e.g. to menu objects and the parsetime output.
+         The parsetime will be sent as HTTP response header `X-TYPO3-Parsetime`.
 
 
 
 .. _setup-config-defaultgetvars:
 
 defaultGetVars
-""""""""""""""
+==============
 
 .. container:: table-row
 
@@ -838,13 +717,13 @@ defaultGetVars
          taken only if the GET parameter isn't defined. Array notation is done
          with dots, e.g.:
 
-         test[var1] will be written as text.var1
+         :php:`test['var1']` will be written as :ts:`test.var1`
 
-         **Example:** ::
+   Example
+         ::
 
             config.defaultGetVars {
                 test.var1.var2.p3 = 15
-                L = 3
             }
 
 
@@ -852,7 +731,7 @@ defaultGetVars
 .. _setup-config-disableallheadercode:
 
 disableAllHeaderCode
-""""""""""""""""""""
+====================
 
 .. container:: table-row
 
@@ -860,27 +739,27 @@ disableAllHeaderCode
          disableAllHeaderCode
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         false
 
    Description
-         If this is set, none of the features of the PAGE object is processed
+         If this is set, none of the features of the :ref:`page` object is processed
          and the content of the page will be the result of the cObject array
-         (1,2,3,4...) of the PAGE object. This means that the result of the
-         cObject should include everything from the <HTML> .... to the </HTML>
+         (1,2,3,4...) of the :ref:`page` object. This means that the result of the
+         cObject should include everything from the :html:`<HTML>` .... to the :html:`</HTML>`
          tag!
 
          Use this feature in templates supplying other content-types than HTML.
          That could be an image or a WAP-page!
-
-   Default
-         false
 
 
 
 .. _setup-config-disablebodytag:
 
 disableBodyTag
-""""""""""""""
+==============
 
 .. container:: table-row
 
@@ -888,27 +767,27 @@ disableBodyTag
          disableBodyTag
 
    Data type
-         boolean
-
-   Description
-         (Since TYPO3 6.1) This option disables <body> tag generation by the
-         TYPO3 core. It is useful for extensions like TemplaVoilà, which can
-         produce their own <body> tag with additional attributes.
-
-         **Note:** disableBodyTag takes precedence over the page properties
-         "bodyTagCObject", "bodyTag", "bgImg", "bodyTagMargins" and
-         "bodyTagAdd". If disableBodyTag is set to "1", the others are
-         ignored.
+         :ref:`data-type-boolean`
 
    Default
-         0
+         0 (false)
+
+   Description
+         If this option is set the TYPO3 core will not generate the
+         opening :html:`<body ...>` part of the body tag. The closing :html:`</body>`
+         is not affected and will still be issued.
+
+         :ts:`disableBodyTag` takes precedence over the :ref:`page` properties
+         :ts:`bodyTagCObject`, :ts:`bodyTag` and
+         :ts:`bodyTagAdd`. With :ts:`config.disableBodyTag = 1` the others are
+         ignored and don't have any effect.
 
 
 
 .. _setup-config-disablecharsetheader:
 
 disableCharsetHeader
-""""""""""""""""""""
+====================
 
 .. container:: table-row
 
@@ -916,18 +795,18 @@ disableCharsetHeader
          disableCharsetHeader
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         By default a header "content-type:text/html; charset..." is sent. This
-         option will disable that.
+         By default a HTTP header `content-type:text/html; charset...` is sent.
+         This option will disable that.
 
 
 
 .. _setup-config-disableimgborderattr:
 
 disableImgBorderAttr
-""""""""""""""""""""
+====================
 
 .. container:: table-row
 
@@ -935,19 +814,19 @@ disableImgBorderAttr
          disableImgBorderAttr
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         Returns the 'border' attribute for an <img> tag only if the doctype is
-         not xhtml\_strict, xhtml\_11 or xhtml\_2 or if the config parameter
-         'disableImgBorderAttr' is not set
+         Returns the `border` attribute for an :html:`<img>` tag only if the doctype is
+         not `xhtml_strict` or `xhtml_11` or if the config parameter
+         :ts:`disableImgBorderAttr` is not set
 
 
 
 .. _setup-config-disablepageexternalurl:
 
 disablePageExternalUrl
-""""""""""""""""""""""
+======================
 
 .. container:: table-row
 
@@ -955,19 +834,18 @@ disablePageExternalUrl
          disablePageExternalUrl
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If set, pages with doktype "External Url" will not trigger jumpUrl in
-         TSFE. This may help you to have external URLs open inside you
-         framesets.
+         TSFE.
 
 
 
 .. _setup-config-disableprefixcomment:
 
 disablePrefixComment
-""""""""""""""""""""
+====================
 
 .. container:: table-row
 
@@ -975,10 +853,10 @@ disablePrefixComment
          disablePrefixComment
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         If set, the stdWrap property "prefixComment" will be disabled, thus
+         If set, the stdWrap property :ref:`stdwrap-prefixcomment` will be disabled, thus
          preventing any revealing and space-consuming comments in the HTML
          source code.
 
@@ -987,7 +865,7 @@ disablePrefixComment
 .. _setup-config-disablepreviewnotification:
 
 disablePreviewNotification
-""""""""""""""""""""""""""
+==========================
 
 .. container:: table-row
 
@@ -995,19 +873,48 @@ disablePreviewNotification
          disablePreviewNotification
 
    Data type
-         boolean
-
-   Description
-         Disables the "preview" notification box completely.
+         :ref:`data-type-boolean`
 
    Default
          0
 
+   Description
+         Disables the "preview" notification box completely.
+
+.. _disableLanguageHeader:
+
+disableLanguageHeader
+=====================
+
+.. container:: table-row
+
+   Property
+         disableLanguageHeader
+
+   Data type
+         :ref:`data-type-boolean`
+
+   Default
+         0
+
+   Description
+         TYPO3 by default sends a `Content-language: XX` HTTP header,
+         where "XX" is the ISO code of the according language.
+
+         For the default language (sys_language_uid = 0), this header is based
+         on the value of :ts:`config.sys_language_isocode_default`. If this is unset,
+         config.language is used. If that is unset as well, it finally falls
+         back to "en".
+
+         For other languages, it uses the value from language_isocode from
+         sys_language. That value may be overwritten by :ts:`config.sys_language_isocode`.
+
+         If :ts:`config.disableLanguageHeader` is set, this header will not be sent.
 
 .. _setup-config-doctype:
 
 doctype
-"""""""
+=======
 
 .. container:: table-row
 
@@ -1015,7 +922,7 @@ doctype
          doctype
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          If set, then a document type declaration (and an XML prologue) will be
@@ -1023,8 +930,6 @@ doctype
          following keywords:
 
          **xhtml\_trans** for the XHTML 1.0 Transitional doctype.
-
-         **xhtml\_frames** for the XHTML 1.0 Frameset doctype.
 
          **xhtml\_strict** for the XHTML 1.0 Strict doctype.
 
@@ -1034,8 +939,6 @@ doctype
 
          **xhtml+rdfa\_10** for the XHTML+RDFa 1.0 doctype.
 
-         **xhtml\_2** for the XHTML 2 doctype.
-
          **html5** for the HTML5 doctype.
 
          **none** for *no* doctype at all.
@@ -1044,10 +947,10 @@ doctype
 
             Keywords also change the way TYPO3 generates some of the
             XHTML tags to ensure valid XML. If you set doctype to a string, then
-            you must also set config.xhtmlDoctype(see below).
+            you must also set :ts:`config.xhtmlDoctype` (see below).
 
          See :ref:`config.htmlTag_setParams <setup-config-htmltag-setparams>` and
-         :ref:`comfig.htmlTag_langKey <setup-config-htmltag-langkey>` for more
+         :ref:`config.htmlTag_langKey <setup-config-htmltag-langkey>` for more
          details on the effect on the HTML tag.
 
          Default is the HTML 5 doctype:
@@ -1060,7 +963,7 @@ doctype
 .. _setup-config-doctypeswitch:
 
 doctypeSwitch
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -1068,7 +971,7 @@ doctypeSwitch
          doctypeSwitch
 
    Data type
-         boolean / string
+         :ref:`data-type-boolean` / :ref:`data-type-string`
 
    Description
          If set, the order of <?xml...> and <!DOCTYPE...> will be reversed.
@@ -1103,7 +1006,7 @@ doctypeSwitch
 .. _setup-config-enablecontentlengthheader:
 
 enableContentLengthHeader
-"""""""""""""""""""""""""
+=========================
 
 .. container:: table-row
 
@@ -1111,27 +1014,24 @@ enableContentLengthHeader
          enableContentLengthHeader
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         1
 
    Description
          If set, a header "content-length: [bytes of content]" is sent.
 
-         If a PHP\_SCRIPT\_EXT object is detected on the page or if the Backend
-         user is logged in, this is disabled. The reason is that the content
-         length header cannot include the length of these objects and the
-         content-length will cut off the length of the document in some
-         browsers.
-
-   Default
-         Until TYPO3 6.1: 0
-
-         Since TYPO3 6.2: 1
+         If the Backend user is logged in, this is disabled. The reason is
+         that the content length header cannot include the length of these
+         objects and the content-length will cut off the length of the
+         document in some browsers.
 
 
 .. _setup-config-exttarget:
 
 extTarget
-"""""""""
+=========
 
 .. container:: table-row
 
@@ -1141,18 +1041,18 @@ extTarget
    Data type
          target
 
-   Description
-         Default external target. Used by typolink if no extTarget is set
-
    Default
          \_top
+
+   Description
+         Default external target. Used by typolink if no extTarget is set
 
 
 
 .. _setup-config-filetarget:
 
 fileTarget
-""""""""""
+==========
 
 .. container:: table-row
 
@@ -1170,7 +1070,7 @@ fileTarget
 .. _setup-config-forcetypevalue:
 
 forceTypeValue
-""""""""""""""
+==============
 
 .. container:: table-row
 
@@ -1178,46 +1078,44 @@ forceTypeValue
          forceTypeValue
 
    Data type
-         integer
+         :ref:`data-type-integer`
 
    Description
-         Force the &type value of all TYPO3 generated links to a specific value
-         (except if overruled by local forceTypeValue values).
+         Force the `&type` value of all TYPO3 generated links to a specific value
+         (except if overruled by local :ts:`forceTypeValue` values).
 
-         Useful if you run a template with special content at - say &type=95 -
+         Useful if you run a template with special content at - say `&type=95` -
          but still wants to keep your targets neutral. Then you set your
          targets to blank and this value to the type value you wish.
 
 
 
-.. _setup-config-framereloadifnotinframeset:
+.. _setup-config-formmailcharset:
 
-frameReloadIfNotInFrameset
-""""""""""""""""""""""""""
+formMailCharset
+===============
 
 .. container:: table-row
 
    Property
-         frameReloadIfNotInFrameset
+         formMailCharset
 
    Data type
-         boolean
+         :ref:`data-type-string`
+
+   Default
+         "" *(unset)*
 
    Description
-         If set, then the current page will check if the page object name (e.g.
-         "page" or "frameset") exists as "parent.[name]" (e.g. "parent.page")
-         and if not the page will be reloaded in top frame. This secures that
-         links from search engines to pages inside a frameset will load the
-         frameset.
-
-         Works only with type-values different from zero.
+         Character set of mails sent through TYPO3 mail forms. If it is
+         unset, the character set defined in :ref:`setup-config-metacharset` is used.
 
 
 
 .. _setup-config-ftu:
 
 ftu
-"""
+===
 
 .. container:: table-row
 
@@ -1225,7 +1123,10 @@ ftu
          ftu
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         false
 
    Description
          If set, the "&ftu=...." GET-fallback identification is inserted.
@@ -1247,15 +1148,12 @@ ftu
 
          "ftu" means fe\_typo\_user ("fe" is "frontend").
 
-   Default
-         false
-
 
 
 .. _setup-config-headercomment:
 
 headerComment
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -1263,7 +1161,7 @@ headerComment
          headerComment
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          The content is added before the "TYPO3 Content Management Framework"
@@ -1272,10 +1170,61 @@ headerComment
 
 
 
+.. _setup-config-htmltag-attributes:
+
+htmlTag.attributes
+==================
+
+.. container:: table-row
+
+   Property
+         htmlTag.attributes
+
+   Data type
+         array
+
+   Description
+         Sets the attributes for the :html:`<html>` tag on the page. Allows to override
+         and add custom attributes via TypoScript without having to re-add the
+         existing attributes generated by SiteHandling.
+
+         This property supersedes the previous :ts:`config.htmlTag_setParams` option by providing
+         a more flexible API to add attributes.
+
+   Example
+         ::
+
+            config.htmlTag.attributes.class = no-js
+
+         Results in :
+
+         .. code-block:: html
+
+            <html lang="fr" class="no-js">
+
+         ::
+
+            config.htmlTag.attributes.amp =
+
+         Results in :
+
+         .. code-block:: html
+
+            <html lang="fr" amp>
+
+
+.. warning::
+    If you are using :ts:`htmlTag.attributes` the property :ref:`setup-config-htmltag-setparams` will not have any effect.
+
+.. note::
+    Please note that the `lang` attribute in these examples are auto-generated by
+    :ref:`site handling<t3coreapi:sitehandling>`, depending on the value added there.
+
+
 .. _setup-config-htmltag-dir:
 
 htmlTag\_dir
-""""""""""""
+============
 
 .. container:: table-row
 
@@ -1283,31 +1232,34 @@ htmlTag\_dir
          htmlTag\_dir
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          Sets text direction for whole document (useful for display of Arabic,
          Hebrew pages).
 
          Basically the value becomes the attribute value of "dir" for the
-         <html> tag.
+         :html:`<html>` tag.
 
          **Values:**
 
-         rtl = Right-To-Left (for Arabic / Hebrew)
+         :ts:`rtl` = Right-To-Left (for Arabic / Hebrew)
 
-         ltr = Left-To-Right (Default for other languages)
+         :ts:`ltr` = Left-To-Right (Default for other languages)
 
-         **Example:** ::
+   Example
+         ::
 
             config.htmlTag_dir = rtl
 
-
+.. note::
+    Used to older TYPO3 versions? If you are using :ref:`site handling<t3coreapi:sitehandling>` you do not need to set
+    `htmlTag_dir` in TypoScript.
 
 .. _setup-config-htmltag-langkey:
 
 htmlTag\_langKey
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -1315,28 +1267,32 @@ htmlTag\_langKey
          htmlTag\_langKey
 
    Data type
-         string
-
-   Description
-         Allows you to set the language value for the attributes "xml:lang" and
-         "lang" in the <html> tag (when using "config.doctype = xhtml\*").
-
-         The values must follow the format specified in `IETF RFC 3066
-         <http://www.ietf.org/rfc/rfc3066.txt>`_
-
-         **Example:** ::
-
-            config.htmlTag_langKey = en-US
+         :ref:`data-type-string`
 
    Default
          en
 
+   Description
+         Allows you to set the language value for the attributes `xml:lang` and
+         `lang` in the :html:`<html>` tag (when using :ts:`config.doctype = xhtml*`).
 
+         The values must follow the format specified in `IETF RFC 3066
+         <http://www.ietf.org/rfc/rfc3066.txt>`_
+
+   Example
+         ::
+
+            config.htmlTag_langKey = en-US
+
+
+.. note::
+    Used to older TYPO3 versions? If you are using :ref:`site handling<t3coreapi:sitehandling>` you do not need to set
+    `htmlTag_langKey` in TypoScript.
 
 .. _setup-config-htmltag-setparams:
 
 htmlTag\_setParams
-""""""""""""""""""
+==================
 
 .. container:: table-row
 
@@ -1344,27 +1300,33 @@ htmlTag\_setParams
          htmlTag\_setParams
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         Sets the attributes for the <html> tag on the page. If you set
-         "config.doctype" to a keyword enabling XHTML then some attributes are
+         Sets the attributes for the :html:`<html>` tag on the page. If you set
+         :ref:`setup-config-doctype` to a keyword enabling XHTML then some attributes are
          already set. This property allows you to override any preset
          attributes with your own content if needed.
 
          **Special:** If you set it to "none" then no attributes will be set at
          any event.
 
-         **Example:** ::
+   Example
+         ::
 
             config.htmlTag_setParams = xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US"
 
+.. warning::
+    If you are using `htmlTag.attributes` this property (`htmlTag_setParams`) will not have any effect.
 
+.. note::
+    Used to older TYPO3 versions? If you are using :ref:`site handling<t3coreapi:sitehandling>` you do not need to set
+    `htmlTag_setParams` for language related configuration in TypoScript.
 
 .. _setup-config-htmltag-stdwrap:
 
 htmlTag\_stdWrap
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -1372,57 +1334,18 @@ htmlTag\_stdWrap
          htmlTag\_stdWrap
 
    Data type
-         ->stdWrap
+         :ref:`stdwrap`
 
    Description
-         (Since TYPO3 4.7) Modify the whole <html> tag with stdWrap
-         functionality. This can be used to extend or override this tag.
-
-
-
-.. _setup-config-includelibrary:
-
-includeLibrary
-""""""""""""""
-
-.. container:: table-row
-
-   Property
-         includeLibrary
-
-   Data type
-         resource
-
-   Description
-         This includes a PHP file.
-
-
-
-.. _setup-config-inct3lib-htmlmail:
-
-incT3Lib\_htmlmail
-""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         incT3Lib\_htmlmail
-
-   Data type
-         boolean
-
-   Description
-         Include t3lib/class.t3lib\_htmlmail.php.
-
-         **Note:** This option was deprecated since TYPO3 4.5 and has
-         been removed in TYPO3 6.0.
+         Modify the whole :html:`<html>` tag with stdWrap functionality. This can be
+         used to extend or override this tag.
 
 
 
 .. _setup-config-index-descrlgd:
 
 index\_descrLgd
-"""""""""""""""
+===============
 
 .. container:: table-row
 
@@ -1430,21 +1353,21 @@ index\_descrLgd
          index\_descrLgd
 
    Data type
-         integer
+         :ref:`data-type-integer`
+
+   Default
+         200
 
    Description
          This indicates how many chars to preserve as description for an
          indexed page. This may be used in the search result display.
-
-   Default
-         200
 
 
 
 .. _setup-config-index-enable:
 
 index\_enable
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -1452,17 +1375,19 @@ index\_enable
          index\_enable
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          Enables cached pages to be indexed.
+
+         Automatically enabled when EXT:indexed_search is enabled.
 
 
 
 .. _setup-config-index-externals:
 
 index\_externals
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -1470,17 +1395,19 @@ index\_externals
          index\_externals
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If set, external media linked to on the pages is indexed as well.
+
+         Automatically enabled when EXT:indexed_search is enabled.
 
 
 
 .. _setup-config-index-metatags:
 
 index\_metatags
-"""""""""""""""
+===============
 
 .. container:: table-row
 
@@ -1488,21 +1415,21 @@ index\_metatags
          index\_metatags
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         true
 
    Description
          This allows to turn on or off the indexing of metatags. It is turned
          on by default.
-
-   Default
-         true
 
 
 
 .. _setup-config-inlinestyle2tempfile:
 
 inlineStyle2TempFile
-""""""""""""""""""""
+====================
 
 .. container:: table-row
 
@@ -1510,32 +1437,29 @@ inlineStyle2TempFile
          inlineStyle2TempFile
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         1
 
    Description
          If set, the inline styles TYPO3 controls in the core are written to a
-         file, typo3temp/stylesheet\_[hashstring].css, and the header will only
-         contain the link to the stylesheet.
+         file, :file:`typo3temp/assets/css/stylesheet\_[hashstring].css`, and the header
+         will only contain the link to the stylesheet.
 
          The file hash is based solely on the content of the styles.
 
-         Depends on the compatibility mode (see the Update wizard under Tools >
-         Install):
+   Example
+         ::
 
-         *compatibility mode < 4.0: 0*
-
-         *compatibility mode >= 4.0: 1*
-
-         **Example:** ::
-
-            config.inlineStyle2TempFile = 1
+            config.inlineStyle2TempFile = 0
 
 
 
 .. _setup-config-inttarget:
 
 intTarget
-"""""""""
+=========
 
 .. container:: table-row
 
@@ -1550,53 +1474,10 @@ intTarget
 
 
 
-.. _setup-config-jumpurl-enable:
-
-jumpurl\_enable
-"""""""""""""""
-
-.. container:: table-row
-
-   Property
-         jumpurl\_enable
-
-   Data type
-         boolean
-
-   Description
-         jumpUrl is a concept where external links are redirected from the
-         index\_ts.php script, which first logs the URL.
-
-   Default
-         0
-
-
-
-.. _setup-config-jumpurl-mailto-disable:
-
-jumpurl\_mailto\_disable
-""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         jumpurl\_mailto\_disable
-
-   Data type
-         boolean
-
-   Description
-         Disables the use of jumpUrl when linking to email-adresses.
-
-   Default
-         0
-
-
-
 .. _setup-config-language:
 
 language
-""""""""
+========
 
 .. container:: table-row
 
@@ -1604,10 +1485,10 @@ language
          language
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         Language key. See stdWrap.lang for more information.
+         Language key. See :ref:`stdwrap-lang` for more information.
 
          Select between:
 
@@ -1624,16 +1505,14 @@ language
          etc...
 
          The value must correspond to the key used for the backend system language if
-         there is one. See inside typo3/sysext/core/Classes/Localization/Locales.php
-         (in TYPO3 4.7 and 4.6 in t3lib/l10n/class.t3lib_l10n_locales.php and until
-         TYPO3 4.5 in t3lib/config\_default.php) or look at the translation page
-         on typo3.org for the official 2-byte key for a given language. Notice that
-         selecting the official key is important if you want to get labels in the
-         correct language from "locallang" files.
+         there is one. See inside :file:`typo3/sysext/core/Classes/Localization/Locales.php`
+         or look at the translation page on typo3.org for the official 2-byte key for
+         a given language. Notice that selecting the official key is important if you
+         want to get labels in the correct language from "locallang" files.
 
          If the language you need is not yet a system language in TYPO3 you can
          use an artificial string of your choice and provide values for it via
-         the TypoScript template where the property "\_LOCAL\_LANG" for most
+         the TypoScript template where the property :ts:`_LOCAL_LANG` for most
          plugins will provide a way to override/add values for labels. The keys
          to use must be looked up in the locallang-file used by the plugin of
          course.
@@ -1643,7 +1522,7 @@ language
 .. _setup-config-language-alt:
 
 language\_alt
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -1651,10 +1530,10 @@ language\_alt
          language\_alt
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         If "config.language" (above) is used, this can be set to another
+         If :ref:`setup-config-language` is used, this can be set to another
          language key which will be used for labels if a label was not found
          for the main language. For instance a brazil portuguese website might
          specify "pt" as alternative language which means the portuguese label
@@ -1667,7 +1546,7 @@ language\_alt
 .. _setup-config-linkvars:
 
 linkVars
-""""""""
+========
 
 .. container:: table-row
 
@@ -1678,8 +1557,8 @@ linkVars
          list
 
    Description
-         HTTP\_GET\_VARS, which should be passed on with links in TYPO3. This
-         is compiled into a string stored in $GLOBALS['TSFE']->linkVars
+         :php:`HTTP_GET_VARS`, which should be passed on with links in TYPO3. This
+         is compiled into a string stored in :php:`$GLOBALS['TSFE']->linkVars`
 
          The values are rawurlencoded in PHP.
 
@@ -1699,27 +1578,33 @@ linkVars
 
          - **/[regex]/** -Match against a regular expression (PCRE style)
 
-         **Example:** ::
+         You can use the pipe character (|) to access nested properties.
 
-            config.linkVars = L, print
+         .. note::
 
-         This will add "&L=[L-value]&print=[print-value]" to all links in
+            Do **not** include the `type` parameter in the linkVars
+            list, as this can result in unexpected behavior.
+
+   Examples
+         ::
+
+            config.linkVars = print
+
+         This will add `&print=[print-value]` to all links in
          TYPO3. ::
 
-            config.linkVars = L(1-3), print
+            config.linkVars = tracking|green(0-5)
 
-         Same as above, but "&L=[L-value]" will only be added if the current
-         value is 1, 2 or 3.
-
-         **Note:** Do **not** include the "type" parameter in the linkVars
-         list, as this can result in unexpected behavior.
+         With the above configuration the following example GET parameters will
+         be kept: `&tracking[green]=3`. But a get parameter like
+         `tracking[blue]` will not be kept.
 
 
 
 .. _setup-config-locale-all:
 
 locale\_all
-"""""""""""
+===========
 
 .. container:: table-row
 
@@ -1727,102 +1612,32 @@ locale\_all
          locale\_all
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         PHP: setlocale("LC\_ALL", [value]);
+         :php:`setlocale("LC_ALL", [value]);`
 
          value-examples: deutsch, de\_DE, danish, portuguese, spanish, french,
          norwegian, italian. See www.php.net for other value. Also on linux,
-         look at /usr/share/locale/
+         look at :file:`/usr/share/locale/`
 
-         TSFE->localeCharset is intelligently set to the assumed charset of the
-         locale strings. This is used in stdWrap.strftime to convert locale
-         strings to the renderCharset of the frontend.
+         :php:`$GLOBALS['TSFE']->localeCharset` is intelligently set to the assumed charset of the
+         locale strings. This is used in :ref:`stdwrap-strftime` to convert locale
+         strings to the UTF-8 of the frontend.
 
-         **Example:**
+         It is possible to supply a comma-separated list of locales as a fallback chain
 
+   Example
          This will render dates in danish made with stdWrap/strftime::
 
             locale_all = danish
             locale_all = da_DK
 
 
-
-.. _setup-config-lockfilepath:
-
-lockFilePath
-""""""""""""
-
-.. container:: table-row
-
-   Property
-         lockFilePath
-
-   Data type
-         string
-
-   Description
-         This is used to lock paths to be "inside" this path.
-
-         Used by "filelist" in stdWrap
-
-   Default
-         fileadmin/
-
-
-
-.. _setup-config-mainscript:
-
-mainScript
-""""""""""
-
-.. container:: table-row
-
-   Property
-         mainScript
-
-   Data type
-         string
-
-   Description
-         This lets you specify an alternative "mainScript" which is the
-         document that TYPO3 expects to be the default doc. This is used in
-         form-tags and other places where TYPO3 needs to refer directly to the
-         main-script of the application
-
-   Default
-         index.php
-
-
-
-.. _setup-config-meaningfultempfileprefix:
-
-meaningfulTempFilePrefix
-""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         meaningfulTempFilePrefix
-
-   Data type
-         integer
-
-   Description
-         If > 0 TYPO3 will try to create a meaningful prefix of the given
-         length for the temporary image files.
-
-         This works with GIFBUILDER files (using content from the GIFBUILDER
-         TEXT objects as a base for the prefix), menus (using the title of the
-         menu item) and scaled images (using the original filename base).
-
-
-
 .. _setup-config-message-page-is-being-generated:
 
 message\_page\_is\_being\_generated
-"""""""""""""""""""""""""""""""""""
+===================================
 
 .. container:: table-row
 
@@ -1830,7 +1645,7 @@ message\_page\_is\_being\_generated
          message\_page\_is\_being\_generated
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          Alternative HTML message that appears if a page is being generated.
@@ -1847,7 +1662,7 @@ message\_page\_is\_being\_generated
 .. _setup-config-message-preview:
 
 message\_preview
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -1855,7 +1670,7 @@ message\_preview
          message\_preview
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          Alternative message in HTML that appears when the preview function is
@@ -1866,7 +1681,7 @@ message\_preview
 .. _setup-config-message-preview-workspace:
 
 message\_preview\_workspace
-"""""""""""""""""""""""""""
+===========================
 
 .. container:: table-row
 
@@ -1874,14 +1689,15 @@ message\_preview\_workspace
          message\_preview\_workspace
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          Alternative message in HTML that appears when the preview function is
          active in a draft workspace. You can use sprintf() placeholders for
          Workspace title (first) and number (second).
 
-         **Examples:** ::
+   Examples
+         ::
 
             config.message_preview_workspace = <div class="previewbox">Displaying workspace named "%s" (number %s)!</div>
             config.message_preview_workspace = <div class="previewbox">Displaying workspace number %2$s named "%1$s"!</div>
@@ -1891,7 +1707,7 @@ message\_preview\_workspace
 .. _setup-config-metacharset:
 
 metaCharset
-"""""""""""
+===========
 
 .. container:: table-row
 
@@ -1899,7 +1715,10 @@ metaCharset
          metaCharset
 
    Data type
-         string
+         :ref:`data-type-string`
+
+   Default
+         utf-8
 
    Description
          Charset used for the output document. For example in the meta tag::
@@ -1907,104 +1726,24 @@ metaCharset
             <meta charset=... />
 
          It is used for a) HTML meta tag, b) HTTP header (unless disabled with
-         .disableCharsetHeader) and c) xhtml prologues (if available).
+         :ref:`setup-config-disableCharsetHeader`) and c) xhtml prologues (if available).
 
-         If renderCharset and metaCharset are different, the output content is
+         If metaCharset is not UTF-8, the output content is
          automatically converted to metaCharset before output and likewise are
          values posted back to the page converted from metaCharset to
-         renderCharset for internal processing. This conversion takes time of
+         UTF-8 for internal processing. This conversion takes time of
          course so there is another good reason to use the same charset for
          both.
 
-   Default
-         value of ".renderCharset"
-
-
-
-.. _setup-config-minifycss:
-
-minifyCSS
-"""""""""
-
-.. container:: table-row
-
-   Property
-         minifyCSS
-
-   Data type
-         boolean
-
-   Description
-         Setting this option will activate CSS minification.
-
-         **Example:** ::
-
-            config.minifyCSS = 1
-
-         **Note:** CSS in external files in the FE will only be minified, if a
-         compression handler is registered using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['cssCompressHandler'].
-
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_cssCompressHandler.php:tx_myext_cssCompressHandler->minifyCss';
-
-         **Note:** This property was deprecated and has been removed in TYPO3
-         6.0. Use config.compressCss instead.
-
-
-
-.. _setup-config-minifyjs:
-
-minifyJS
-""""""""
-
-.. container:: table-row
-
-   Property
-         minifyJS
-
-   Data type
-         boolean
-
-   Description
-         If set, inline or externalized (see removeDefaultJS above) JavaScript
-         will be minified. Minification will remove all excess space and will
-         cause faster page loading. Together with removeDefaultJS = external it
-         will significantly lower web site traffic.
-
-         The default value depends on the compatibility mode (see the Update
-         wizard under Tools > Install):
-
-         *compatibility mode < 4.0: 0*
-
-         *compatibility mode >= 4.0: 1*
-
-         **Example:** ::
-
-            config.minifyJS = 1
-
-         **Note:** JavaScript in external files in the FE will only be
-         minified, if a compression handler is registered using
-         $GLOBALS['TYPO3\_CONF\_VARS']['FE']['jsCompressHandler'].
-
-         **Example:** ::
-
-            $GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler'] =
-               t3lib_extMgm::extPath($_EXTKEY) .
-               'Classes/class.tx_myext_jsCompressHandler.php:tx_myext_jsCompressHandler->minifyJs';
-
-         **Note:** This property was deprecated and has been removed in TYPO3
-         6.0! Use config.compressJs instead.
+         If an unknown charset is provided a :php:`\RuntimeException` will be
+         thrown.
 
 
 
 .. _setup-config-movejsfromheadertofooter:
 
 moveJsFromHeaderToFooter
-""""""""""""""""""""""""
+========================
 
 .. container:: table-row
 
@@ -2012,7 +1751,7 @@ moveJsFromHeaderToFooter
          moveJsFromHeaderToFooter
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If set, all JavaScript (includes and inline) will be moved to the
@@ -2024,7 +1763,7 @@ moveJsFromHeaderToFooter
 .. _setup-config-mp-defaults:
 
 MP\_defaults
-""""""""""""
+============
 
 .. container:: table-row
 
@@ -2032,7 +1771,7 @@ MP\_defaults
          MP\_defaults
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          Allows you to set a list of page id numbers which will always have a
@@ -2042,19 +1781,20 @@ MP\_defaults
 
          [id],[id],... : [MP-var] \| [id],[id],... : [MP-var] \| ...
 
-         **Example:** ::
+   Example
+         ::
 
             config.MP_defaults = 36,37,48 : 2-207
 
-         This will by default add "&MP=2-207" to all links pointing to pages
-         36,37 and 48
+         This will by default add `&MP=2-207` to all links pointing to pages
+         36,37 and 48.
 
 
 
 .. _setup-config-mp-disabletypolinkclosestmpvalue:
 
 MP\_disableTypolinkClosestMPvalue
-"""""""""""""""""""""""""""""""""
+=================================
 
 .. container:: table-row
 
@@ -2062,7 +1802,7 @@ MP\_disableTypolinkClosestMPvalue
          MP\_disableTypolinkClosestMPvalue
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If set, the typolink function will not try to find the closest MP
@@ -2073,39 +1813,46 @@ MP\_disableTypolinkClosestMPvalue
 .. _setup-config-mp-maprootpoints:
 
 MP\_mapRootPoints
-"""""""""""""""""
+=================
 
 .. container:: table-row
 
    Property
-         MP\_mapRootPoints
+      MP\_mapRootPoints
 
    Data type
-         list of PIDs/string
+      list of PIDs / :ref:`data-type-string`
 
    Description
-         Defines a list of ID numbers from which the MP-vars are automatically
-         calculated for the branch.
+      Defines a list of ID numbers from which the MP-vars are automatically
+      calculated for the branch.
 
-         The result is used just like MP\_defaults are used to find MP-vars if
-         none has been specified prior to the call to
-         TYPO3\CMS\Core\TypoScript\TemplateService::linkData()
-         (t3lib\_tstemplate::linkData()).
+      The result is used just like :ref:`MP\_defaults <setup-config-mp-defaults>` are used to
+      find MP-vars if none has been specified prior to the call to
+      `TYPO3\CMS\Core\TypoScript\TemplateService::linkData()`.
 
-         You can specify "root" as a special keyword in the list of IDs and
-         that will create a map-tree for the whole site (but this may be VERY
-         processing intensive if there are many pages!).
+      You can specify `root` as a special keyword in the list of IDs and
+      that will create a map-tree for the whole site (but this may be VERY
+      processing intensive if there are many pages!).
 
-         The order of IDs specified may have a significance; Any ID in a branch
-         which is processed already (by a previous ID root point) will not be
-         processed again.
+      The order of IDs specified may have a significance; Any ID in a branch
+      which is processed already (by a previous ID root point) will not be
+      processed again.
+
+      The configured IDs have to be the uids of Mount Point pages itself, not the targets.
+
+      .. tip::
+
+         To mount content from parts of the page tree that don't belong to the current
+         domain set :ref:`setup-config-content-from-pid-allowoutsidedomain` to true.
+
 
 
 
 .. _setup-config-namespaces:
 
 namespaces
-""""""""""
+==========
 
 .. container:: table-row
 
@@ -2116,16 +1863,17 @@ namespaces
          *(array of strings)*
 
    Description
-         This property enables you to add xml namespaces (xmlns) to the <html>
+         This property enables you to add xml namespaces (xmlns) to the :html:`<html>`
          tag. This is especially useful if you want to add RDFa or microformats
          to your HTML.
 
-         **Example:** ::
+   Example
+         ::
 
             config.namespaces.dc = http://purl.org/dc/elements/1.1/
             config.namespaces.foaf = http://xmlns.com/foaf/0.1/
 
-         This configuration will result in an <html> tag like ::
+         This configuration will result in an :html:`<html>` tag like::
 
             <html xmlns:dc="http://purl.org/dc/elements/1.1/"
                xmlns:foaf="http://xmlns.com/foaf/0.1/">
@@ -2135,7 +1883,7 @@ namespaces
 .. _setup-config-no-cache:
 
 no\_cache
-"""""""""
+=========
 
 .. container:: table-row
 
@@ -2143,22 +1891,22 @@ no\_cache
          no\_cache
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         \-
 
    Description
          If this is set to true, the page will not be cached. If set to false,
          it's ignored. Other parameters may have set it to true of other
          reasons.
 
-   Default
-         -
-
 
 
 .. _setup-config-nopagetitle:
 
 noPageTitle
-"""""""""""
+===========
 
 .. container:: table-row
 
@@ -2166,92 +1914,25 @@ noPageTitle
          noPageTitle
 
    Data type
-         integer
+         :ref:`data-type-integer`
+
+   Default
+         0
 
    Description
          If you only want to have the site name (from the template record) in
-         your <title> tag, set this to 1. If the value is 2 then the <title>
+         your :html:`<title>` tag, set this to 1. If the value is 2 then the :html:`<title>`
          tag is not printed at all.
 
          Please take note that this tag is required for (X)HTML compliant
          output, so you should only disable this tag if you generate it
          manually already.
 
-   Default
-         0
-
-
-
-.. _setup-config-noscaleup:
-
-noScaleUp
-"""""""""
-
-.. container:: table-row
-
-   Property
-         noScaleUp
-
-   Data type
-         boolean
-
-   Description
-         Normally images are scaled to the size specified via TypoScript. This
-         also forces small images to be scaled to a larger size. This is not
-         always a good thing.
-
-         If this property is set, images are **not** allowed to be scaled up
-         in size. This parameter clears the $this->mayScaleUp var of the class
-         TYPO3\CMS\Core\Imaging\GraphicalFunctions (t3lib\_stdgraphics, often
-         referred to as "gifbuilder").
-
-
-
-.. _setup-config-pagegenscript:
-
-pageGenScript
-"""""""""""""
-
-.. container:: table-row
-
-   Property
-         pageGenScript
-
-   Data type
-         resource
-
-   Description
-         Alternative page generation script for applications using
-         index\_ts.php for initialization, caching, stating and so on. This
-         script is included in the global scope of index\_ts.php-script and
-         thus you may include libraries here. Always use include\_once for
-         libraries.
-
-         Remember not to output anything from such an included script. **All
-         content must be set into $TSFE->content.** Take a look at
-         typo3/sysext/frontend/Classes/Page/PageGenerator.php
-         (typo3/sysext/cms/tslib/pagegen.php).
-
-         **Note:** This option is ignored if ::
-
-            ['FE']['noPHPscriptInclude'] => 1;
-
-         is set in LocalConfiguration.php or respectively ::
-
-            $TYPO3_CONF_VARS['FE']['noPHPscriptInclude'] = 1;
-
-         is set in localconf.php.
-
-   Default
-         typo3/sysext/frontend/Classes/Page/PageGenerator.php
-         (typo3/sysext/cms/tslib/class.tslib\_pagegen.php)
-
-
 
 .. _setup-config-pagerenderertemplatefile:
 
 pageRendererTemplateFile
-""""""""""""""""""""""""
+========================
 
 .. container:: table-row
 
@@ -2259,22 +1940,45 @@ pageRendererTemplateFile
          pageRendererTemplateFile
 
    Data type
-         string
+         :ref:`data-type-string`
+
+   Default
+         :file:`EXT:core/Resources/Private/Templates/PageRenderer.html`
 
    Description
          Sets the template for page renderer class
-         TYPO3\CMS\Core\Page\PageRenderer (t3lib\_PageRenderer).
+         :php:`TYPO3\CMS\Core\Page\PageRenderer`.
 
-         **Example:** ::
+   Example
+         ::
 
             pageRendererTemplateFile = fileadmin/test_pagerender.html
+
+
+.. _setup-config-pagetitle:
+
+pageTitle
+=========
+
+.. container:: table-row
+
+   Property
+         pageTitle
+
+   Data type
+         :ref:`stdwrap`
+
+   Description
+         stdWrap for the page title. This option will be executed *after* all
+         other processing options like :ref:`setup-config-titleTagFunction` and
+         :ref:`setup-config-pageTitleFirst`.
 
 
 
 .. _setup-config-pagetitlefirst:
 
 pageTitleFirst
-""""""""""""""
+==============
 
 .. container:: table-row
 
@@ -2282,25 +1986,70 @@ pageTitleFirst
          pageTitleFirst
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         0
 
    Description
          TYPO3 by default prints a title tag in the format "website: page
          title".
 
-         If pageTitleFirst is set (and if the page title is printed), then the
+         If :ts:`pageTitleFirst` is set (and if the page title is printed), then the
          page title will be printed IN FRONT OF the template title. So it will
          look like "page title: website".
 
-   Default
-         0
+
+
+.. _setup-config-pagetitleproviders:
+
+pageTitleProviders
+==================
+
+.. container:: table-row
+
+   Property
+         pageTitleProviders
+
+   Data type
+         array
+
+   Description
+         In order to keep setting the titles in control, an API to set the page title is available. The API uses
+         :ts:`PageTitleProviders` to define the page title based on page record and the content on the page.
+
+         Based on the priority of the providers, the :php:`PageTitleProviderManager` will check the providers if a title
+         is given by the provider. It will start with the highest priority :ts:`PageTitleProviders` and will end with
+         the lowest in priority.
+
+   Examples
+         By default, TYPO3 ships with two providers::
+
+            config.pageTitleProviders {
+               record {
+                  provider = TYPO3\CMS\Core\PageTitle\RecordPageTitleProvider
+               }
+               seo {
+                  provider = TYPO3\CMS\Seo\PageTitle\SeoTitlePageTitleProvider
+                  before = record
+               }
+            }
+
+         The ordering of the providers is based on the :ts:`before` and :ts:`after` parameters. If you want a provider
+         to be handled before a specific other provider, just set that provider in the :ts:`before`, do the same with
+         :ts:`after`.
+
+         .. note::
+            The :ts:`seo` PageTitleProvider is only available with installed SEO system extension.
+
+         You can find information about creating own PageTitleProviders in the section :ref:`PageTitle API <t3coreapi:pagetitle>`.
 
 
 
 .. _setup-config-pagetitleseparator:
 
 pageTitleSeparator
-""""""""""""""""""
+==================
 
 .. container:: table-row
 
@@ -2308,67 +2057,38 @@ pageTitleSeparator
          pageTitleSeparator
 
    Data type
-         Until TYPO3 6.0: string
-
-         Since TYPO3 6.1: string /:ref:`stdWrap <stdwrap>`
-
-   Description
-         (Since TYPO3 4.7) The signs which should be printed in the title tag
-         between the website name and the page title. If pageTitleSeparator is
-         set, but *no* sub-properties are defined, then a space will be added
-         to the end of the separator. stdWrap is useful to adjust whitespaces
-         at the beginning and the end of the separator.
-
-         **Examples:** ::
-
-            config.pageTitleSeparator = .
-
-         This produces a title tag with the content "website. page title". ::
-
-            config.pageTitleSeparator = -
-            config.pageTitleSeparator.noTrimWrap = | | |
-
-         This produces a title tag with the content "website - page title". ::
-
-            config.pageTitleSeparator = *
-            config.pageTitleSeparator.noTrimWrap = |||
-
-         This produces a title tag with the content "website*page title".
+         :ref:`data-type-string` / :ref:`stdwrap`
 
    Default
          : *(colon with following space)*
 
-
-
-.. _setup-config-prefixlocalanchors:
-
-prefixLocalAnchors
-""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         prefixLocalAnchors
-
-   Data type
-         string
-
    Description
-         If set to one of the keywords, the content will have all local anchors
-         in links prefixed with the path of the script. Basically this means
-         that <a href="#"> will be transformed to <a
-         href="path/path/script?params#">. This procedure is necessary if the
-         <base> tag is set (e.g. if the "realurl" extension is used to produce
-         speaking URLs). See property "config.baseURL".
+         The signs which should be printed in the title tag between the website
+         name and the page title. If :ts:`pageTitleSeparator` is set, but *no*
+         sub-properties are defined, then a space will be added to the end of the
+         separator. stdWrap is useful to adjust whitespaces at the beginning and
+         the end of the separator.
 
-         The keywords are the same as for "xhtml\_cleaning", see above.
+   Examples
+         This produces a title tag with the content "website . page title"::
 
+            config.pageTitleSeparator = .
+
+         This produces a title tag with the content "website - page title"::
+
+            config.pageTitleSeparator = -
+            config.pageTitleSeparator.noTrimWrap = | | |
+
+         This produces a title tag with the content "website*page title"::
+
+            config.pageTitleSeparator = *
+            config.pageTitleSeparator.noTrimWrap = |||
 
 
 .. _setup-config-removedefaultcss:
 
 removeDefaultCss
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -2376,12 +2096,12 @@ removeDefaultCss
          removeDefaultCss
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         (Since TYPO3 4.6) Remove CSS generated by :ref:`\_CSS\_DEFAULT\_STYLE
+         Remove CSS generated by :ref:`\_CSS\_DEFAULT\_STYLE
          <setup-plugin-css-default-style>` configuration of extensions.
-         (\_CSS\_DEFAULT\_STYLE outputs a set of default styles, just because
+         (:ts:`_CSS_DEFAULT_STYLE` outputs a set of default styles, just because
          an extension is installed.)
 
 
@@ -2389,7 +2109,7 @@ removeDefaultCss
 .. _setup-config-removedefaultjs:
 
 removeDefaultJS
-"""""""""""""""
+===============
 
 .. container:: table-row
 
@@ -2397,26 +2117,22 @@ removeDefaultJS
          removeDefaultJS
 
    Data type
-         boolean / string
+         :ref:`data-type-boolean` / :ref:`data-type-string`
+
+   Default
+         external
 
    Description
          If set, the default JavaScript in the header will be removed.
 
-         The default JavaScript is the blurLink function and browser detection
-         variables.
+         The default JavaScript is the decryption function for email addresses.
 
          **Special case:** If the value is "**external**", then the default
          JavaScript is written to a temporary file and included from that file.
-         See "inlineStyle2TempFile" below.
+         See :ref:`setup-config-inlineStyle2TempFile`.
 
-         Depends on the compatibility mode (see the Update wizard under Tools >
-         Install):
-
-         *compatibility mode < 4.0: 0*
-
-         *compatibility mode >= 4.0: 1*
-
-         **Examples:** ::
+   Examples
+         ::
 
             config.removeDefaultJS = external
             config.removeDefaultJS = 1
@@ -2426,7 +2142,7 @@ removeDefaultJS
 .. _setup-config-removepagecss:
 
 removePageCss
-"""""""""""""
+=============
 
 .. container:: table-row
 
@@ -2434,66 +2150,22 @@ removePageCss
          removePageCss
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         (Since TYPO3 6.1) Remove CSS generated by :ref:`\_CSS\_PAGE\_STYLE
+         Remove CSS generated by :ref:`\_CSS\_PAGE\_STYLE
          <setup-plugin-css-page-style>` configuration of extensions.
-         (\_CSS\_PAGE\_STYLE renders certain styles not just because an
+         (:ts:`_CSS_PAGE_STYLE` renders certain styles not just because an
          extension is installed, but only in a special situation. E.g. some
          styles will be output, when a textpic element with an image
          positioned alongside the text is present on the current page.)
 
 
 
-.. _setup-config-rendercharset:
-
-renderCharset
-"""""""""""""
-
-.. container:: table-row
-
-   Property
-         renderCharset
-
-   Data type
-         string
-
-   Description
-         Charset used for the internal rendering of the page content. It is
-         highly recommended that this value is the same as the charset of the
-         content coming from the main data source (e.g. the database). Thus you
-         don't need to do any other conversion.
-
-         All strings from locallang files and locale strings are (and should
-         be) converted to "renderCharset" during rendering.
-
-         If you need another output charset than the render charset, see
-         "metaCharset" below.
-
-         Until TYPO3 4.7 you can set $TYPO3\_CONF\_VARS['BE']['forceCharset'].
-         If you do, its value is used for "renderCharset" by default. It is
-         highly recommended to use $TYPO3\_CONF\_VARS['BE']['forceCharset'] =
-         "utf-8" for multilingual websites in TYPO3. If you set this, you don't
-         have to worry about renderCharset and metaCharset - the same charset
-         is used in the whole system.
-
-         **Note:** In TYPO3 4.7 $TYPO3\_CONF\_VARS['BE']['forceCharset'] has
-         been removed. Since this version TYPO3 internally always uses UTF-8 by
-         default.
-
-   Default
-         Until TYPO3 4.6: The value of $TYPO3\_CONF\_VARS['BE']['forceCharset']
-         if set, otherwise "iso-8859-1"
-
-         Since TYPO3 4.7: "utf-8"
-
-
-
 .. _setup-config-sendcacheheaders:
 
 sendCacheHeaders
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -2501,7 +2173,7 @@ sendCacheHeaders
          sendCacheHeaders
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If set, TYPO3 will output cache-control headers to the client based
@@ -2513,7 +2185,7 @@ sendCacheHeaders
 
          - page was cached
 
-         - No \*\_INT or \*\_EXT objects were on the page (e.g. USER\_INT)
+         - No \*\_INT or \*\_EXT objects were on the page (e.g. :ref:`cobj-user`)
 
          - No frontend user is logged in
 
@@ -2525,7 +2197,7 @@ sendCacheHeaders
 
          - Expires [expire time of page cache]
 
-         - Etag [md5 of content]
+         - ETag [md5 of content]
 
          - Cache-Control: max-age: [seconds til expiretime]
 
@@ -2534,7 +2206,7 @@ sendCacheHeaders
          In case caching is not allowed, these headers are sent to avoid client
          caching:
 
-         - Cache-Control: private
+         - Cache-Control: private, no-store
 
          Notice that enabling the browser caches means you have to consider how
          log files are written. Because when a page is cached on the client it
@@ -2554,7 +2226,7 @@ sendCacheHeaders
 .. _setup-config-sendcacheheaders-onlywhenlogindeniedinbranch:
 
 sendCacheHeaders\_onlyWhenLoginDeniedInBranch
-"""""""""""""""""""""""""""""""""""""""""""""
+=============================================
 
 .. container:: table-row
 
@@ -2562,7 +2234,7 @@ sendCacheHeaders\_onlyWhenLoginDeniedInBranch
          sendCacheHeaders\_onlyWhenLoginDeniedInBranch
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          If this is set, then cache-control headers allowing client caching is
@@ -2577,12 +2249,12 @@ sendCacheHeaders\_onlyWhenLoginDeniedInBranch
          (allowing caching) the user will still see the page from cache when
          logged in (and so thinks he is not logged in anyway)! The only general
          way to prevent this is to have a different URL for pages when users
-         are logged in (which the extension "realurl" can accomplish).
+         are logged in.
 
          Another way to solve the problem is using this option in combination
          with disabling and enabling logins in various sections of the site. In
          the page records ("Advanced" page types) you can disable frontend user
-         logins for branches of the page tree. Since many sites only needs the
+         logins for branches of the page tree. Since many sites only need the
          login in a certain branch of the page tree, disabling it in all other
          branches makes it much easier to use cache-headers in combination with
          logins; Cache-headers should simply be sent when logins are not
@@ -2591,317 +2263,10 @@ sendCacheHeaders\_onlyWhenLoginDeniedInBranch
 
 
 
-.. _setup-config-setjs-mouseover:
-
-setJS\_mouseOver
-""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         setJS\_mouseOver
-
-   Data type
-         boolean
-
-   Description
-         If set, the over() and out() JavaScript functions are forced to be
-         included
-
-
-
-.. _setup-config-setjs-openpic:
-
-setJS\_openPic
-""""""""""""""
-
-.. container:: table-row
-
-   Property
-         setJS\_openPic
-
-   Data type
-         boolean
-
-   Description
-         If set, the openPic JavaScript function is forced to be included
-
-
-
-.. _setup-config-simulatestaticdocuments:
-
-simulateStaticDocuments
-"""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments
-
-   Data type
-         boolean / string
-
-   Description
-         If set TYPO3 makes all links in another way than usual. This
-         affects all sites in the database. This option can be used
-         with **Apache compiled with mod\_rewrite and configured in
-         httpd.conf for use of this in the ".htaccess"-files.**
-
-         Include this in the .htaccess file ::
-
-            RewriteEngine On
-            RewriteRule   ^[^/]*\.html$  index.php
-
-         This means that any "\*.html"-documents should be handled by
-         index.php.
-
-         Now if this is done, TYPO3 will interpret the URL of the html-document
-         like this:
-
-         [title].[id].[type].html
-
-         Title is optional and only useful for the entries in the apache log-
-         files. You may omit both [title] and [type] but if title is present,
-         type must also be there!
-
-         **Example:**
-
-         TYPO3 will interpret this as page with uid=23 and type=1::
-
-            Startpage.23.1.html
-
-         TYPO3 will interpret this as the page with alias = "start". The
-         type is zero (default)::
-
-            start.html
-
-         **Alternative value (PATH\_INFO):**
-
-         Instead of using the rewrite-module in apache (e.g. if you're running
-         Windows!) you can use the PATH\_INFO variable from PHP.
-
-         It's very simple. Just set simulateStaticDocuments to "PATH\_INFO" and
-         you're up and running!
-
-         **Also:** See below, .absRefPrefix
-
-         **Example (to be put in the Setup field of your template):** ::
-
-            config.simulateStaticDocuments = PATH_INFO
-
-         **Note:** Since TYPO3 4.3 the system extension "simulatestatic" had
-         to be installed to be able to activate this functionality. Since TYPO3
-         6.0 the extension simulatestatic no longer is part of the TYPO3 Core.
-         Instead it needs to be installed from TER.
-
-   Default
-         The default is defined by the configuration option
-         ['FE']['simulateStaticDocuments'] in LocalConfiguration.php, which
-         defaults to 1 ($TYPO3\_CONF\_VARS['FE']['simulateStaticDocuments'] = 1
-         in localconf.php)
-
-
-
-.. _setup-config-simulatestaticdocuments-addtitle:
-
-simulateStaticDocuments\_addTitle
-"""""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments\_addTitle
-
-   Data type
-         integer
-
-   Description
-         If not zero, TYPO3 generates URLs with the title in them, limited to
-         the first [simulateStaticDocuments\_addTitle] number of chars.
-
-         **Example:** ::
-
-            Startpage.23.1.html
-
-         instead of the default, "23.1.html", without the title.
-
-
-
-.. _setup-config-simulatestaticdocuments-dontredirectpathinfoerror:
-
-simulateStaticDocuments\_dontRedirectPathInfoError
-""""""""""""""""""""""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments\_dontRedirectPathInfoError
-
-   Data type
-         boolean
-
-   Description
-         Regarding PATH\_INFO mode:
-
-         When a page is requested by "PATH\_INFO" method it must be configured
-         in order to work properly. If PATH\_INFO is not configured, the
-         index\_ts.php script sends a location header to the correct page.
-         However if you better like an error message outputted, just set this
-         option.
-
-
-
-.. _setup-config-simulatestaticdocuments-notypeifnotitle:
-
-simulateStaticDocuments\_noTypeIfNoTitle
-""""""""""""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments\_noTypeIfNoTitle
-
-   Data type
-         boolean
-
-   Description
-         If set, then the type-value will not be set in the simulated filename
-         if the type value is zero anyways. However the filename must be
-         without a title.
-
-         **Example:**
-
-         "Startpage.23.0.html" would *still* be "Startpage.23.0.html"
-
-         "23.0.html" would be "23.html" (that is without the zero)
-
-         "23.1.html" would *still* be "23.1.html"
-
-
-
-.. _setup-config-simulatestaticdocuments-penc:
-
-simulateStaticDocuments\_pEnc
-"""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments\_pEnc
-
-   Data type
-         string
-
-   Description
-         Allows you to also encode additional parameters into the simulated
-         filename.
-
-         **Example:**
-
-         You have a news-plugin. The main page has the URL "Page\_1.228.0.html"
-         but when one clicks on a news item the URL will be
-         "Page\_1.228.0.html?&tx\_mininews\_pi1[showUid]=2&cHash=b8d239c224"
-         instead.
-
-         Now, this URL will not be indexed by external search-engines because
-         of the query-string (everything after the "?" mark). This property
-         avoids this problem by encoding the parameters. These are the options:
-
-         **Value set to "base64":**
-
-         This will transform the filename used to this value: "Page\_1.228+B6Jn
-         R4X21pbmluZXdzX3BpMVtzaG93VWlkXT0yJmNIYXNoPWI4ZDIzOWMyMjQ\_.0.html".
-         The query string has simply been base64-encoded (and some more...) and
-         added to the HTML filename (so now external search-engines will find
-         this!). The really great thing about this that the filename is self-
-         reliant because the filename contains the parameters. The downside to
-         it is the very very long filename.
-
-         **Value set to "md5":**
-
-         This will transform the filename used to this value:
-
-         "Page\_1.228+M57867201f4a.0.html". Now, what a lovely, short filename!
-         Now all the parameters has been hashed into a 10-char string inserted
-         into the filename. At the same time an entry has been added to a cache
-         table in the database so when a request for this filename reaches the
-         frontend, then the REAL parameter string is found in the database! The
-         really great thing about this is that the filename is very short
-         (opposite to the base64-method). The downside to this is that IF you
-         clear the database cache table at any time, the URL here does **not**
-         work until a page with the link has been generated again (re-inserting
-         the parameter list into the database).
-
-         **Note:** Since TYPO3 3.6.0 the encoding works only on parameters
-         that are manually entered in the list set by
-         .simulateStaticDocuments\_pEnc\_onlyP (see right below) or those
-         parameters that various plugins might allow in addition. This is to
-         limit the run-away risk when many parameters get combined.
-
-
-
-.. _setup-config-simulatestaticdocuments-penc-onlyp:
-
-simulateStaticDocuments\_pEnc\_onlyP
-""""""""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments\_pEnc\_onlyP
-
-   Data type
-         string
-
-   Description
-         A list of variables that may be a part of the md5/base64 encoded part
-         of a simulate\_static\_document virtual filename (see property in the
-         row above).
-
-         **Example:** ::
-
-            simulateStaticDocuments_pEnc_onlyP = tx_maillisttofaq_pi1[pointer], L, print
-
-         -> this will allow the "pointer" parameter for the extension
-         "maillisttofaq" to be included (in addition to whatever vars the
-         extension sets itself) and further the parameter "L" (could be
-         language selection) and "print" (could be print-version).
-
-
-
-.. _setup-config-simulatestaticdocuments-replacementchar:
-
-simulateStaticDocuments\_replacementChar
-""""""""""""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         simulateStaticDocuments\_replacementChar
-
-   Data type
-         string
-
-   Description
-         Word separator for URLs generated by simulateStaticDocuments. If set
-         to
-
-         hyphen, this option allows search engines to index keywords in URLs.
-         Before TYPO3 4.0 this character was hard-coded to underscore.
-
-         Depends on the compatibility mode (see the Update wizard under Tools >
-         Install):
-
-         *compatibility mode < 4.0:* underscore "\_"
-
-         *compatibility mode >= 4.0:* hyphen "-"
-
-
-
 .. _setup-config-spamprotectemailaddresses:
 
 spamProtectEmailAddresses
-"""""""""""""""""""""""""
+=========================
 
 .. container:: table-row
 
@@ -2909,22 +2274,15 @@ spamProtectEmailAddresses
          spamProtectEmailAddresses
 
    Data type
-         "ascii" /
-
-         -10 to 10
+         "ascii" / -10 to 10
 
    Description
          If set, then all email addresses in typolinks will be encrypted so
-         spam
-
-         bots cannot detect them.
+         spam bots cannot detect them.
 
          If you set this value to a number, then the encryption is simply an
-
          offset of character values. If you set this value to "-2" then all
-
          characters will have their ASCII value offset by "-2". To make this
-
          possible, a little JavaScript code is added to every generated web
          page!
 
@@ -2934,18 +2292,12 @@ spamProtectEmailAddresses
          tables. Now hardcoded range)
 
          Alternatively you can set this value to the keyword "ascii". This way
-         every
+         every character of the "mailto:" address will be translated to a
+         Unicode HTML notation.  Have a look at the example to see how this
+         works.
 
-         character of the "mailto:" address will be translated to a Unicode
-         HTML
-
-         notation. Have a look at the example to see how this works.
-
-         Example:
-
-         mailto:a@b.c will be converted to
-
-         mailto:&#97;&#64;&#98;&#46;&#99;
+   Example
+         `mailto:a@b.c` will be converted to `mailto:&#97;&#64;&#98;&#46;&#99;`
 
          The big advantage of this method is that it does not need any
          JavaScript!
@@ -2955,7 +2307,7 @@ spamProtectEmailAddresses
 .. _setup-config-spamprotectemailaddresses-atsubst:
 
 spamProtectEmailAddresses\_atSubst
-""""""""""""""""""""""""""""""""""
+==================================
 
 .. container:: table-row
 
@@ -2963,20 +2315,20 @@ spamProtectEmailAddresses\_atSubst
          spamProtectEmailAddresses\_atSubst
 
    Data type
-         string
-
-   Description
-         Substitute label for the at-sign (@).
+         :ref:`data-type-string`
 
    Default
          (at)
+
+   Description
+         Substitute label for the at-sign (@).
 
 
 
 .. _setup-config-spamprotectemailaddresses-lastdotsubst:
 
 spamProtectEmailAddresses\_lastDotSubst
-"""""""""""""""""""""""""""""""""""""""
+=======================================
 
 .. container:: table-row
 
@@ -2984,485 +2336,23 @@ spamProtectEmailAddresses\_lastDotSubst
          spamProtectEmailAddresses\_lastDotSubst
 
    Data type
-         string
-
-   Description
-         Substitute label for the last dot in the email address.
-
-         Example: (dot)
+         :ref:`data-type-string`
 
    Default
          . *(just a simple dot)*
 
-
-
-.. _setup-config-stat:
-
-stat
-""""
-
-.. container:: table-row
-
-   Property
-         stat
-
-   Data type
-         boolean
-
    Description
-         Enable stat logging at all.
+         Substitute label for the last dot in the email address.
 
-         **Note:** All statistics related options including this one have
-         been removed in TYPO3 6.0. Use other well known tools like Google
-         Analytics or Piwik instead.
-
-   Default
-         true
-
-
-
-.. _setup-config-stat-apache:
-
-stat\_apache
-""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache
-
-   Data type
-         boolean
-
-   Description
-         Enable logging to the log file "stat\_apache\_logfile".
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         false
-
-
-
-.. _setup-config-stat-apache-logfile:
-
-stat\_apache\_logfile
-"""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache\_logfile
-
-   Data type
-         filename
-
-   Description
-         This defines the name of the log file where TYPO3 writes an Apache-
-         style logfile to. The location of the directory is defined by
-         $TYPO3\_CONF\_VARS['FE']['logfile\_dir'] which must exist and be
-         writable. It can be relative (to PATH\_site) or absolute, but in any
-         case it must be within the regular allowed paths of TYPO3 (meaning for
-         absolute paths that it must be within the "lockRootPath" set up in
-         $TYPO3\_CONF\_VARS).
-
-         It is also possible to use date markers in the filename as they are
-         provided by the PHP function strftime(). This will enable a natural
-         rotation of the log files.
-
-         **Example:** ::
-
-            config.stat_apache_logfile = typo3_%Y%m%d.log
-
-         This will create daily log files (e.g. typo3\_20060321.log).
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-apache-nicetitle:
-
-stat\_apache\_niceTitle
-"""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache\_niceTitle
-
-   Data type
-         boolean / string
-
-   Description
-         If set, the URL will be transliterated from the renderCharset to ASCII
-         (e.g ä => ae, à => a, &#945; "alpha" => a), which yields nice and
-         readable page titles in the log. All non-ASCII characters that cannot
-         be converted will be changed to underscores.
-
-         If set to "utf-8", the page title will be converted to UTF-8 which
-         results in even more readable titles, if your log analyzing software
-         supports it.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-apache-nohost:
-
-stat\_apache\_noHost
-""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache\_noHost
-
-   Data type
-         boolean
-
-   Description
-         If true, the HTTP\_HOST is - if available - **not** inserted instead
-         of the IP address.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-apache-noroot:
-
-stat\_apache\_noRoot
-""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache\_noRoot
-
-   Data type
-         boolean
-
-   Description
-         If set, the root part (level 0) of the path will be removed from the
-         path. This makes a shorter name in case you have only a redundant part
-         like "home" or "my site".
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-apache-notextended:
-
-stat\_apache\_notExtended
-"""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache\_notExtended
-
-   Data type
-         boolean
-
-   Description
-         If true, the log file is **not** written in Apache extended format.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-apache-pagenames:
-
-stat\_apache\_pagenames
-"""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_apache\_pagenames
-
-   Data type
-         string
-
-   Description
-         The "page name" simulated for apache.
-
-         Default: "[path][title]--[uid].html"
-
-         Codes:
-
-         [title] = inserts title, no special characters and shortened to 30
-         chars.
-
-         [uid] = the id
-
-         [alias] = any alias
-
-         [type] = the type (typeNum)
-
-         [path] = the path of the page
-
-         [request\_uri] = inserts the REQUEST\_URI server value (useful with
-         RealUrl for example)
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-excludebeuserhits:
-
-stat\_excludeBEuserHits
-"""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_excludeBEuserHits
-
-   Data type
-         boolean
-
-   Description
-         If set a page hit is not logged if a user is logged in into TYPO3.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         false
-
-
-
-.. _setup-config-stat-excludeiplist:
-
-stat\_excludeIPList
-"""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_excludeIPList
-
-   Data type
-         list of strings
-
-   Description
-         If the REMOTE\_ADDR is in the list of IP addresses, it's also not
-         logged.
-
-         Can use wildcard, e.g. "192.168.1.\*"
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-
-
-.. _setup-config-stat-ip-anonymize:
-
-stat\_IP\_anonymize
-"""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_IP\_anonymize
-
-   Data type
-         boolean
-
-   Description
-         (Since TYPO3 4.7) Set to 1 to activate anonymized logging. Setting this
-         to 1 will log an empty hostname and will enable anonymization of IP
-         addresses.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         0
-
-
-
-.. _setup-config-stat-ip-anonymize-mask-ipv4:
-
-stat\_IP\_anonymize\_mask\_ipv4
-"""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_IP\_anonymize\_mask\_ipv4
-
-   Data type
-         integer
-
-   Description
-         (Since TYPO3 4.7) Prefix-mask 0..32 to use for anonymisation of IP
-         addresses (IPv4). Only used, if stat\_IP\_anonymize is set to 1.
-
-         Recommendation for Germany::
-
-            config.stat_IP_anonymize_ipv4 = 24
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         24
-
-
-
-.. _setup-config-stat-ip-anonymize-mask-ipv6:
-
-stat\_IP\_anonymize\_mask\_ipv6
-"""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_IP\_anonymize\_mask\_ipv6
-
-   Data type
-         integer
-
-   Description
-         (Since TYPO3 4.7) Prefix-mask 0..128 to use for anonymisation of IP
-         addresses (IPv6). Only used, if stat\_IP\_anonymize is set to 1.
-
-         Recommendation for Germany::
-
-            config.stat_IP_anonymize_ipv6 = 64
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         64
-
-
-
-.. _setup-config-stat-loguser:
-
-stat\_logUser
-"""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_logUser
-
-   Data type
-         boolean
-
-   Description
-         (Since TYPO3 4.7) Configure whether to log the username of the Frontend
-         user, if the user is logged in in the FE currently. Setting this to 0
-         allows to anonymize the username.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         1
-
-
-
-.. _setup-config-stat-mysql:
-
-stat\_mysql
-"""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_mysql
-
-   Data type
-         boolean
-
-   Description
-         Enable logging to the database table sys\_stat.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         false
-
-
-
-.. _setup-config-stat-pagelen:
-
-stat\_pageLen
-"""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_pageLen
-
-   Data type
-         integer (1-100)
-
-   Description
-         The length of the page name (at the end of the path) written to the
-         log file/database.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         30
-
-
-
-.. _setup-config-stat-titlelen:
-
-stat\_titleLen
-""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_titleLen
-
-   Data type
-         integer (1-100)
-
-   Description
-         The length of the page names in the path written to log file/database.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         20
-
-
-
-.. _setup-config-stat-typenumlist:
-
-stat\_typeNumList
-"""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         stat\_typeNumList
-
-   Data type
-         int/list
-
-   Description
-         List of pagetypes that should be registered in the statistics table,
-         sys\_stat.
-
-         If no types are listed, all types are logged.
-
-         Default is "0,1" which normally logs all hits on framesets and hits on
-         content keeping pages. Of course this depends on the template design.
-
-         **Note:** This option has been removed in TYPO3 6.0.
-
-   Default
-         0,1
+   Example
+         (dot)
 
 
 
 .. _setup-config-sword-nomixedcase:
 
 sword\_noMixedCase
-""""""""""""""""""
+==================
 
 .. container:: table-row
 
@@ -3470,7 +2360,7 @@ sword\_noMixedCase
          sword\_noMixedCase
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          Used by the parseFunc-substitution of search Words (sword):
@@ -3482,7 +2372,7 @@ sword\_noMixedCase
 .. _setup-config-sword-standalone:
 
 sword\_standAlone
-"""""""""""""""""
+=================
 
 .. container:: table-row
 
@@ -3490,7 +2380,7 @@ sword\_standAlone
          sword\_standAlone
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
          Used by the parseFunc-substitution of search Words (sword):
@@ -3500,10 +2390,69 @@ sword\_standAlone
 
 
 
+.. _setup-config-sys-language-isocode:
+
+sys\_language\_isocode
+======================
+
+.. container:: table-row
+
+   Property
+         sys\_language\_isocode
+
+   Data type
+         :ref:`data-type-string`
+
+   Description
+        ISO 639-1 language code for the according language. By default this
+        is being set by :ts:`TSFE:sys_language_isocode`. The value is derived
+        from the ISO code that is stored within the sys_language record.
+        You can override the value, which was retrieved that way, with this
+        setting.
+
+        The ISO code is also used for the language attribute of the HTML tag.
+        Therefore the setting :ref:`htmlTag_langKey <setup-config-htmltag-langkey>`
+        is not needed anymore, if it is the same as the ISO code.
+
+        See the example at sys\_language\_isocode\_default!
+
+
+.. _setup-config-sys-language-isocode-default:
+
+sys\_language\_isocode\_default
+===============================
+
+.. container:: table-row
+
+   Property
+         sys\_language\_isocode\_default
+
+   Data type
+         :ref:`data-type-string`
+
+   Default
+         en
+
+   Description
+         ISO 639-1 language code for the default language (that is
+         :ts:`sys_language_uid = 0`).
+
+   Example
+         ::
+
+            # Danish by default
+            config.sys_language_uid = 0
+            config.sys_language_isocode_default = da
+
+            [siteLanguage = locale = de_CH.UTF-8]
+                config.sys_language_isocode = ch
+            [GLOBAL]
+
+
 .. _setup-config-sys-language-mode:
 
 sys\_language\_mode
-"""""""""""""""""""
+===================
 
 .. container:: table-row
 
@@ -3511,43 +2460,67 @@ sys\_language\_mode
          sys\_language\_mode
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         Setting various modes of handling localization.
+         Configures what the system should do when a page is not translated
+         to the requested language.
+         It is only evaluated when :ts:`sys_language_uid` is greater than `0`
+         and the requested page translation is NOT available.
+         Internally this setting corresponds to
+         :php:`LanguageAspect->contentId`.
 
          The syntax is "[keyword] ; [value]".
 
-         Possible keywords are:
+         **Possible keywords are:**
 
-         [default] - The system will look for a translation of the page (from
-         "Alternative Page Language" table) and if it is not found it will fall
-         back to the default language and display that.
+         [empty] (not set)
+            If not set and the page is not translated, the system will
+            behave as if the default language was requested.
+            In that case both :php:`LanguageAspect->contentId`
+            and :php:`LanguageAspect->id` will be set to `0`.
 
-         **content\_fallback:** Recommended. The system will always operate
-         with the selected language even if the page is not translated with a
-         page overlay record. This will keep menus etc. translated. However,
-         the *content* on the page can still fall back to another language,
-         defined by the value of this keyword, e.g. "content\_fallback ; 1,0"
-         to fall back to the content of sys\_language\_uid 1 and if that is not
-         present either, to default (0).
+         content\_fallback
+            Recommended. The system will always operate
+            with the selected language even if the page is not translated and has no
+            page overlay record. This will keep menus etc. translated. However,
+            the *content* on the page can still fall back to another language,
+            defined by the value of this keyword, e.g. :ts:`content_fallback;1,3,0`,
+            to fall back to the content of sys\_language\_uid 1, after that to the
+            content of sys\_language\_uid 3 and if that is not present either,
+            to default (0).
 
-         **strict:** The system will report an error if the requested
-         translation does not exist. Basically this means that all pages with
-         gray background in the Web > Info / Localization overview module will
-         fail (they would otherwise fall back to default language in one way
-         or another).
+            Note that the fallback affects all content of the page.
+            This means that once a translated page record is found in the fallback
+            chain, the system will try to use this language for the rendering even
+            if there is no properly translated content.
 
-         **ignore:** The system will stay with the selected language even if
-         the page is not translated and there's no content available in this
-         language, so you can handle that situation on your own then.
+         strict
+            If the requested translation does not exist the system
+            will report a *Page Not Found (404)* error.
+            Basically this means that all pages with
+            gray background in the Web > Info / Localization overview module will
+            fail (they would otherwise fall back to default language in one way
+            or another).
+
+         ignore
+            The system will stay with the selected language even if
+            the page is not translated and there is no content available for this
+            language, so you can handle that situation on your own then.
+            The system will render the page and the content as if the translation would exist.
+            Internally :php:`LanguageAspect->contentId` is set to the value of
+            :php:`LanguageAspect->id`.
+
+         Refer to the
+         :ref:`Frontend Localization Guide <t3l10n:localization-modes>`
+         for an in-depth discussion.
 
 
 
 .. _setup-config-sys-language-overlay:
 
 sys\_language\_overlay
-""""""""""""""""""""""
+======================
 
 .. container:: table-row
 
@@ -3555,107 +2528,57 @@ sys\_language\_overlay
          sys\_language\_overlay
 
    Data type
-         boolean / keyword
+         :ref:`data-type-boolean` / keyword
 
    Description
-         If set, records from certain tables selected by the CONTENT cObject
-         using the "languageField" setting will select the default language (0)
-         instead of any language set by sys\_language\_uid /
-         sys\_language\_mode. In addition the system will look for a
-         translation of the selected record and overlay configured fields.
+         Defines whether TYPO3 should use the *content overlay* technique when
+         fetching translated content. *Content overlay* means fetching records
+         from the default language first and then replacing specific fields
+         with the translation if that is found.
+
+         It is only evaluated when :php:`LanguageAspect->contentId > 0`.
+         Internally it sets the property :php:`LanguageAspect->overlayType` at a request.
+         Further calls via :php:`$TSFE->sys_page->getRecordOverlay` receive this value
+         to see if overlaying should take place.
 
          The requirements for this is that the table is configured with
-         "languageField" and "transOrigPointerField" in the [ctrl] section of
-         $GLOBALS['TCA']. Also, exclusion of certain fields can be done with the
-         "l10n\_mode" directive in the field-configuration of $GLOBALS['TCA'].
+         `languageField` and `transOrigPointerField` in the :php:`['ctrl']` section of
+         :php:`$GLOBALS['TCA']`. Also, exclusion of certain fields can be done with the
+         "l10n\_mode" directive in the field-configuration of :php:`$GLOBALS['TCA']`.
 
          For backend administration this requires that you configure the
          "Web > Page" module to display content elements accordingly; That each
          default element is shown and next to it any translation found. This
          configuration can be done with Page TSconfig for a section of the
-         website using the object path "mod.web\_layout.defLangBinding = 1".
+         website using the object path :ts:`mod.web_layout.defLangBinding = 1`.
 
-         Keyword:
+         **Possible values:**
 
-         **hideNonTranslated:** If this keyword is used a record that has no
-         translation will not be shown. The default is that records with no
-         translation will show up in the default language.
+         0
+            Just fetch records from the selected language as given by
+            :php:`LanguageAspect->contentId`.
+            No overlay will happen, no fetching of the records from the default language.
+            This boils down to "free mode" language handling. This is the only mode which shows
+            records without a default language parent.
 
+            An exception to this rule can be made with the TypoScript
+            :ref:`cobj-content` object if you manually set
+            :ts:`select.includeRecordsWithoutDefaultTranslation = 1`.
 
+         1
+            Fetch records from the default language and overlay them with translations.
+            If a record is not translated the default language will be used.
 
-.. _setup-config-sys-language-softexclude:
-
-sys\_language\_softExclude
-""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         sys\_language\_softExclude
-
-   Data type
-         string
-
-   Description
-         Setting additional "exclude" flags for l10n\_mode in TCA for frontend
-         rendering. Works exactly like sys\_language\_softMergeIfNotBlank (see
-         that for details - same Syntax!).
-
-         Fields set in this property will override if the same field is set for
-         "sys\_language\_softMergeIfNotBlank".
-
-
-
-.. _setup-config-sys-language-softmergeifnotblank:
-
-sys\_language\_softMergeIfNotBlank
-""""""""""""""""""""""""""""""""""
-
-.. container:: table-row
-
-   Property
-         sys\_language\_softMergeIfNotBlank
-
-   Data type
-         string
-
-   Description
-         Setting additional "mergeIfNotBlank" fields from TypoScript.
-
-         Background:
-
-         In TCA you can configure "l10n\_mode" - localization mode - for each
-         field. Two of the options affect how the frontend displays content;
-         The values "exclude" and "mergeIfNotBlank" (see "TYPO3 Core API"
-         document for details). The first ("exclude") simply means that the
-         field when found in a translation of a record will not be overlaid the
-         default records field value. The second ("mergeIfNotBlank") means that
-         it will be overlaid *only* if it has a non-blank value.
-
-         Since it might be practical to set up fields for "mergeIfNotBlank" on
-         a per-site basis this options allows you to override additional fields
-         from tables.
-
-         **Syntax:**
-
-         [table]:[field], [table]:[field], [table]:[field], ...
-
-         **Example:** ::
-
-            config.sys_language_softMergeIfNotBlank = tt_content:image , tt_content:header
-
-         This setting means that the header and image field of content elements
-         will be used from the translation only if they had a non-blank value.
-         For the image field this might be very practical because it means that
-         the image(s) from the default translation will be used unless other
-         images are inserted!
+         hideNonTranslated
+            Fetch records from the default language and overlay
+            them with translations. If some record is not translated it will not be shown.
 
 
 
 .. _setup-config-sys-language-uid:
 
 sys\_language\_uid
-""""""""""""""""""
+==================
 
 .. container:: table-row
 
@@ -3663,25 +2586,28 @@ sys\_language\_uid
          sys\_language\_uid
 
    Data type
-         integer
+         :ref:`data-type-integer`
 
    Description
-         This value points to the uid of a record from the "sys\_language"
-         table and if set, this means that various parts of the frontend
-         display code will select records which are assigned to this language.
+         This property holds the value of the field "uid" of a record of table "sys\_language".
+         Various parts of the frontend rendering code will select records
+         which are assigned to this language.
          See ->SELECT
 
-         Internally, the value is depending on whether an Alternative Page
-         Language record can be found with that language. If not, the value
-         will default to zero (default language) except if
-         "sys\_language\_mode" is set to a value like "content\_fallback".
+         Internally this value is used to initialize the TypoScriptFrontendController
+         :php:`LanguageAspect->id` property.
+         The :php:`LanguageAspect->contentId` property is set based
+         on the value of the :ts:`sys_language_uid` and other settings like
+         :ts:`sys_language_mode`.
 
+         It is usually resolved internally by a middleware during bootstrap, taking site configuration setting
+         into account. No manual interference necessary.
 
 
 .. _setup-config-titletagfunction:
 
 titleTagFunction
-""""""""""""""""
+================
 
 .. container:: table-row
 
@@ -3689,18 +2615,17 @@ titleTagFunction
          titleTagFunction
 
    Data type
-         function name
+         :ref:`data-type-function-name`
 
    Description
-         Passes the default <title> tag content to this function. No TypoScript
-         parameters are passed though.
-
+         Passes the default :html:`<title>` tag content to this function.
+         No TypoScript parameters are passed though.
 
 
 .. _setup-config-tx-extension-key-with-no-underscores:
 
 tx\_[extension key with no underscores]\_[\*]
-"""""""""""""""""""""""""""""""""""""""""""""
+=============================================
 
 .. container:: table-row
 
@@ -3708,7 +2633,7 @@ tx\_[extension key with no underscores]\_[\*]
          tx\_[extension key with no underscores]\_[\*]
 
    Data type
-         -
+         array
 
    Description
          Configuration space for extensions. This can be used – for example –
@@ -3716,16 +2641,19 @@ tx\_[extension key with no underscores]\_[\*]
          actually display anything in the frontend (i.e. don't receive their
          configuration as an argument from the frontend rendering process).
 
-         **Example:** ::
+   Example
+         ::
 
             config.tx_realurl_enable = 1
+            config.tx_myextension.width  = 10
+            config.tx_myextension.length = 20
 
 
 
 .. _setup-config-typolinkcheckrootline:
 
 typolinkCheckRootline
-"""""""""""""""""""""
+=====================
 
 .. container:: table-row
 
@@ -3733,25 +2661,20 @@ typolinkCheckRootline
          typolinkCheckRootline
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
 
    Description
-         If set, then every "typolink" is checked whether it's linking to a
-         page within the current rootline of the site.
+         For every link created with "typolink" a check will be done to
+         verify that the target page is within the current rootline of the site.
 
-         If not, then TYPO3 searches for the first found domain record (without
-         redirect) in that rootline from out to in.
-
-         If found (another domain), then that domain is prepended the link, the
-         external target is used instead and thus the link jumps to the page in
-         the correct domain.
-
+         This option is always enabled since TYPO3 9. Setting it nevertheless
+         will trigger a deprecation warning.
 
 
 .. _setup-config-typolinkenablelinksacrossdomains:
 
 typolinkEnableLinksAcrossDomains
-""""""""""""""""""""""""""""""""
+================================
 
 .. container:: table-row
 
@@ -3759,7 +2682,10 @@ typolinkEnableLinksAcrossDomains
          typolinkEnableLinksAcrossDomains
 
    Data type
-         boolean
+         :ref:`data-type-boolean`
+
+   Default
+         0
 
    Description
          This option enables to create links across domains using current
@@ -3768,21 +2694,17 @@ typolinkEnableLinksAcrossDomains
          If this option is not set, then all cross-domain links will be
          generated as
 
-         "http://domain.tld/index.php?id=12345" (where 12345 is page id).
+         `http://domain.tld/index.php?id=12345` (where `12345` is page id).
          Setting this option requires that domains, where pages are linked,
          have the same configuration for:
 
-         \- linking scheme (i.e. all use RealURL or CoolURI but not any
-         mixture)
+         - linking scheme (i.e. all use RealURL or CoolURI but not any
+           mixture)
 
-         \- all domains have identical localization settings
-         (config.sys\_language\_XXX directives)
+         - all domains have identical localization settings
+           (:ts:`sys_language_XXX` directives)
 
-         \- all domains have the same set of languages defined
-
-         This option implies "config.typolinkCheckRootline=1", which will be
-         activated automatically. Setting value of "config.
-         typolinkCheckRootline" inside TS template will have no effect.
+         - all domains have the same set of languages defined
 
          Disclaimer: it must be understood that while link is generated to
          another domain, it is still generated in the context of current
@@ -3790,15 +2712,12 @@ typolinkEnableLinksAcrossDomains
          documentation but they may exist. If any side effects are found, this
          documentation will be updated to include them.
 
-   Default
-         0
-
 
 
 .. _setup-config-typolinklinkaccessrestrictedpages:
 
 typolinkLinkAccessRestrictedPages
-"""""""""""""""""""""""""""""""""
+=================================
 
 .. container:: table-row
 
@@ -3806,7 +2725,7 @@ typolinkLinkAccessRestrictedPages
          typolinkLinkAccessRestrictedPages
 
    Data type
-         integer (page id) / keyword "NONE"
+         :ref:`data-type-integer` (page id) / keyword "NONE"
 
    Description
          If set, typolinks pointing to access restricted pages will still link
@@ -3814,15 +2733,16 @@ typolinkLinkAccessRestrictedPages
          this setting is an integer it will be interpreted as a page id to
          which the link will be directed.
 
-         If the value is "NONE" the original link to the page will be kept
+         If the value is :ts:`NONE` the original link to the page will be kept
          although it will generate a page-not-found situation (which can of
          course be picked up properly by the page-not-found handler and present
          a nice login form).
 
-         See "showAccessRestrictedPages" for menu objects as well (similar
-         feature for menus)
+         See :ref:`menu-common-properties-showaccessrestrictedpages`
+         for menu objects as well (similar feature for menus)
 
-         **Example:** ::
+   Example
+         ::
 
             config.typolinkLinkAccessRestrictedPages = 29
             config.typolinkLinkAccessRestrictedPages_addParams = &return_url=###RETURN_URL###&pageId=###PAGE_ID###
@@ -3835,7 +2755,7 @@ typolinkLinkAccessRestrictedPages
 .. _setup-config-typolinklinkaccessrestrictedpages-addparams:
 
 typolinkLinkAccessRestrictedPages\_addParams
-""""""""""""""""""""""""""""""""""""""""""""
+============================================
 
 .. container:: table-row
 
@@ -3843,17 +2763,17 @@ typolinkLinkAccessRestrictedPages\_addParams
          typolinkLinkAccessRestrictedPages\_addParams
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
-         See "typolinkLinkAccessRestrictedPages" above
+         See :ref:`setup-config-typolinklinkaccessrestrictedpages` above.
 
 
 
 .. _setup-config-username-substtoken:
 
 USERNAME\_substToken
-""""""""""""""""""""
+====================
 
 .. container:: table-row
 
@@ -3861,22 +2781,22 @@ USERNAME\_substToken
          USERNAME\_substToken
 
    Data type
-         string
-
-   Description
-         The is the token used on the page, which should be substituted with
-         the current username IF a front-end user is logged in! If no login,
-         the substitution will not happen.
+         :ref:`data-type-string`
 
    Default
          <!--###USERNAME###-->
+
+   Description
+         The is the token used on the page, which should be substituted with
+         the current username *if* a front-end user is logged in! If no login,
+         the substitution will not happen.
 
 
 
 .. _setup-config-useruid-substtoken:
 
 USERUID\_substToken
-"""""""""""""""""""
+===================
 
 .. container:: table-row
 
@@ -3884,11 +2804,11 @@ USERUID\_substToken
          USERUID\_substToken
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          The is the token used on the page, which should be substituted with
-         the current users UID IF a front-end user is logged in! If no login,
+         the current users UID *if* a front-end user is logged in! If no login,
          the substitution will not happen.
 
          This value has no default value and only if you specify a value for
@@ -3896,80 +2816,10 @@ USERUID\_substToken
 
 
 
-.. _setup-config-xhtml-cleaning:
-
-xhtml\_cleaning
-"""""""""""""""
-
-.. container:: table-row
-
-   Property
-         xhtml\_cleaning
-
-   Data type
-         string
-
-   Description
-         Cleans up the output to make it XHTML compliant and a bit more.
-         For now this is what is done:
-
-         *What it does:*
-
-         \- All tags are ended with "/>"
-
-         \- Lowercase for elements and attributes
-
-         \- All attributes in quotes
-
-         \- Add "alt" attribute to img-tags if it's not there already.
-
-         *What it does **not** do (yet) according to XHTML specifications:*
-
-         \- Wellformedness: Nesting is **not** checked
-
-         \- name/id attribute issue is not observed at this point.
-
-         \- Certain nesting of elements not allowed. Most interesting, <PRE>
-         cannot contain img, big,small,sub,sup ...
-
-         \- Wrapping scripts and style element contents in CDATA - or
-         alternatively they should have entities converted.
-
-         \- Setting charsets may put some special requirements on both XML
-         declaration/ meta-http-equiv. (C.9)
-
-         \- UTF-8 encoding is in fact expected by XML!
-
-         \- stylesheet element and attribute names are **not** converted to
-         lowercase
-
-         \- ampersands (and entities in general I think) MUST be converted to
-         an entity reference! (&amps;). This may mean further conversion of
-         non-tag content before output to page. May be related to the charset
-         issue as a whole.
-
-         \- Minimized values not allowed: Must do this: selected="selected"
-
-         Please see the class TYPO3\CMS\Core\Html\HtmlParser
-         (t3lib\_parsehtml) for details.
-
-         You can enable this function by setting it to one of the following
-         keywords:
-
-         **all:** The content is always processed before it is possibly
-         stored in cache (or not stored in cache).
-
-         **cached:** The content is only processed, if the page will be put
-         into the cache.
-
-         **output:** The content is processed just before it is echoed out.
-
-
-
 .. _setup-config-xhtmldoctype:
 
 xhtmlDoctype
-""""""""""""
+============
 
 .. container:: table-row
 
@@ -3977,17 +2827,18 @@ xhtmlDoctype
          xhtmlDoctype
 
    Data type
-         string
+         :ref:`data-type-string`
+
+   Default
+         (same as config.doctype if set to a keyword)
 
    Description
          Sets the document type for the XHTML version of the generated page.
 
-         If config.doctype is set to a string then config.xhtmlDoctype must be
-         set to one of these keywords:
+         If :ref:`setup-config-doctype` is set to a string then :ts:`xhtmlDoctype`
+         must be set to one of these keywords:
 
          **xhtml\_trans** for XHTML 1.0 Transitional doctype.
-
-         **xhtml\_frames** for XHTML 1.0 Frameset doctype.
 
          **xhtml\_strict** for XHTML 1.0 Strict doctype.
 
@@ -3995,8 +2846,7 @@ xhtmlDoctype
 
          **xhtml\_11** for XHTML 1.1 doctype.
 
-         **xhtml\_2** for XHTML 2 doctype.
-
+   Example
          This is an example to use MathML 2.0 in an XHTML 1.1 document::
 
             config.doctype (
@@ -4006,16 +2856,12 @@ xhtmlDoctype
             )
             config.xhtmlDoctype = xhtml_11
 
-   Default:
-
-         *(same as config.doctype if set to a keyword)*
-
 
 
 .. _setup-config-xmlprologue:
 
 xmlprologue
-"""""""""""
+===========
 
 .. container:: table-row
 
@@ -4023,13 +2869,13 @@ xmlprologue
          xmlprologue
 
    Data type
-         string
+         :ref:`data-type-string`
 
    Description
          If empty (not set) then the default XML 1.0 prologue is set, when the
-         doctype is set to a known keyword (e.g. xhtml\_11)::
+         doctype is set to a known keyword (e.g. :ts:`xhtml_11`)::
 
-            <?xml version="1.0" encoding="[config.renderCharset]">
+            <?xml version="1.0" encoding="utf-8">
 
          If set to one of the following keywords then a standard prologue will
          be set:
