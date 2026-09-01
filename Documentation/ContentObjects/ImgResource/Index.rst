@@ -1,44 +1,47 @@
-.. include:: ../../Includes.txt
+..  include:: /Includes.rst.txt
+..  index:: Content objects; IMAGE_RESOURCE
+..  _cobj-img-resource:
 
-
-.. _cobj-img-resource:
-
+=============
 IMG\_RESOURCE
-^^^^^^^^^^^^^
+=============
 
-Returns a reference to an image, possibly wrapped with stdWrap. Can
-for example be used for putting background images in tables or
-table-rows or to import an image in your own include-scripts.
-
-The array $GLOBALS['TSFE']->lastImgResourceInfo is set to the info-
-array of the resulting image resource (if any) and contains width,
-height and so on (similar to how $GLOBALS['TSFE']->lastImageInfo
-does for the cObject IMAGE).
-
+Objects of type IMG_RESOURCE returns a reference to an image, possibly
+wrapped with :ref:`cobj-img-resource-stdWrap`. It can be used, for example,
+for putting background images in tables or
+table rows or to import an image in your own include scripts.
 Depending on your use case you might prefer using the cObject
-:ref:`IMAGE <cobj-image>`, which creates a complete img-tag.
+:ref:`IMAGE <cobj-image>`, which creates a complete :html:`img` tag.
 
-.. ### BEGIN~OF~TABLE ###
+..  contents::
+    :local:
 
-.. container:: table-row
+..  _cobj-img-resource-properties:
 
-   Property
-         file
+Properties
+==========
 
-   Data type
-         imgResource
+..  confval-menu::
+    :display: table
+    :type:
+
+..  _cobj-img-resource-cache:
+
+..  confval:: cache
+    :name: img-resource-cache
+    :type: :ref:`cache <cache>`
+
+    See :ref:`cache function description <cache>` for details.
+
+..  _cobj-img-resource-file:
+
+..  confval:: file
+    :name: img-resource-file
+    :type: :ref:`->imgResource <imgresource>`
 
 
-.. container:: table-row
+..  _cobj-img-resource-stdWrap:
 
-   Property
-         stdWrap
-
-   Data type
-         :ref:`->stdWrap <stdwrap>`
-
-
-.. ###### END~OF~TABLE ######
-
-[tsref:(cObject).IMG\_RESOURCE]
-
+..  confval:: stdWrap
+    :name: img-resource-stdWrap
+    :type: :ref:`->stdWrap <stdwrap>`

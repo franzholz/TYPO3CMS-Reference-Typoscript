@@ -1,14 +1,25 @@
-.. include:: ../../Includes.txt
+..  include:: /Includes.rst.txt
+..  index::
+    Content objects; Array
+    Content objects; Content object array
+    Content objects; COA
+    Content objects; COA_INT
+..  _cobj-cobj-array:
+..  _cobj-coa:
+..  _cobj-coa-int:
 
+====================================
+Content object array - COA, COA\_INT
+====================================
 
-.. _cobj-cobj-array:
-.. _cobj-coa:
-.. _cobj-coa-int:
+.. note::
 
-COA, COA\_INT
-^^^^^^^^^^^^^
+   * COA is an object type (= complex data type).
+   * It is a specific :ref:`cObject <cobject>` data type.
 
-COA stands for "content object array" and is a cObject, in which you
+COA stands for "content object array".
+
+An object with the content type COA is a cObject, in which you
 can place several other cObjects using numbers to enumerate them.
 
 You can also create this object as a COA\_INT in which case it works
@@ -17,57 +28,59 @@ rendered non-cached! That way you cannot only render non-cached
 :ref:`USER_INT <cobj-user-int>` objects, but COA\_INT allows
 you to render *every* cObject non-cached.
 
+..  _cobj-coa-properties:
 
-.. ### BEGIN~OF~TABLE ###
+Properties
+==========
 
-.. container:: table-row
+..  confval-menu::
+    :display: table
+    :type:
 
-   Property
-         if
+..  _cobj-coa-index:
 
-   Data type
-         :ref:`->if <if>`
+..  confval:: 1,2,3,4...
+    :name: coa-array
+    :type: :ref:`cObject <data-type-cobject>`
 
-   Description
-         If "if" returns false, the COA is **not** rendered.
-
-
-.. container:: table-row
-
-   Property
-         1,2,3,4...
-
-   Data type
-         :ref:`cObject <data-type-cobject>`
-
-   Description
-         Numbered properties to define the different cObjects, which should be
-         rendered.
+    Numbered properties to define the different cObjects, which should be
+    rendered.
 
 
-.. container:: table-row
+..  _cobj-coa-cache:
 
-   Property
-         wrap
+..  confval:: cache
+    :name: coa-cache
+    :type: :ref:`cache <cache>`
 
-   Data type
-         :ref:`wrap <data-type-wrap>` /:ref:`stdWrap <stdwrap>`
-
-
-.. container:: table-row
-
-   Property
-         stdWrap
-
-   Data type
-         :ref:`->stdWrap <stdwrap>`
-
-.. include:: ../../DataTypes/Properties/Cache.rst.txt
-
-.. ###### END~OF~TABLE ######
+    See :ref:`cache function description <cache>` for details.
 
 
-[tsref:(cObject).COA/(cObject).COA\_INT]
+..  _cobj-coa-if:
+
+..  confval:: if
+    :name: coa-if
+    :type: :ref:`->if <if>`
+
+    If `if` returns false, the COA is **not** rendered.
+
+
+..  _cobj-coa-stdWrap:
+
+..  confval:: stdWrap
+    :name: coa-stdWrap
+    :type: :ref:`->stdWrap <stdwrap>`
+
+    Executed on all rendered cObjects after property :ref:`cobj-coa-wrap`.
+
+
+..  _cobj-coa-wrap:
+
+..  confval:: wrap
+    :name: coa-wrap
+    :type: :ref:`wrap <data-type-wrap>` / :ref:`stdWrap <stdwrap>`
+
+     Wraps all rendered cObjects. Executed before property :ref:`cobj-coa-stdWrap`.
 
 
 .. _cobj-cobj-array-examples:
@@ -75,46 +88,39 @@ you to render *every* cObject non-cached.
 .. _cobj-coa-int-examples:
 
 Examples:
-"""""""""
+=========
 
-::
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   lib.menutable = COA
-   lib.menutable {
-     10 = TEXT
-     10.value = <table border="0" style="border-spacing: 0px;">
+    lib.contentexample = COA
+    lib.contentexample {
+      10 = TEXT
+      10.value = <h1>Header</h1>
 
-     20 = HMENU
-     20.entryLevel = 0
-     20.1 = GMENU
-     20.1.NO {
-       wrap = <tr><td> | </td></tr>
-       XY = {$menuXY}
-       backColor = {$bgCol}
-       20 = TEXT
-       20 {
-         text.field = title
-         fontFile = fileadmin/fonts/hatten.ttf
-         fontSize = 23
-         fontColor = {$menuCol}
-         offset = |*| 5,18 || 25,18
-       }
-     }
+      20 = CONTENT
+      20 {
+        table = tt_content
+        select.orderBy = sorting
+        select.where = {#colPos}=0
+      }
 
-     30 = TEXT
-     30.value = </table>
-   }
+      30 = TEXT
+      30.value = <footer>Footer text</footer>
+    }
 
-The previous example will print a table with a graphical menu in it.
+The previous example will print a simple :html:`<h1>` header, followed by the page
+content records and a :html:`<footer>` element.
 
-::
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   lib.currentDate = COA_INT
-   lib.currentDate {
-     10 = TEXT
-     10.stdWrap.data = date:U
-     10.stdWrap.strftime = %H:%M:%S
-   }
+    lib.currentDate = COA_INT
+    lib.currentDate {
+      10 = TEXT
+      10.stdWrap.data = date:U
+      10.stdWrap.strftime = %H:%M:%S
+    }
 
 This example will not be cached and so will display the current time
 on each page hit.

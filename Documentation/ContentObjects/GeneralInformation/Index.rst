@@ -1,22 +1,23 @@
-.. include:: ../../Includes.txt
-
-
+.. include:: /Includes.rst.txt
+.. index:: Content objects; General
 .. _cobjects-general-information:
 
-General information
-^^^^^^^^^^^^^^^^^^^
+=====================================
+Content objects (general information)
+=====================================
 
+.. index:: Content objects; PHP
 .. _cobjects-php:
 
 PHP information
-"""""""""""""""
+===============
 
-The content objects (cObjects) are primarily controlled by the PHP-
-script "typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php".
-The PHP-class is named "ContentObjectRenderer" and often this is also
-the variable-name of the objects ($cObj).
+The content objects (data type: cObject) are primarily controlled by the PHP-
+script :file:`typo3/sysext/frontend/Classes/ContentObject/ContentObjectRenderer.php`.
+The PHP-class is named :php:`ContentObjectRenderer` and often this is also
+the variable-name of the objects (:php:`$cObj`).
 
-The $cObj in PHP has an array, $this->data, which holds records of
+The $cObj in PHP has an array, :php:`$this->data`, which holds records of
 various kind. See data type :ref:`"getText" <data-type-gettext>`.
 
 This record is normally "loaded" with the record from a table
@@ -25,10 +26,11 @@ loaded with the page-record of the actual menu item or if it's about
 content-rendering it will be the content-record.
 
 
+.. index:: Content objects; Reusing
 .. _reusing-cobjects:
 
-REUSING cOBJECTS
-""""""""""""""""
+Reusing content objects
+=======================
 
 When dealing with "cObjects", you're allowed to use a special syntax
 in order to reuse cObjects without actually creating a copy. This has
@@ -36,7 +38,10 @@ the advantage of minimizing the size of the cached template. But on
 the other hand it does not give you the flexibility of overriding
 values.
 
-This example will show you how it works::
+This example will show you how it works:
+
+.. code-block:: typoscript
+   :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
    #
    # Temporary objects are defined:
@@ -76,49 +81,49 @@ This example will show you how it works::
      20 < styles.content.bulletlist_gr
    }
 
-First lib.stdheader is defined. This is (and must be) a cObject! (In
+First :typoscript:`lib.stdheader` is defined. This is (and must be) a cObject! (In
 this case it is :ref:`COA <cobj-coa>`.)
 
-Now *lib.stdheader* is copied to *tt\_content.header.10* with the
-"<" operator. This means that an actual copy of *lib.stdheader* is
+Now :typoscript:`lib.stdheader` is copied to :typoscript:`tt_content.header.10` with the
+":typoscript:`<`" operator. This means that an actual copy of :typoscript:`lib.stdheader` is
 created at *parsetime*.
 
-But this is not the case with *tt\_content.bullets.10*. Here
-lib.stdheader is just pointed to and lib.stdheader will be used as the
+But this is not the case with :typoscript:`tt_content.bullets.10`. Here
+:typoscript:`lib.stdheader` is referenced and :typoscript:`lib.stdheader` will be used as the
 cObject at *runtime*.
 
-The reason why lib.stdheader was copied in the first case is the fact
-that it's needed to unset ".stdWrap.space" inside the cObject
-("10.stdWrap.space >"). This could **not** be done in the second case
-where only a pointer is created.
+The reason why lib.stdheader is copied (and not referenced) in the first case is the fact
+that ".stdWrap.space" can be unset inside the cObject
+(:typoscript:`10.stdWrap.space >`). This **cannot** be done in the second case
+because it is only a reference pointer.
 
 
 .. _reusing-cobjects-temp-objects:
 
-Note:
-~~~~~
+Reusing Temporary TypoScript Objects:
+-------------------------------------
 
-If *lib.stdheader* was *temp.stdheader* instead, the pointer would
+If :typoscript:`temp.stdheader` had been used instead of :typoscript:`lib.stdheader`, the reference pointer would
 not work! This is due to the fact that the runtime-reference would
-find nothing in "temp." as this is unset before the template is stored
-in cache!
+find nothing in `temp.` as this is unset before the template is stored
+in the cache!
 
-This goes for "temp." and "styles." (see the top-level object
+This goes for :typoscript:`temp.` and :typoscript:`styles.` (see the top-level object
 definition elsewhere).
 
 Overriding values anyway:
 
-Although you cannot override values TypoScript-style (using the
-operators and all) the properties of the object which has the
-reference will be merged with the configuration of the reference.
+Although you cannot override values in :typoscript:`styles.`, the properties of the object which gets a
+copy of the reference will be merged with the configuration of the reference.
 
 
 .. _reusing-cobjects-examples:
 
 Example:
-~~~~~~~~
+--------
 
-::
+.. code-block:: typoscript
+   :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
    page.10 = TEXT
    page.10.value = kasper
@@ -131,14 +136,13 @@ Example:
 
 The result is this configuration:
 
-.. figure:: ../../Images/ContentObjectsExampleMerge1.png
-   :alt: Resulting configuration.
+.. figure:: /Images/ManualScreenshots/FrontendOutput/StdWrap/ContentObjectsExampleMerge1.png
+   :zoom: lightbox
 
-Notice that .value was *not* cleared, because it's simply two arrays
-which are joined:
+Notice that :typoscript:`.value` was *not* cleared, because these two arrays
+are simply merged:
 
-.. figure:: ../../Images/ContentObjectsExampleMerge2.png
-   :alt: The arrays, which are merged.
+.. figure:: /Images/ManualScreenshots/FrontendOutput/StdWrap/ContentObjectsExampleMerge2.png
+   :zoom: lightbox
 
-So hence the line *page.20.value >* in the above example is useless.
-
+So hence the line :typoscript:`page.20.value >` in the above example is useless.

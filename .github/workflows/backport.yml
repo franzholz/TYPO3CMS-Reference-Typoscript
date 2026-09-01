@@ -1,0 +1,20 @@
+name: Backport
+on:
+  pull_request_target:
+    types:
+      - closed
+      - labeled
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  backport:
+    uses: TYPO3-Documentation/.github/.github/workflows/reusable-backport.yml@main
+    with:
+      label_pattern: "^backport (.+)$"
+    secrets:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}

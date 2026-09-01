@@ -1,102 +1,101 @@
-.. include:: ../../Includes.txt
+..  include:: /Includes.rst.txt
+..  index:: Content objects; SVG
+..  _cobj-svg:
 
-
-.. _cobj-svg:
-
+===
 SVG
-^^^
+===
 
-With this element you can insert a SVG. You can use XML data directly
-or reference a file. A flash fallback will be used for browsers which
-do not have native SVG support, so that it also works in e.g. IE
-6/7/8.
+With this object type you can insert a SVG. You can use XML data directly
+or reference a file.
 
-.. ### BEGIN~OF~TABLE ###
+..  contents::
+    :local:
 
-.. container:: table-row
+..  index:: SVG; Properties
+..  _cobj-svg-properties:
 
-   Property
-         width
+Properties
+==========
 
-   Data type
-         integer /:ref:`stdWrap <stdwrap>`
+..  confval-menu::
+    :display: table
+    :type:
 
-   Description
-         Width of the SVG.
+..  _cobj-svg-cache:
 
-   Default
-         600
+..  confval:: cache
+    :name: svg-cache
+    :type: :ref:`cache <cache>`
 
+    See :ref:`cache function description <cache>` for details.
 
-.. container:: table-row
+..  _cobj-svg-width:
 
-   Property
-         height
+..  confval:: width
+    :name: svg-width
+    :type: :ref:`data-type-integer` / :ref:`stdWrap <stdwrap>`
+    :Default: 600
 
-   Data type
-         integer /:ref:`stdWrap <stdwrap>`
-
-   Description
-         Height of the SVG.
-
-   Default
-         400
+    Width of the SVG.
 
 
-.. container:: table-row
+..  _cobj-svg-height:
 
-   Property
-         src
+..  confval:: height
+    :name: svg-height
+    :type: :ref:`data-type-integer` / :ref:`stdWrap <stdwrap>`
+    :Default: 400
 
-   Data type
-         :ref:`file resource <data-type-resource>` /:ref:`stdWrap <stdwrap>`
-
-   Description
-         SVG file resource, can also be referenced via :file:`EXT:` prefix to
-         point to files of extensions.
-
-         **Example:** ::
-
-            src = fileadmin/svg/tiger.svg
+    Height of the SVG.
 
 
-.. container:: table-row
+..  _cobj-svg-src:
 
-   Property
-         renderMode
+..  confval:: src
+    :name: svg-src
+    :type: :ref:`data-type-resource` / :ref:`stdWrap <stdwrap>`
 
-   Data type
-         string /:ref:`stdWrap <stdwrap>`
+    SVG file resource, can also be referenced via :file:`EXT:` prefix to
+    point to files of extensions.
 
-   Description
-         Setting `renderMode` to inline will render an inline version of the SVG.
+    **Example:**
 
-.. container:: table-row
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   Property
-         stdWrap
-
-   Data type
-         :ref:`->stdWrap <stdwrap>`
+        src = fileadmin/svg/tiger.svg
 
 
-.. ###### END~OF~TABLE ######
+..  _cobj-svg-renderMode:
 
-[tsref:(cObject).SVG]
+..  confval:: renderMode
+    :name: svg-renderMode
+    :type: :ref:`data-type-string` / :ref:`stdWrap <stdwrap>`
+
+    Setting `renderMode` to inline will render an inline version of the SVG.
+
+
+..  _cobj-svg-stdWrap:
+
+..  confval:: stdWrap
+    :name: svg-stdWrap
+    :type: :ref:`->stdWrap <stdwrap>`
 
 
 .. _cobj-svg-examples:
 
-Example:
-""""""""
+Example
+=======
 
-::
+Output the SVG with the defined dimensions:
 
-   10 = SVG
-   10 {
-     width = 600
-     height = 600
-     src = EXT:my_ext/Resources/Public/Images/example.svg
-   }
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-This example will output the svg with the defined dimensions.
+    10 = SVG
+    10 {
+      width = 600
+      height = 600
+      src = EXT:my_ext/Resources/Public/Images/example.svg
+    }

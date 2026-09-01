@@ -1,0 +1,104 @@
+:orphan:
+
+..  _not-found:
+
+===================
+Content was removed
+===================
+
+..  contents::
+
+..  _not-found-v15:
+
+TYPO3 v15
+=========
+
+..  _not-found-v15-user-tsconfig-v15:
+
+User TSconfig v15 changes
+-------------------------
+
+..  _user-auth-be-redirectToURL:
+..  _confval-user-auth-be-redirectToURL:
+
+`auth.BE.redirectToURL` removed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+..  deprecated:: 14.0
+    See `Deprecation: #106969 - Deprecate User TSConfig auth.BE.redirectToURL <https://docs.typo3.org/permalink/changelog:deprecation-106969-1750853865>`_.
+
+The TSconfig option :tsconfig:`auth.BE.redirectToURL` has been
+removed.
+
+If a redirect after a successful backend login is required, it is
+recommended to create custom PSR-15 middleware to handle the
+redirection.
+
+..  _not-found-v14:
+
+TYPO3 v14
+=========
+
+
+..  _appendix-include-internal-variables:
+..  _TypoScript-Frontend-Controller:
+..  _appendix-include-tsfe-id:
+..  _appendix-include-tsfe-type:
+..  _appendix-include-tsfe-type-migration:
+..  _appendix-include-tsfe-page:
+..  _appendix-include-tsfe-feuser:
+..  _appendix-include-tsfe-feuser-migration:
+..  _appendix-include-tsfe-rootLine:
+..  _appendix-include-tsfe-table-row:
+..  _data-type-gettext-tsfe:
+..  _data-type-gettext-tsfe-example:
+
+TypoScriptFrontendController, TSFE
+----------------------------------
+
+..  versionchanged:: 14.0
+
+    Deprecated with `Deprecation: #105230 - TypoScriptFrontendController and $GLOBALS['TSFE'] <https://docs.typo3.org/permalink/changelog:deprecation-105230-1728374467>`_,
+    removed with `Breaking: #107831 - Removed TypoScriptFrontendController <https://docs.typo3.org/permalink/changelog:breaking-107831-1761307521>`_.
+
+See also: `TypoScriptFrontendController, TSFE <https://docs.typo3.org/permalink/t3tsref:typoscript-frontend-controller@v13>`_
+
+..  _confval-config-absrefprefix:
+..  _setup-config-absrefprefix-examples:
+..  _setup-config-absrefprefix:
+..  _setup-config-additionalheaders:
+
+`config.absRefPrefix` removed from frontend TypoScript
+======================================================
+
+..  versionchanged:: 14.0
+    See `Breaking: #108114 - Global frontend content link prefixing removed <https://docs.typo3.org/permalink/changelog:breaking-108114-1763085569>`_
+
+Instances should check the rendered frontend for broken links after upgrading
+to TYPO3 v14 and substitute hard coded link generation with proper API calls,
+for instance based on the various URL, URI and asset related Fluid ViewHelpers.
+
+..  _not-found-v13:
+
+TYPO3 v13
+=========
+
+
+..  _condition-function-loginUser:
+..  _condition-function-usergroup:
+
+Conditions loginUser(), usergroup() have been removed
+-----------------------------------------------------
+
+..  versionchanged:: 13.0
+    Deprecated with `Deprecation: #100349 - TypoScript loginUser() and usergroup() conditions <https://docs.typo3.org/permalink/changelog:deprecation-100349-1680097287>`_,
+    removed with v13. Use the variables
+    :ref:`condition-frontend-user` and :ref:`condition-backend-user` instead.
+
+
+.. _gifbuilder-properties-reduceColors:
+
+GIFBUILDER property reduceColors has been removed
+-------------------------------------------------
+
+..  versionchanged:: 13.0

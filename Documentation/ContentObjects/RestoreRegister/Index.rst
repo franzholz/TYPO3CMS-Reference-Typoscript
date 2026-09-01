@@ -1,12 +1,14 @@
-.. include:: ../../Includes.txt
-
-
+.. include:: /Includes.rst.txt
+.. index::
+   Content objects; RESTORE_REGISTER
+   Registers; Restoring
 .. _cobj-restore-register:
 
+=================
 RESTORE\_REGISTER
-^^^^^^^^^^^^^^^^^
+=================
 
-This unsets the latest changes in the register-array as set by
+This unsets the latest changes in the register array as set by
 :ref:`LOAD_REGISTER <cobj-load-register>`.
 
 Internally registers work like a stack where the original register is
@@ -15,16 +17,23 @@ RESTORE\_REGISTER cObject is called, the last element is pulled off
 that stack and the register is replaced with the content of the
 previous element.
 
-RESTORE\_REGISTER has no properties.
+.. note::
+   :typoscript:`RESTORE_REGISTER` has no properties.
+
+.. contents::
+   :local:
 
 .. _cobj-restore-register-examples:
 
 Example:
-""""""""
+========
 
 The following example shows how LOAD_REGISTER and RESTORE_REGISTER can
 be used to load values into the register and to restore previous values
-again. ::
+again.
+
+.. code-block:: typoscript
+   :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
      # Put first block into the register
      10 = LOAD_REGISTER
@@ -78,4 +87,3 @@ again. ::
      70 = RESTORE_REGISTER
      80 = TEXT
      80.stdWrap.data = register:myTextRegister
-

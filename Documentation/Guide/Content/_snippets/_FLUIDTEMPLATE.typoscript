@@ -1,0 +1,14 @@
+10 = FLUIDTEMPLATE
+10 {
+  templateName = Default
+
+  templateRootPaths {
+    0 = EXT:site_package/Resources/Private/Templates/Pages/
+  }
+  partialRootPaths {
+    0 = EXT:site_package/Resources/Private/Partials/Pages/
+  }
+  layoutRootPaths {
+    0 = EXT:site_package/Resources/Private/Layouts/Pages/
+  }
+}

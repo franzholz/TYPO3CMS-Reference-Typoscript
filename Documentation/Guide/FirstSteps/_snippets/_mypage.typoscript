@@ -1,0 +1,11 @@
+# The object page is defined as PAGE object.
+page = PAGE
+
+# PAGE objects have the property typeNum.
+page.typeNum = 0
+
+# page has an object "10" of type TEXT. It is a TEXT object.
+page.10 = TEXT
+
+# TEXT objects in turn have a property called "value".
+page.10.value = Hello World

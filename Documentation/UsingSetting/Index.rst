@@ -1,26 +1,29 @@
-.. include:: ../Includes.txt
+:navigation-title: Usage
+..  include:: /Includes.rst.txt
+..  index:: TypoScript; Using and setting
+..  _using-and-setting:
 
-
-.. _typoscript-syntax-typoscript-templates:
-
+============================
 Using and setting TypoScript
 ============================
 
-TypoScript templates mainly consist of the Constants and the Setup field.
+See :ref:`introduction` for an introduction to TypoScript and Templating.
+
+TypoScript templates mainly consist of the :guilabel:`Constants` and the :guilabel:`Setup` field.
 Each template can include other (static) templates, which can again
-define values in their own Constants and Setup fields.
+define values in their own :guilabel:`Constants` and :guilabel:`Setup` fields.
 
 The TypoScript template configuration can be viewed and edited in the
-**WEB > Template** module.
+:guilabel:`Sites > TypoScript` module.
 
+..  toctree::
+    :maxdepth: 5
+    :titlesonly:
 
-.. toctree::
-   :maxdepth: 5
-   :titlesonly:
-
-   Usage
-   Entering
-   Constants
-   TheConstantEditor
-   Register
-   Debugging
+    SiteTypoScriptProvider
+    AddTypoScriptWithExtensions
+    Entering
+    AccessTypoScriptWithExtensions
+    Constants
+    Register
+    Debugging

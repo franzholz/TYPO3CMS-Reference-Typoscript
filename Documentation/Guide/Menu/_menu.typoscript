@@ -1,0 +1,12 @@
+page = PAGE
+page {
+  10 = PAGEVIEW
+  10 {
+    paths.10 = EXT:my_site_package/Resources/Private/Templates/Pages/
+    # ...
+    dataProcessing {
+      10 = menu
+      10.as = myMainMenu
+    }
+  }
+}

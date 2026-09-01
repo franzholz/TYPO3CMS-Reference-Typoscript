@@ -1,7 +1,6 @@
-.. include:: ../Includes.txt
-
-
-.. _split:
+..  include:: /Includes.rst.txt
+..  index:: Functions; split
+..  _split:
 
 =====
 split
@@ -11,182 +10,175 @@ This object is used to split the input by a character and then parse
 the result onto some functions.
 
 For each iteration the split index starting with 0 (zero) is stored in
-the register key :ts:`SPLIT_COUNT`.
+the register key :typoscript:`SPLIT_COUNT`.
 
+..  contents::
+    :local:
 
-.. _split-token:
+..  index:: split; Properties
+..  _split-properties:
+
+Properties
+==========
+
+..  _split-token:
 
 token
-=====
+-----
 
-:aspect:`Property`
-   token
+..  confval:: token
+    :name: split-token
+    :type: :ref:`data-type-string` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`data-type-string` / :ref:`stdwrap`
+    String or character (token) used to split the value.
 
-:aspect:`Description`
-   String or character (token) used to split the value.
 
-.. _split-max:
+..  _split-max:
 
 max
-===
+---
 
-:aspect:`Property`
-   max
+..  confval:: max
+    :name: split-max
+    :type: :ref:`data-type-integer` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`data-type-integer` / :ref:`stdwrap`
+    Maximum number of splits.
 
-:aspect:`Description`
-   Maximum number of splits.
 
-.. _split-min:
+..  _split-min:
 
 min
-===
+---
 
-:aspect:`Property`
-   min
+..  confval:: min
+    :name: split-min
+    :type: :ref:`data-type-integer` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`data-type-integer` / :ref:`stdwrap`
+    Minimum number of splits.
 
-:aspect:`Description`
-   Minimum number of splits.
 
-.. _split-returnkey:
+..  _split-returnKey:
 
 returnKey
-=========
+---------
 
-:aspect:`Property`
-   returnKey
+..  confval:: returnKey
+    :name: split-returnKey
+    :type: :ref:`data-type-integer` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`data-type-integer` / :ref:`stdwrap`
+    Instead of parsing the split result, return the element of the
+    index with this number immediately and stop processing of the split
+    function.
 
-:aspect:`Description`
-   Instead of parsing the split result, just return the element of the
-   index with this number immediately and stop processing of the split
-   function.
 
-.. _split-returncount:
+..  _split-returnCount:
 
 returnCount
-===========
+-----------
 
-:aspect:`Property`
-   returnCount
+..  confval:: returnCount
+    :name: split-returnCount
+    :type: :ref:`data-type-boolean` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`data-type-bool` / :ref:`stdwrap`
+    Counts all elements resulting from the split, returns their number
+    and stops processing of the split function.
 
-:aspect:`Description`
-   Counts all elements resulting from the split, returns their number
-   and stops processing of the split function.
+    ..  rubric:: Example
 
-:aspect:`Example`
+    .. code-block:: typoscript
+       :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+       # returns 9
+       1 = TEXT
+       1 {
+           value = x,y,z,1,2,3,a,b,c
+           split.token = ,
+           split.returnCount = 1
+       }
 
-      # returns 9
-      1 = TEXT
-      1 {
-            value = x,y,z,1,2,3,a,b,c
-            split.token = ,
-            split.returnCount = 1
-      }
 
-.. _split-cobjnum:
+..  _split-cObjNum:
 
 cObjNum
-=======
+-------
 
-:aspect:`Property`
-   cObjNum
+..  confval:: cObjNum
+    :name: split-cObjNum
+    :type: *cObjNum* + :ref:`optionsplit` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   *cObjNum* + :ref:`objects-optionsplit` / :ref:`stdwrap`
+    This is a pointer the array of this object ("1,2,3,4"), that should
+    treat the items, resulting from the split.
 
-:aspect:`Description`
-   This is a pointer the array of this object ("1,2,3,4"), that should
-   treat the items, resulting from the split.
 
-.. _split-1,2,3,4:
+..  _split-cObject:
 
 1,2,3,4
-=======
+-------
 
-:aspect:`Property`
-   1,2,3,4,...
+..  confval:: 1,2,3,4,...
+    :name: split-cObject
+    :type: :ref:`cObject <data-type-cobject>` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`cObject <data-type-cobject>` / :ref:`stdwrap`
+    The object that should treat the value.
 
-:aspect:`Description`
-   The object that should treat the value.
+    **Note:** The "current"-value is set to the value of current item,
+    when the objects are called. See :ref:`stdwrap` / current.
 
-   **Note:** The "current"-value is set to the value of current item,
-   when the objects are called. See :ref:`stdwrap` / current.
+    ..  rubric:: Example for stdWrap
 
-:aspect:`Example for stdWrap`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+        1.current = 1
+        1.wrap = <b> | </b>
 
-      1.current = 1
-      1.wrap = <b> | </b>
+    ..  rubric:: Example for stdWrap
 
-:aspect:`Example for cObject array`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
-
-      1 {
+        1 {
             10 = TEXT
             10.stdWrap.current = 1
             10.stdWrap.wrap = <b> | </b>
-      }
+        }
 
 .. _split-wrap:
 
 wrap
-====
+----
 
-:aspect:`Property`
-   wrap
+..  confval:: wrap
+    :name: split-wrap
+    :type: wrap + :ref:`optionsplit` / :ref:`stdwrap`
 
-:aspect:`Data type`
-   wrap + :ref:`objects-optionsplit` / :ref:`stdwrap`
-
-:aspect:`Description`
-   Defines a wrap for each item.
+    Defines a wrap for each item.
 
 
-.. _split-examples:
+..  _split-examples:
 
 Example
 =======
 
 This is an example of TypoScript code that imports the content of
-field "bodytext" from the :php:`$cObj->data-array` (ln 2). The content is
-split by the line break character (ln 4). The items should all be
-treated with a :ts:`stdWrap` (ln 5) which imports the value of the item (ln
-6). This value is wrapped in a table row where the first column is a
-bullet-gif (ln 7). Finally the whole thing is wrapped in the proper
-table-tags (ln 9). :
+field "bodytext" from the :php:`$cObj->data-array` (ln 3). The content is
+split by the line break character (ln 5). The items should all be
+treated with a :typoscript:`stdWrap` (ln 6) which imports the value of the item (ln
+7). This value is wrapped in a table row where the first column is a
+bullet-gif (ln 8). Finally the whole thing is wrapped in the proper
+table-tags (ln 10). :
 
-.. code-block:: typoscript
-   :linenos:
+..  code-block:: typoscript
+    :linenos:
 
-   20 = TEXT
-   20.stdWrap {
-       field = bodytext
-       split {
-           token.char = 10
-           cObjNum = 1
-           1.current = 1
-           1.wrap = <tr><td><img src="dot.gif"></td><td> | </td></tr>
-       }
-       stdWrap.wrap = <table style="width: 368px;"> | </table><br>
-   }
+    20 = TEXT
+    20.stdWrap {
+        field = bodytext
+        split {
+            token.char = 10
+            cObjNum = 1
+            1.current = 1
+            1.wrap = <tr><td><img src="dot.gif"></td><td> | </td></tr>
+        }
+        stdWrap.wrap = <table style="width: 368px;"> | </table><br>
+    }

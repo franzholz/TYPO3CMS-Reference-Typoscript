@@ -1,10 +1,15 @@
-.. include:: ../../Includes.txt
+..  include:: /Includes.rst.txt
+..  index:: Content objects; CASE
+..  _cobj-case:
 
-
-.. _cobj-case:
-
+====
 CASE
-^^^^
+====
+
+..  note::
+
+    * CASE is an object type (= complex data type).
+    * It is a specific :ref:`cObject <cobject>` data type.
 
 This is a very flexible object whose rendering can vary depending on a
 given key. The principle is similar to that of the "switch" construct
@@ -21,132 +26,124 @@ be used as it has a special meaning: If the value of the "key"
 property is *not* found in the array of cObjects, then the cObject
 from the "default" property will be used.
 
+..  _cobj-case-properties:
 
-.. ### BEGIN~OF~TABLE ###
+Properties
+==========
 
-.. container:: table-row
+..  confval-menu::
+    :display: table
+    :type:
 
-   Property
-         if
+..  _cobj-case-array-of-cObjects:
 
-   Data type
-         :ref:`->if <if>`
+..  confval:: array of cObjects
+    :name: case-array
+    :type: :ref:`cObject <data-type-cobject>`
 
-   Description
-         If "if" returns false, nothing is returned.
+    Array of cObjects. Use this to define cObjects for the different
+    values of :ref:`cobj-case-key`. If :ref:`cobj-case-key` has a certain value,
+    the according cObject will be rendered. The cObjects can have any name, but not
+    the names of the other properties of the cObject CASE.
 
+..  _cobj-case-cache:
 
-.. container:: table-row
+..  confval:: cache
+    :name: case-cache
+    :type: :ref:`cache <cache>`
 
-   Property
-         setCurrent
-
-   Data type
-         string /:ref:`stdWrap <stdwrap>`
-
-   Description
-         Sets the "current"-value.
-
-
-.. container:: table-row
-
-   Property
-         key
-
-   Data type
-         string /:ref:`stdWrap <stdwrap>`
-
-   Description
-         The key, which determines, which cObject will be rendered. Its
-         value is expected to match the name of one of the cObjects from
-         the array of cObjects; this cObject is then rendered. If no name
-         of a cObject is matched, the cObject from the property "default"
-         is rendered.
-
-         This defines the source of the value that will be matched against
-         the values of the "array of cObjects". It will generally not be a
-         simple string, but use its stdWrap properties to retrieve a
-         dynamic value from some specific source, typically a field of the
-         current record. See the example below.
-
-   Default
-         default
+    See :ref:`cache function description <cache>` for details.
 
 
-.. container:: table-row
+..  _cobj-case-default:
 
-   Property
-         *(array of cObjects)*
+..  confval:: default
+    :name: case-default
+    :type: :ref:`cObject <data-type-cobject>`
 
-   Data type
-         :ref:`cObject <data-type-cobject>`
-
-   Description
-         Array of cObjects. Use this to define cObjects for the different
-         values of "key". If "key" has a certain value, the according
-         cObject will be rendered. The cObjects can have any name, but not
-         the names of the other properties of the cObject CASE.
+    Use this to define the rendering for *those* values of :ref:`cobj-case-key` that
+    do *not* match any of the values of the :ref:`cobj-case-array-of-cObjects`. If no
+    default cObject is defined, an empty string will be returned for
+    the default case.
 
 
-.. container:: table-row
+..  _cobj-case-if:
 
-   Property
-         default
+..  confval:: if
+    :name: case-if
+    :type: :ref:`->if <if>`
 
-   Data type
-         :ref:`cObject <data-type-cobject>`
-
-   Description
-         Use this to define the rendering for *those* values of "key" that
-         do *not* match any of the values of the "array of cObjects". If no
-         default cObject is defined, an empty string will be returned for
-         the default case.
+    If :ref:`if <if>` returns false, nothing is returned.
 
 
-.. container:: table-row
+..  _cobj-case-key:
 
-   Property
-         stdWrap
+..  confval:: key
+    :name: case-key
+    :type: :ref:`data-type-string` / :ref:`stdWrap <stdwrap>`
+    :Default: default
 
-   Data type
-         :ref:`->stdWrap <stdwrap>`
+    The key, which determines, which cObject will be rendered. Its
+    value is expected to match the name of one of the cObjects from
+    the array of cObjects; this cObject is then rendered. If no name
+    of a cObject is matched, the cObject from the property :ref:`cobj-case-default`
+    is rendered.
 
-   Description
-         stdWrap around any object that was rendered no matter what the "key"
-         value is.
-
-.. include:: ../../DataTypes/Properties/Cache.rst.txt
-
-.. ###### END~OF~TABLE ######
-
-[tsref:(cObject).CASE]
+    This property defines the source of the value that will be matched against
+    the values of the :ref:`cobj-case-array-of-cObjects`. It will generally not be a
+    simple string, but use its :ref:`stdWrap` properties to retrieve a
+    dynamic value from some specific source, typically a field of the
+    current record. See the :ref:`example below <cobj-case-examples>`.
 
 
-.. _cobj-case-examples:
+..  _cobj-case-setCurrent:
+
+..  confval:: setCurrent
+    :name: case-setCurrent
+    :type: :ref:`data-type-string` / :ref:`stdWrap <stdwrap>`
+
+    Sets the "current" value.
+
+
+..  _cobj-case-stdWrap:
+
+..  confval:: stdWrap
+    :name: case-stdWrap
+    :type: :ref:`stdWrap <stdwrap>`
+
+    :ref:`stdWrap` around any object that was rendered no matter what the
+    :ref:`cobj-case-key` value is.
+
+
+..  _cobj-case-examples:
 
 Example:
-""""""""
+========
 
-If in this example the field "header" turns out not to be set ("false"), an
+If in this example the field :sql:`header` turns out not to be set ("false"), an
 empty string is returned. Otherwise TYPO3 chooses between two different
-renderings of some content depending on whether the field "layout" is "1"
-or not ("default"). The result is in either case wrapped with "\|<br>".  ::
+renderings of some content depending on whether the :ref:`cobj-case-key` field
+:typoscript:`layout` is "1" or not (:ref:`cobj-case-default`).
 
-   stuff = CASE
-   stuff.if.isTrue.field = header
-   # This value determines, which of the following cObjects will be rendered.
-   stuff.key.field = layout
+The result is in either case wrapped with :typoscript:`|<br>`.
 
-   # cObject for the case that field layout is "1".
-   stuff.1 = TEXT
-   stuff.1 {
-     ....
-   }
-   # cObject for all other cases.
-   stuff.default = TEXT
-   stuff.default {
-     ....
-   }
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   stuff.stdWrap.wrap = |<br>
+    stuff = CASE
+    stuff.if.isTrue.field = header
+    # This value determines, which of the following cObjects will be rendered.
+    stuff.key.field = layout
 
+    # cObject for the case that field layout is "1".
+    stuff.1 = TEXT
+    stuff.1 {
+        # ....
+    }
+    # cObject for all other cases.
+    stuff.default = TEXT
+    stuff.default {
+        # ....
+    }
+
+    stuff.stdWrap.wrap = |<br>

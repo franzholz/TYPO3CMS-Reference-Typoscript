@@ -1,6 +1,7 @@
-.. include:: ../Includes.txt
-
-
+.. include:: /Includes.rst.txt
+.. index::
+   Functions; if
+   if
 .. _if:
 
 ==
@@ -9,219 +10,329 @@ if
 
 Allows you to check multiple conditions.
 
-This function returns true, if ALL of the present conditions are met
+This function returns true, if **all** of the present conditions are met
 (they are connected with an "AND", a logical conjunction). If a
 single condition is false, the value returned is false.
 
-The returned value may still be negated by the :ref:`if-negate`-property.
+The returned value may still be negated by the :ref:`if-negate` property.
 
-There is no else property available. The else branch of an if statement is a missing feature. You can implement a workaround by a logic based on the :ref:`stdwrap-override-conditions` .
+There is no else property available. The "else" branch of an "if" statement is a
+missing feature. You can implement a workaround by a logic based on the
+:ref:`stdwrap-override-conditions`.
+
+Simple "if empty use different value" conditions for record data can be built
+with the :ref:`TypoScript // (double slash) <data-type-gettext-double-slash>`
+fallback operator.
 
 Also check the explanations and the examples further below!
 
-.. _if-directreturn:
+.. contents::
+   :local:
+
+.. _if-properties:
+
+Properties
+==========
+
+..  _if-bitAnd:
+
+bitAnd
+------
+
+..  confval:: bitAnd
+    :name: if-bitAnd
+    :type: value / :ref:`stdwrap`
+
+    Returns true, if the value is part of the bit set.
+
+    ..  rubric:: Example
+
+    TYPO3 uses bits to store radio and checkboxes via TCA, `bitAnd` can be used to test against these fields.
+
+    .. code-block:: typoscript
+       :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+
+       lib.hideDefaultLanguageOfPage = TEXT
+       lib.hideDefaultLanguageOfPage {
+           value = 0
+           value {
+               override = 1
+               override.if {
+                   bitAnd.field = l18n_cfg
+                   value = 1
+               }
+           }
+       }
+
+
+..  _if-contains:
+
+contains
+--------
+
+..  confval::  contains
+    :name: if-contains
+    :type:  value / :ref:`stdwrap`
+
+    Returns true, if the content contains :typoscript:`value`.
+
+    ..  rubric:: Example
+
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+        :emphasize-lines: 11
+
+        # Add a span tag before the page title if the page title
+        # contains the string "media"
+        page.10 = TEXT
+        page.10 {
+            data = page:title
+            htmlSpecialChars = 1
+            prepend = TEXT
+            prepend {
+                value = <span class="icon-video"></span>
+                if.value.data = page:title
+                if.contains = Media
+            }
+            outerWrap = <h1>|</h1>
+        }
+
+
+..  _if-directReturn:
 
 directReturn
-============
+------------
 
-:aspect:`Property`
-   directReturn
+..  confval:: directReturn
+    :name: if-directReturn
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-bool`
+    If this property exists, no other conditions will be checked. Instead
+    the true/false of this value is returned. Can be used to set
+    true/false with a TypoScript constant.
 
-:aspect:`Description`
-   If this property exists, no other conditions will be checked. Instead
-   the true/false of this value is returned. Can be used to set
-   true/false with a TypoScript constant.
 
-.. _if-isnull:
+..  _if-endsWith:
 
-isNull
-======
+endsWith
+--------
 
-:aspect:`Property`
-   isNull
+..  confval::  endsWith
+    :name: if-endsWith
+    :type:  value / :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`stdWrap`
+    Returns true, if the content ends with :typoscript:`value`.
 
-:aspect:`Description`
-   If the resulting content of the :ts:`stdWrap` is null (:php:`NULL` type in PHP).
+    ..  rubric:: Example
 
-   Since null values cannot be assigned in TypoScript, only the :ts:`stdWrap`
-   features are available below this property.
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+        :emphasize-lines: 7
 
-:aspect:`Example`
+        # Add a footer note, if the page author ends with "Kott"
+        page.100 = TEXT
+        page.100 {
+            value = This is an article from Benji
+            htmlSpecialChars = 1
+            if.value.data = page:author
+            if.endsWith = Kott
+            wrap = <footer>|</footer>
+        }
 
-   ::
-
-      page.10 = COA_INT
-      page.10.10 = TEXT
-      page.10.10 {
-            stdWrap.if.isNull.field = description
-            value = No description available.
-      }
-
-   This example returns "No description available.", if the content of
-   the field "description" is :php:`NULL`.
-
-.. _if-istrue:
-
-isTrue
-======
-
-:aspect:`Property`
-   isTrue
-
-:aspect:`Data type`
-   :ref:`data-type-string` / :ref:`stdwrap`
-
-:aspect:`Description`
-   If the content is "true", which is not empty string and not zero.
-
-.. _if-isfalse:
-
-isFalse
-=======
-
-:aspect:`Property`
-   isFalse
-
-:aspect:`Data type`
-   :ref:`data-type-string` / :ref:`stdwrap`
-
-:aspect:`Description`
-   If the content is "false", which is empty or zero.
-
-.. _if-ispositive:
-
-isPositive
-==========
-
-:aspect:`Property`
-   isPositive
-
-:aspect:`Data type`
-   :ref:`data-type-integer` / :ref:`stdwrap` \+ :ref:`objects-calc`
-
-:aspect:`Description`
-   Returns true, if the content is positive.
-
-.. _if-isgreaterthan:
-
-isGreaterThan
-=============
-
-:aspect:`Property`
-   isGreaterThan
-
-:aspect:`Data type`
-   value / :ref:`stdwrap`
-
-:aspect:`Description`
-   Returns true, if the content is greater than :ts:`value`.
-
-.. _if-islessthan:
-
-isLessThan
-==========
-
-:aspect:`Property`
-   isLessThan
-
-:aspect:`Data type`
-   value / :ref:`stdwrap`
-
-:aspect:`Description`
-   Returns true, if the content is less than :ts:`value`.
-
-.. _if-equals:
+..  _if-equals:
 
 equals
-======
+------
 
-:aspect:`Property`
-   equals
+..  confval:: equals
+    :name: if-equals
+    :type: value / :ref:`stdwrap`
 
-:aspect:`Data type`
-   value / :ref:`stdwrap`
+    Returns true, if the content is equal to :typoscript:`value`.
 
-:aspect:`Description`
-   Returns true, if the content is equal to :ts:`value`.
+    ..  rubric:: Example
 
-:aspect:`Example`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+        if.equals = POST
+        if.value.data = GETENV:REQUEST_METHOD
 
-      if.equals = POST
-      if.value.data = GETENV:REQUEST_METHOD
 
-.. _if-isinlist:
+..  _if-isFalse:
+
+isFalse
+-------
+
+..  confval:: isFalse
+    :name: if-isFalse
+    :type: :ref:`data-type-string` / :ref:`stdwrap`
+
+    If the content is "false", which is empty or zero.
+
+
+..  _if-isGreaterThan:
+
+isGreaterThan
+-------------
+
+..  confval:: isGreaterThan
+    :name: if-isGreaterThan
+    :type: value / :ref:`stdwrap`
+
+    Returns true, if the content is greater than :typoscript:`value`.
+
+
+..  _if-isInList:
 
 isInList
-========
+--------
 
-:aspect:`Property`
-   isInList
+..  confval:: isInList
+    :name: if-isInList
+    :type: value / :ref:`stdwrap`
 
-:aspect:`Data type`
-   value / :ref:`stdwrap`
+    Returns true, if the content is in the comma-separated list
+    :typoscript:`.value`.
 
-:aspect:`Description`
-   Returns true, if the content is in the comma-separated list
-   :ts:`.value`.
+    **Note:** The list in :typoscript:`value` may not have spaces between elements!
 
-   **Note:** The list in :ts:`value` may not have spaces between elements!
+    ..  rubric:: Example
 
-:aspect:`Example`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+        if.isInList.field = uid
+        if.value = 1,2,34,50,87
 
-      if.isInList.field = uid
-      if.value = 1,2,34,50,87
+    This returns true, if the uid is part of the list in :typoscript:`value`.
 
-   This returns true, if the uid is part of the list in :ts:`value`.
 
-.. _if-value:
+..  _if-isLessThan:
 
-value
-=====
+isLessThan
+----------
 
-:aspect:`Property`
-   value
+..  confval:: isLessThan
+    :name: if-isLessThan
+    :type: value / :ref:`stdwrap`
 
-:aspect:`Data type`
-   value / :ref:`stdwrap`
+    Returns true, if the content is less than :typoscript:`value`.
 
-:aspect:`Description`
-   The value to check. This is the comparison value mentioned above.
 
-.. _if-negate:
+..  _if-isNull:
+
+isNull
+------
+
+..  confval:: isNull
+    :name: if-isNull
+    :type: :ref:`stdWrap`
+
+    If the resulting content of the :typoscript:`stdWrap` is null (:php:`NULL` type in PHP).
+
+    Since null values cannot be assigned in TypoScript, only the :typoscript:`stdWrap`
+    features are available below this property.
+
+    ..  rubric:: Example
+
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+
+        page.10 = COA_INT
+        page.10.10 = TEXT
+        page.10.10 {
+              stdWrap.if.isNull.field = description
+              value = No description available.
+        }
+
+    This example returns "No description available.", if the content of
+    the field "description" is :php:`NULL`.
+
+
+..  _if-isPositive:
+
+isPositive
+----------
+
+..  confval:: isPositive
+    :name: if-isPositive
+    :type: :ref:`data-type-integer` / :ref:`stdwrap` \+ :ref:`objects-calc`
+
+    Returns true, if the content is positive.
+
+
+..  _if-isTrue:
+
+isTrue
+------
+
+..  confval:: isTrue
+    :name: if-isTrue
+    :type: :ref:`data-type-string` / :ref:`stdwrap`
+
+    If the content is "true", which is not empty string and not zero.
+
+
+..  _if-negate:
 
 negate
-======
+------
 
-:aspect:`Property`
-   negate
+..  confval:: negate
+    :name: if-negate
+    :type: :ref:`data-type-boolean`
+    :Default: 0
 
-:aspect:`Data type`
-   :ref:`data-type-bool`
+    This property is checked after all other properties. If set, it
+    negates the result, which is present before its execution.
 
-:aspect:`Description`
-   This property is checked after all other properties. If set, it
-   negates the result, which is present before its execution.
-
-   So if all other conditions, which were used, returned true, with
-   this property the overall return ends up being false. If at least
-   one of the other conditions, which were used, returned false, the
-   overall return ends up being true.
-
-:aspect:`Default`
-   0
+    So if all other conditions, which were used, returned true, with
+    this property the overall return ends up being false. If at least
+    one of the other conditions, which were used, returned false, the
+    overall return ends up being true.
 
 
-.. _if-explanation:
+..  _if-startsWith:
+
+startsWith
+----------
+
+..  confval::  startsWith
+    :name: if-startsWith
+    :type:  value / :ref:`stdwrap`
+
+    Returns true, if the content starts with :typoscript:`value`.
+
+    ..  rubric:: Example
+
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+        :emphasize-lines: 6
+
+        page.10 = TEXT
+        page.10 {
+            value = Your editor added the magic word in the header field
+            htmlSpecialChars = 1
+            if.value.data = DB:tt_content:1234:header
+            if.startsWith = Bazinga
+        }
+
+
+..  _if-value:
+
+value
+-----
+
+..  confval:: value
+    :name: if-value
+    :type: value / :ref:`stdwrap`
+
+    The value to check. This is the comparison value mentioned above.
+
+
+..  index:: if; Explanation
+..  _if-explanation:
 
 Explanation
 ===========
@@ -235,46 +346,55 @@ a value (see the :ref:`data-type-cobject` and :ref:`stdWrap`).
 Here is how it works:
 
 The function returns true or false. Whether it returns true or false
-depends on the properties of this function. Say if you set :ts:`isTrue = 1`
-then the result is true. If you set :ts:`isTrue.field = header`, the
+depends on the properties of this function. Say if you set :typoscript:`isTrue = 1`
+then the result is true. If you set :typoscript:`isTrue.field = header`, the
 function returns true if the field "header" in :php:`$cObj->data` is set!
 
 If you want to compare values, you must load a base-value in the
-:ts:`value`-property. Example::
+:typoscript:`value`-property. Example:
 
-   .value = 10
-   .isGreaterThan = 11
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-This would return true because the value of :ts:`isGreaterThan` is
+    page.10.if.value = 10
+    page.10.if.isGreaterThan = 11
+
+This would return true because the value of :typoscript:`isGreaterThan` is
 greater than 10, which is the base-value.
 
-More complex is this::
+More complex is this:
 
-   .value = 10
-   .isGreaterThan = 11
-   .isTrue.field = header
-   .negate = 1
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-There are two conditions - :ts:`isGreaterThan` and :ts:`isTrue`.
+    page.10.if {
+      value = 10
+      isGreaterThan = 11
+      isTrue.field = header
+      negate = 1
+    }
+
+There are two conditions - :typoscript:`isGreaterThan` and :typoscript:`isTrue`.
 If they are both true, the total is true (both are connected with an AND).
 BUT(!) then the result of the function in total would be false because the
-:ts:`negate`-flag inverts the result!
+:typoscript:`negate`-flag inverts the result!
 
-
-.. _if-examples:
+..  _if-examples:
 
 Examples
 ========
 
 This is a GIFBUILDER object that will write "NEW" on a menu-item if
-the field "newUntil" has a date less than the current date! ::
+the field "newUntil" has a date less than the current date!
 
-     30 = TEXT
-     30.text = NEW!
-     30.offset = 10,10
-     30.if {
-         value.data = date: U
-         isLessThan.field = newUntil
-         negate = 1
-     }
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
+    30 = TEXT
+    30.text = NEW!
+    30.offset = 10,10
+    30.if {
+      value.data = date: U
+      isLessThan.field = newUntil
+      negate = 1
+    }

@@ -1,7 +1,6 @@
-.. include:: ../Includes.txt
-
-
-.. _round:
+..  include:: /Includes.rst.txt
+..  index:: Functions; round
+..  _round:
 
 =====
 round
@@ -14,84 +13,80 @@ be used.
 The value will be converted to a float value before applying the
 selected round method.
 
-.. _round-roundtype:
+..  contents::
+    :local:
+
+..  index:: round; Properties
+..  _round-properties:
+
+Properties
+==========
+
+..  _round-roundType:
 
 roundType
-=========
+---------
 
-:aspect:`Property`
-   roundType
+..  confval:: roundType
+    :name: round-roundType
+    :type: :ref:`data-type-string` / :ref:`stdwrap`
+    :Default: round
 
-:aspect:`Data type`
-   :ref:`data-type-string` / :ref:`stdwrap`
+    Round method which should be used.
 
-:aspect:`Description`
-   Round method which should be used.
+    Possible keywords:
 
-   Possible keywords:
+    ceil
+        Round the value up to the next integer.
 
-   ceil
-      Round the value up to the next integer.
+    floor
+        Round the value down to the previous integer.
 
-   floor
-      Round the value down to the previous integer.
+    round
+        Round the value to the specified number of decimals.
 
-   round
-      Round the value to the specified number of decimals.
 
-:aspect:`Default`
-   round
-
-.. _round-decimals:
+..  _round-decimals:
 
 decimals
-========
+--------
 
-:aspect:`Property`
-   decimals
+..  confval:: decimals
+    :name: round-decimals
+    :type: :ref:`data-type-integer` / :ref:`stdwrap`
+    :Default: 0
 
-:aspect:`Data type`
-   :ref:`data-type-integer` / :ref:`stdwrap`
+    Number of decimals the rounded value will have. Only used with the
+    roundType "round". Defaults to 0, so that your input will in that case
+    be rounded up or down to the next integer.
 
-:aspect:`Description`
-   Number of decimals the rounded value will have. Only used with the
-   roundType "round". Defaults to 0, so that your input will in that case
-   be rounded up or down to the next integer.
 
-:aspect:`Default`
-   0
-
-.. _round-round:
+..  _round-round:
 
 round
-=====
+-----
 
-:aspect:`Property`
-   round
+..  confval:: round
+    :name: round-round
+    :type: :ref:`data-type-boolean`
+    :Default: 0
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    Set round = 1 to enable rounding.
 
-:aspect:`Description`
-   Set round = 1 to enable rounding.
-
-:aspect:`Default`
-   0
-
-.. _round-examples:
+..  _round-examples:
 
 Examples
-""""""""
+========
 
-::
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   lib.number = TEXT
-   lib.number {
-       value = 3.14159
-       stdWrap.round = 1
-       stdWrap.round.roundType = round
-       stdWrap.round.decimals = 2
-   }
+    lib.number = TEXT
+    lib.number {
+        value = 3.14159
+        stdWrap.round = 1
+        stdWrap.round.roundType = round
+        stdWrap.round.decimals = 2
+    }
 
-This returns 3.14.
-
+This returns :code:`3.14`.

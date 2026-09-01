@@ -1,345 +1,340 @@
-.. include:: ../Includes.txt
-
-
-.. _htmlparser-tags:
+..  include:: /Includes.rst.txt
+..  index::
+    Functions; HTMLparser_tags
+    HTMLparser_tags
+..  _htmlparser-tags:
 
 ================
 HTMLparser\_tags
 ================
 
+..  contents::
+    :local:
 
-.. _htmlparser-tags-overrideattribs:
+..  _htmlparser-tags-properties:
+
+Properties
+==========
+
+..  _htmlparser-tags-overrideAttribs:
 
 overrideAttribs
-===============
+---------------
 
-:aspect:`Property`
-   overrideAttribs
+..  confval:: overrideAttribs
+    :name: htmlparser-tags-overrideAttribs
+    :type: :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    If set, this string is preset as the attributes of the tag.
 
-:aspect:`Description`
-   If set, this string is preset as the attributes of the tag.
 
-.. _htmlparser-tags-allowedattribs:
+..  _htmlparser-tags-allowedAttribs:
 
 allowedAttribs
-==============
+--------------
 
-:aspect:`Property`
-   allowedAttribs
+..  confval:: allowedAttribs
+    :name: htmlparser-tags-allowedAttribs
+    :type: mixed
 
-:aspect:`Data type`
-   mixed
+    Defines the allowed attributes.
 
-:aspect:`Description`
-   Defines the allowed attributes.
+    Possible values:
 
-   Possible values:
+    0
+        No attributes allowed.
 
-   0
-      No attributes allowed.
+    (comma-separated list of attributes)
+        Only attributes in this list are allowed.
 
-   (comma-separated list of attributes)
-      Only attributes in this list are allowed.
+    (blank/not set)
+        All attributes are allowed.
 
-   (blank/not set)
-      All attributes are allowed.
 
-.. _htmlparser-tags-fixattrib-attribute-set:
+..  _htmlparser-tags-fixAttrib-set:
 
 fixAttrib.[attribute].set
-=========================
+-------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].set
+..  confval:: fixAttrib.[attribute].set
+    :name: htmlparser-tags-fixAttrib-set
+    :type: :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    Force the attribute value to this value.
 
-:aspect:`Description`
-   Force the attribute value to this value.
 
-.. _htmlparser-tags-fixattrib-attribute-unset:
+..  _htmlparser-tags-fixAttrib-unset:
 
 fixAttrib.[attribute].unset
-===========================
+---------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].unset
+..  confval:: fixAttrib.[attribute].unset
+    :name: htmlparser-tags-fixAttrib-unset
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    If set, the attribute is unset.
 
-:aspect:`Description`
-   If set, the attribute is unset.
 
-.. _htmlparser-tags-fixattrib-attribute-default:
+..  _htmlparser-tags-fixAttrib-default:
 
 fixAttrib.[attribute].default
-=============================
+-----------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].default
+..  confval:: fixAttrib.[attribute].default
+    :name: htmlparser-tags-fixAttrib-default
+    :type: :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    If no attribute exists by this name, this value is set as default
+    value (if this value is not blank)
 
-:aspect:`Description`
-   If no attribute exists by this name, this value is set as default
-   value (if this value is not blank)
 
-.. _htmlparser-tags-fixattrib-attribute-always:
+..  _htmlparser-tags-fixAttrib-always:
 
 fixAttrib.[attribute].always
-============================
+----------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].always
+..  confval:: fixAttrib.[attribute].always
+    :name: htmlparser-tags-fixAttrib-always
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    If set, the attribute is always processed. Normally an attribute is
+    processed only if it exists
 
-:aspect:`Description`
-   If set, the attribute is always processed. Normally an attribute is
-   processed only if it exists
 
-:aspect:`Property`
-   fixAttrib.[attribute].trim
+..  _htmlparser-tags-fixAttrib-trim:
 
-   fixAttrib.[attribute].intval
+fixAttrib.[attribute].trim
+--------------------------
 
-   fixAttrib.[attribute].upper
+..  confval:: fixAttrib.[attribute].trim
+    :name: htmlparser-tags-fixAttrib-trim
+    :type: :ref:`data-type-boolean`
 
-   fixAttrib.[attribute].lower
+    If true, the value is passed through the
+    respective PHP-function.
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
 
-:aspect:`Description`
-   If any of these keys are set, the value is passed through the
-   respective PHP-functions.
+..  _htmlparser-tags-fixAttrib-intval:
 
-.. _htmlparser-tags-fixattrib-attribute-range:
+fixAttrib.[attribute].intval
+----------------------------
+
+..  confval:: fixAttrib.[attribute].intval
+    :name: htmlparser-tags-fixAttrib-intval
+    :type: :ref:`data-type-boolean`
+
+    If true, the value is passed through the
+    respective PHP-function.
+
+
+..  _htmlparser-tags-fixAttrib-upper:
+
+fixAttrib.[attribute].upper
+---------------------------
+
+..  confval:: fixAttrib.[attribute].upper
+    :name: htmlparser-tags-fixAttrib-upper
+    :type: :ref:`data-type-boolean`
+
+    If true, the value is passed through the PHP function
+    `strtoupper() <https://www.php.net/manual/en/function.strtoupper.php>`__.
+
+
+..  _htmlparser-tags-fixAttrib-lower:
+
+fixAttrib.[attribute].lower
+---------------------------
+
+..  confval:: fixAttrib.[attribute].lower
+    :name: htmlparser-tags-fixAttrib-lower
+    :type: :ref:`data-type-boolean`
+
+    If true, the value is passed through the PHP function
+    `strtolower() <https://www.php.net/manual/en/function.strtolower.php>`__.
+
+
+..  _htmlparser-tags-fixAttrib-range:
 
 fixAttrib.[attribute].range
-===========================
+---------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].range
+..  confval:: fixAttrib.[attribute].range
+    :name: htmlparser-tags-fixAttrib-range
+    :type: [low],[high]
 
-:aspect:`Data type`
-   [low],[high]
+    Setting integer range.
 
-:aspect:`Description`
-   Setting integer range.
 
-.. _htmlparser-tags-fixattrib-attribute-list:
+..  _htmlparser-tags-fixAttrib-list:
 
 fixAttrib.[attribute].list
-==========================
+--------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].list
+..  confval:: fixAttrib.[attribute].list
+    :name: htmlparser-tags-fixAttrib-list
+    :type: list of values, trimmed
 
-:aspect:`Data type`
-   list of values, trimmed
+    Attribute value must be in this list. If not, the value is set to the
+    first element.
 
-:aspect:`Description`
-   Attribute value must be in this list. If not, the value is set to the
-   first element.
 
-.. _htmlparser-tags-fixattrib-attribute-removeiffalse:
+..  _htmlparser-tags-fixAttrib-removeIfFalse:
 
 fixAttrib.[attribute].removeIfFalse
-===================================
+-----------------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].removeIfFalse
+..  confval:: fixAttrib.[attribute].removeIfFalse
+    :name: htmlparser-tags-fixAttrib-removeIfFalse
+    :type: :ref:`data-type-boolean` / :typoscript:`blank` string
 
-:aspect:`Data type`
-   :ref:`data-type-boolean` / :ts:`blank` string
+    If set, then the attribute is removed if it is false (= :typoscript:`0`).
+    If this value is set to :typoscript:`blank` then the value must be a blank string
+    (that means a "zero" value will not be removed).
 
-:aspect:`Description`
-   If set, then the attribute is removed if it is false (= :ts:`0`).
-   If this value is set to :ts:`blank` then the value must be a blank string
-   (that means a "zero" value will not be removed).
 
-.. _htmlparser-tags-fixattrib-attribute-removeifequals:
+..  _htmlparser-tags-fixAttrib-removeIfEquals:
 
 fixAttrib.[attribute].removeIfEquals
-====================================
+------------------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].removeIfEquals
+..  confval:: fixAttrib.[attribute].removeIfEquals
+    :name: htmlparser-tags-fixAttrib-removeIfEquals
+    :type: :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    If the attribute value matches the value set here, then it is removed.
 
-:aspect:`Description`
-   If the attribute value matches the value set here, then it is removed.
 
-.. _htmlparser-tags-fixattrib-attribute-casesensitivecomp:
+..  _htmlparser-tags-fixAttrib-casesensitiveComp:
 
 fixAttrib.[attribute].casesensitiveComp
-=======================================
+---------------------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].casesensitiveComp
+..  confval:: fixAttrib.[attribute].casesensitiveComp
+    :name: htmlparser-tags-fixAttrib-casesensitiveComp
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    If set, the comparison in :ref:`htmlparser-tags-fixAttrib-removeIfEquals`
+    and :ref:`htmlparser-tags-fixAttrib-list` will be case-sensitive.
+    At this point, it's insensitive.
 
-:aspect:`Description`
-   If set, the comparison in :ref:`htmlparser-tags-fixattrib-attribute-removeifequals`
-   and :ref:`htmlparser-tags-fixattrib-attribute-list` will be case-sensitive.
-   At this point, it's insensitive.
 
-.. _htmlparser-tags-fixattrib-attribute-prefixlocalanchors:
-
-fixAttrib.[attribute].prefixLocalAnchors
-========================================
-
-:aspect:`Property`
-   fixAttrib.[attribute].prefixLocalAnchors
-
-:aspect:`Data type`
-   :ref:`data-type-integer`
-
-:aspect:`Description`
-   If the first char is a "#" character (anchor of fx. :html:`<a>` tags) this
-   will prefix either a relative or absolute path.
-
-   :ts:`1`
-      will get the absolute path
-      (:php:`TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL')`).
-
-   :ts:`2`
-      will get the relative path (stripping of
-      :php:`TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL')`).
-
-:aspect:`Example`
-   ::
-
-      ...fixAttrib.href.prefixLocalAnchors = 1
-
-.. _htmlparser-tags-fixattrib-attribute-prefixrelpathwith:
+..  _htmlparser-tags-fixAttrib-prefixRelPathWith:
 
 fixAttrib.[attribute].prefixRelPathWith
-=======================================
+---------------------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].prefixRelPathWith
+..  confval:: fixAttrib.[attribute].prefixRelPathWith
+    :name: htmlparser-tags-fixAttrib-prefixRelPathWith
+    :type: :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    If the value of the attribute seems to be a relative URL (no scheme
+    like "http" and no "/" as first char) then the value of this property
+    will be prefixed the attribute.
 
-:aspect:`Description`
-   If the value of the attribute seems to be a relative URL (no scheme
-   like "http" and no "/" as first char) then the value of this property
-   will be prefixed the attribute.
+    Example:
 
-:aspect:`Example`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+        lib.parser.fixAttrib.src.prefixRelPathWith = https://example.org/typo3/32/dummy/
 
-      ...fixAttrib.src.prefixRelPathWith = http://192.168.230.3/typo3/32/dummy/
 
-.. _htmlparser-tags-fixattrib-attribute-userfunc:
+..  _htmlparser-tags-fixAttrib-userFunc:
 
 fixAttrib.[attribute].userFunc
-==============================
+------------------------------
 
-:aspect:`Property`
-   fixAttrib.[attribute].userFunc
+..  confval:: fixAttrib.[attribute].userFunc
+    :name: htmlparser-tags-fixAttrib-userFunc
+    :type: :ref:`data-type-function-name`
 
-:aspect:`Data type`
-   :ref:`data-type-function-name`
+    ..  important::
 
-:aspect:`Description`
-   User function for processing of the attribute. The return value
-   of this function will be used as the new tag value.
+        ..  versionchanged:: 14.0
 
-:aspect:`Example`
-   ::
+            PHP functions called via TypoScript **must** now use the PHP
+            attribute :php:`#[AsAllowedCallable]`
+            (:php:`TYPO3\CMS\Core\Attribute\AsAllowedCallable`).
 
-      ...fixAttrib.href.userFunc = \Vendor\ExtName\ClassName->function
+    User function for processing of the attribute. The return value
+    of this function will be used as the new tag value.
 
-   Two parameters are passed to the function:
+    Example:
 
-   1. The tag value as a string or an array containing the tag value
-      and additional configuration (see below).
-   2. The reference the to HtmlParser instance that calls the method.
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   By default the first parameter is the value of the processed tag.
-   This changes when you pass additional configuration options to the
-   user function::
+        lib.parser.fixAttrib.href.userFunc = \Vendor\ExtName\ClassName->function
 
-      ...fixAttrib.href.userFunc.myCustomParm = myCustomValue
+    Two parameters are passed to the function:
 
-   In that case the first parameter passed to the user function will
-   be an array containing these values:
+    1. The tag value as a string or an array containing the tag value
+       and additional configuration (see below).
+    2. The reference the to HtmlParser instance that calls the method.
 
-.. _htmlparser-tags-protect:
+    By default the first parameter is the value of the processed tag.
+    This changes when you pass additional configuration options to the
+    user function:
+
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+
+        lib.parser.fixAttrib.href.userFunc.myCustomParm = myCustomValue
+
+    In that case the first parameter passed to the user function will
+    be an array containing these values:
+
+
+..  _htmlparser-tags-protect:
 
 protect
-=======
+-------
 
-:aspect:`Property`
-   protect
+..  confval:: protect
+    :name: htmlparser-tags-protect
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    If set, the tag :html:`<>` is converted to :html:`&lt;` and :html:`&gt;`
 
-:aspect:`Description`
-   If set, the tag :html:`<>` is converted to :html:`&lt;` and :html:`&gt;`
 
-.. _htmlparser-tags-remap:
+..  _htmlparser-tags-remap:
 
 remap
-=====
+-----
 
-:aspect:`Property`
-   remap
+..  confval:: remap
+    :name: htmlparser-tags-remap
+    :type: :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    If set, the tagname is remapped to this tagname
 
-:aspect:`Description`
-   If set, the tagname is remapped to this tagname
 
-.. _htmlparser-tags-rmtagifnoattrib:
+..  _htmlparser-tags-rmTagIfNoAttrib:
 
 rmTagIfNoAttrib
-===============
+---------------
 
-:aspect:`Property`
-   rmTagIfNoAttrib
+..  confval:: rmTagIfNoAttrib
+    :name: htmlparser-tags-rmTagIfNoAttrib
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    If set, then the tag is removed if no attributes happened to be there.
 
-:aspect:`Description`
-   If set, then the tag is removed if no attributes happened to be there.
 
-.. _htmlparser-tags-nesting:
+..  _htmlparser-tags-nesting:
 
 nesting
-=======
+-------
 
-:aspect:`Property`
-   nesting
+..  confval:: nesting
+    :name: htmlparser-tags-nesting
+    :type: mixed
 
-:aspect:`Data type`
-   mixed
+    If set true, then this tag must have starting and ending tags in the
+    correct order. Any tags not in this order will be discarded. Thus
+    :html:`</B><B><I></B></I></B>` will be converted to :html:`<B><I></B></I>`.
 
-:aspect:`Description`
-   If set true, then this tag must have starting and ending tags in the
-   correct order. Any tags not in this order will be discarded. Thus
-   :html:`</B><B><I></B></I></B>` will be converted to :html:`<B><I></B></I>`.
-
-   Is the value "global" then true nesting in relation to other tags
-   marked for "global" nesting control is preserved. This means that if
-   :html:`<B>` and :html:`<I>` are set for global nesting then this string
-   :html:`</B><B><I></B></I></B>` is converted to :html:`<B></B>`
+    Is the value "global" then true nesting in relation to other tags
+    marked for "global" nesting control is preserved. This means that if
+    :html:`<B>` and :html:`<I>` are set for global nesting then this string
+    :html:`</B><B><I></B></I></B>` is converted to :html:`<B></B>`

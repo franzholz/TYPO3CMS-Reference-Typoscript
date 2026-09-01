@@ -1,375 +1,387 @@
-.. include:: ../Includes.txt
-
-
-.. _parsefunc:
+..  include:: /Includes.rst.txt
+..  index::
+    Functions; parseFunc
+    parseFunc
+..  _parsefunc:
 
 =========
 parseFunc
 =========
 
-This object is used to parse some content for stuff like special typo
-tags, the :ref:`parsefunc-makeLinks`-things and so on...
+..  versionchanged:: 14.0
 
-.. _parsefunc-externalBlocks:
+    `lib.parseFunc.allowTags` and `lib.parseFunc_RTE.allowTags` do not contain
+    default values anymore. HTML sanitization is continued to be  handled by
+    the htmlSanitizer.
+
+    See also: `Breaking: #107438 - Default parseFunc configuration for Fluid Styled Content <https://docs.typo3.org/permalink/changelog:breaking-107438-1736592000>`_
+
+This object is used to parse some content for stuff like special typo
+tags, the :ref:`makeLinks`-things and so on...
+
+..  contents::
+    :local:
+
+..  index:: parsefunc; Properties
+..  _parsefunc-properties:
+
+Properties
+==========
+
+..  _parsefunc-externalBlocks:
 
 externalBlocks
-==============
+--------------
 
-:aspect:`Property`
-   externalBlocks
+..  confval:: externalBlocks
+    :name: parsefunc-externalBlocks
+    :type: list of tagnames / +properties
 
-:aspect:`Data type`
-   list of tagnames / +properties
+    This allows you to pre-split the content passed to parseFunc so that
+    only content outside the blocks with the given tags is parsed.
 
-:aspect:`Description`
-   This allows you to pre-split the content passed to parseFunc so that
-   only content outside the blocks with the given tags is parsed.
+    **Extra properties:**
 
-   **Extra properties:**
+    **.[tagname]** {
 
-   **.[tagname]** {
+    *  **callRecursive:** :ref:`data-type-boolean`. If set, the content of the block is
+       directed into parseFunc again. Otherwise the content is passed
+       through with no other processing than :ref:`stdwrap` (see below).
 
-      **callRecursive:** :ref:`data-type-boolean`. If set, the content of the block is
-      directed into parseFunc again. Otherwise the content is just passed
-      through with no other processing than :ref:`stdwrap` (see below).
+    *  **callRecursive.dontWrapSelf:** :ref:`data-type-boolean`. If set, the tags of the
+       block is *not* wrapped around the content returned from parseFunc.
 
-      **callRecursive.dontWrapSelf:** :ref:`data-type-boolean`. If set, the tags of the
-      block is *not* wrapped around the content returned from parseFunc.
+    *  **callRecursive.alternativeWrap:** Alternative wrapping instead of
+       the original tags.
 
-      **callRecursive.alternativeWrap:** Alternative wrapping instead of
-      the original tags.
+    *  **callRecursive.tagStdWrap:** :ref:`stdwrap` processing of the block-tags.
 
-      **callRecursive.tagStdWrap:** :ref:`stdwrap` processing of the block-tags.
+    *  **stdWrap:** :ref:`stdwrap` processing of the whole block (regardless of
+       whether callRecursive was set.)
 
-      **stdWrap:** :ref:`stdwrap` processing of the whole block (regardless of
-      whether callRecursive was set.)
+    *  **stripNLprev:** :ref:`data-type-boolean`. Strips off last line break of the previous
+       outside block.
 
-      **stripNLprev:** :ref:`data-type-boolean`. Strips off last line break of the previous
-      outside block.
+    *  **stripNLnext:** :ref:`data-type-boolean`. Strips off first line break of the next
+       outside block.
 
-      **stripNLnext:** :ref:`data-type-boolean`. Strips off first line break of the next
-      outside block.
+    *  **stripNL:** :ref:`data-type-boolean`. Does both of the above.
 
-      **stripNL:** :ref:`data-type-boolean`. Does both of the above.
+    *  **HTMLtableCells:** :ref:`data-type-boolean`. If set, then the content is expected
+       to be a table and every table-cell is traversed.
 
-      **HTMLtableCells:** :ref:`data-type-boolean`. If set, then the content is expected
-      to be a table and every table-cell is traversed.
+    Below, "default" means all cells and "1", "2", "3", ... overrides
+    for specific columns.
 
-      Below, "default" means all cells and "1", "2", "3", ... overrides
-      for specific columns.
+    *  **HTMLtableCells.[default/1/2/3/...]** {
 
-      **HTMLtableCells.[default/1/2/3/...]** {
+       *  **callRecursive:** :ref:`data-type-boolean`. The content is parsed through current
+          parseFunc.
 
-         **callRecursive:** :ref:`data-type-boolean`. The content is parsed through current
-         parseFunc.
+       *  **stdWrap:** :ref:`stdwrap` processing of the content in the cell.
 
-         **stdWrap:** :ref:`stdwrap` processing of the content in the cell.
+       *  **tagStdWrap:** -> The :html:`<TD>` tag is processed by :ref:`stdwrap`.
 
-         **tagStdWrap:** -> The :html:`<TD>` tag is processed by :ref:`stdwrap`.
 
-      }
+    *  **HTMLtableCells.addChr10BetweenParagraphs:** :ref:`data-type-boolean`. If set, then
+       all appearances of :html:`</P><P>` will have a :php:`chr(10)` inserted between them.
 
-   **HTMLtableCells.addChr10BetweenParagraphs:** :ref:`data-type-boolean`. If set, then
-   all appearances of :html:`</P><P>` will have a :php:`chr(10)` inserted between them.
+    ..  rubric:: Example
 
-   }
+    This example is used to split regular bodytext content so that tables
+    and blockquotes in the bodytext are processed correctly. The
+    blockquotes are passed into parseFunc again (recursively) and further
+    their top/bottom margins are set to 0 (so no apparent line breaks are
+    seen)
 
-:aspect:`Example`
+    The tables are also displayed with a number of properties of the cells
+    overridden
 
-   This example is used to split regular bodytext content so that tables
-   and blockquotes in the bodytext are processed correctly. The
-   blockquotes are passed into parseFunc again (recursively) and further
-   their top/bottom margins are set to 0 (so no apparent line breaks are
-   seen)
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   The tables are also displayed with a number of properties of the cells
-   overridden. ::
 
-      tt_content.text.20.parseFunc.externalBlocks {
-            blockquote.callRecursive = 1
-            blockquote.callRecursive.tagStdWrap.HTMLparser = 1
-            blockquote.callRecursive.tagStdWrap.HTMLparser {
-               tags.blockquote.fixAttrib.style.list = margin-bottom:0;margin-top:0;
-               tags.blockquote.fixAttrib.style.always = 1
-            }
-            blockquote.stripNLprev = 1
-            blockquote.stripNLnext = 1
+        tt_content.text.20.parseFunc.externalBlocks {
+              blockquote.callRecursive = 1
+              blockquote.callRecursive.tagStdWrap.HTMLparser = 1
+              blockquote.callRecursive.tagStdWrap.HTMLparser {
+                 tags.blockquote.fixAttrib.style.list = margin-bottom:0;margin-top:0;
+                 tags.blockquote.fixAttrib.style.always = 1
+              }
+              blockquote.stripNLprev = 1
+              blockquote.stripNLnext = 1
 
-            table.stripNL = 1
-            table.stdWrap.HTMLparser = 1
-            table.stdWrap.HTMLparser {
-               tags.table.overrideAttribs = border="0" style="margin-top: 10px;"
-               tags.tr.allowedAttribs = 0
-               tags.td.overrideAttribs = class="table-cell" style="font-size: 10px;"
-            }
-      }
+              table.stripNL = 1
+              table.stdWrap.HTMLparser = 1
+              table.stdWrap.HTMLparser {
+                 tags.table.overrideAttribs = border="0" style="margin-top: 10px;"
+                 tags.tr.allowedAttribs = 0
+                 tags.td.overrideAttribs = class="table-cell" style="font-size: 10px;"
+              }
+        }
 
-.. _parsefunc-constants:
 
-constants
-=========
-
-:aspect:`Property`
-   constants
-
-:aspect:`Data type`
-   :ref:`data-type-boolean`
-
-:aspect:`Description`
-   You can define constants in the :ref:`top-level object "constants"
-   <constants>` in the *Setup* field of your TypoScript template.
-
-   If this property is set, you can use markers (the constant name
-   wrapped in "###") in your text. TYPO3 then substitutes the markers
-   with the value of the according constant.
-
-:aspect:`Example`
-
-   ::
-
-      constants.EMAIL = email@email.com
-
-   *(The definition of the constant above is top-level TypoScript. It
-   belongs on one level with the objects "config" and "page".)*
-
-   If you now use parseFunc with :ts:`constants = 1`, all occurrences of the
-   string ###EMAIL### in the text will be substituted with the actual
-   address.
-
-.. _parsefunc-short:
+..  _parsefunc-short:
 
 short
-=====
+-----
 
-:aspect:`Property`
-   short
+..  confval:: short
+    :name: parsefunc-short
+    :type: *(array of strings)*
 
-:aspect:`Data type`
-   *(array of strings)*
+    If this property is set, you can replace a char or word
+    in your text with the value of the according constant.
 
-:aspect:`Description`
-   Like constants above, but local.
+    ..  rubric:: Example
 
-:aspect:`Example`
+    This replaces all occurrences of "T3" with "TYPO3 CMS"
+    and "T3web" with a link to typo3.org.
 
-   This substitutes all occurrences of "T3" with "TYPO3 CMS" and "T3web"
-   with a link to typo3.org. ::
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-      short {
-            T3 = TYPO3 CMS
-            T3web = <a href="http://typo3.org">typo3.org</a>
-      }
+        page.10 = TEXT
+        page.10.value = Learn more about T3, look here: T3web
+        page.10.parseFunc.short {
+              T3 = TYPO3 CMS
+              T3web = <a href="https://typo3.org">typo3.org</a>
+        }
+        # Output: Learn more about TYPO3 CMS, look here: <a href="https://typo3.org">typo3.org</a>
 
-.. _parsefunc-plainTextStdWrap:
+
+..  _parsefunc-plainTextStdWrap:
 
 plainTextStdWrap
-================
+----------------
 
-:aspect:`Property`
-   plainTextStdWrap
+..  confval:: plainTextStdWrap
+    :name: parsefunc-plainTextStdWrap
+    :type: :ref:`stdwrap`
 
-:aspect:`Data type`
-   :ref:`stdwrap`
+    This is :ref:`stdwrap` properties for all non-tag content.
 
-:aspect:`Description`
-   This is :ref:`stdwrap` properties for all non-tag content.
 
-.. _parsefunc-userFunc:
+..  _parsefunc-userFunc:
 
 userFunc
-========
+--------
 
-:aspect:`Property`
-   userFunc
+..  confval:: userFunc
+    :name: parsefunc-userFunc
+    :type: :ref:`data-type-function-name`
 
-:aspect:`Data type`
-   :ref:`data-type-function-name`
+    ..  important::
 
-:aspect:`Description`
-   This passes the non-tag content to a function of your own choice.
-   Similar to e.g. :ref:`stdwrap-postuserfunc` in :ref:`stdWrap`.
+        ..  versionchanged:: 14.0
 
-   Remember the function name must possibly be prepended :php:`user_`.
+            PHP functions called via TypoScript **must** now use the PHP
+            attribute :php:`#[AsAllowedCallable]`
+            (:php:`TYPO3\CMS\Core\Attribute\AsAllowedCallable`).
 
-.. _parsefunc-nonTypoTagStdWrap:
+    This passes the non-tag content to a function of your own choice.
+    Similar to, for example, :ref:`stdwrap-postUserFunc` in :ref:`stdWrap`,
+    or :ref:`typolink.userFunc <typolink-userFunc>`.
+
+..  _parsefunc-nonTypoTagStdWrap:
 
 nonTypoTagStdWrap
-=================
+-----------------
 
-:aspect:`Property`
-   nonTypoTagStdWrap
+..  confval:: nonTypoTagStdWrap
+    :name: parsefunc-nonTypoTagStdWrap
+    :type: :ref:`stdWrap`
 
-:aspect:`Data type`
-   :ref:`stdWrap`
+    Like :ref:`parsefunc-plainTextStdWrap`. Difference:
 
-:aspect:`Description`
-   Like :ref:`parsefunc-plainTextStdWrap`. Difference:
+    :typoscript:`parsefunc-plainTextStdWrap` works on ALL non-tag pieces in the
+    text. :ref:`parsefunc-nonTypoTagStdWrap` is post processing of all text
+    (including tags) between special TypoTags
+    (unless :typoscript:`breakoutTypoTagContent` is not set for the TypoTag).
 
-   :ref:`parsefunc-plainTextStdWrap` works an ALL non-tag pieces in the text.
-   :ref:`parsefunc-nonTypoTagStdWrap` is post processing of all text
-   (including tags) between special TypoTags
-   (unless :ts:`breakoutTypoTagContent` is not set for the TypoTag).
 
-.. _parsefunc-nonTypoTagUserFunc:
+..  _parsefunc-nonTypoTagUserFunc:
 
 nonTypoTagUserFunc
-==================
+------------------
 
-:aspect:`Property`
-   nonTypoTagUserFunc
+..  confval:: nonTypoTagUserFunc
+    :name: parsefunc-nonTypoTagUserFunc
+    :type: :ref:`data-type-function-name`
 
-:aspect:`Data type`
-   :ref:`data-type-function-name`
+    ..  important::
 
-:aspect:`Description`
-   Like :ref:`parsefunc-userFunc`.
-   Differences is (like :ref:`parsefunc-nonTypoTagStdWrap`)
-   that this is post processing of all content pieces around TypoTags while
-   :ref:`parsefunc-userFunc` processes all non-tag content.
-   (Notice: :ts:`breakoutTypoTagContent` must be set for the TypoTag
-   if it's excluded from :ts:`nonTypoTagContent`).
+        ..  versionchanged:: 14.0
 
-.. _parsefunc-sword:
+            PHP functions called via TypoScript **must** now use the PHP
+            attribute :php:`#[AsAllowedCallable]`
+            (:php:`TYPO3\CMS\Core\Attribute\AsAllowedCallable`).
 
-sword
-=====
+    Like :ref:`parsefunc-userFunc`.
+    Differences is (like :ref:`parsefunc-nonTypoTagStdWrap`)
+    that this is post processing of all content pieces around TypoTags while
+    :typoscript:`userFunc` processes all non-tag content.
+    (Notice: :typoscript:`breakoutTypoTagContent` must be set for the TypoTag
+    if it's excluded from :typoscript:`nonTypoTagContent`).
 
-:aspect:`Property`
-   sword
 
-:aspect:`Data type`
-   :ref:`data-type-wrap`
-
-:aspect:`Description`
-   Marks up any words from the GET-method send array :php:`sword_list[]` in the
-   text. The word MUST be at least two characters long!
-
-   **Note:** works only with :php:`$GLOBALS['TSFE']->no_cache = 1`.
-
-:aspect:`Default`
-   :ts:`<font color="red">|</font>`
-
-.. _parsefunc-makelinks:
+..  _parsefunc-makelinks:
 
 makelinks
-=========
+---------
 
-:aspect:`Property`
-   makelinks
+..  confval:: makelinks
+    :name: parsefunc-makelinks
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean` / :ref:`makelinks`
+    Convert web addresses prefixed with `http://` and mail addresses
+    prefixed with `mailto:` to links.
 
-:aspect:`Description`
-   Convert web addresses prefixed with `http://` and mail addresses
-   prefixed with `mailto:` to links.
+    See :ref:`makelinks` for additional properties.
 
-.. _parsefunc-tags:
+..  _parsefunc-tags:
 
 tags
-====
+----
 
-:aspect:`Property`
-   tags
+..  confval:: tags
+    :name: parsefunc-tags
+    :type: :ref:`tags`
 
-:aspect:`Data type`
-   :ref:`tags`
+    Here you can define **custom tags** that will parse the content to
+    something.
 
-:aspect:`Description`
-   Here you can define **custom tags** that will parse the content to
-   something.
 
-.. _parsefunc-allowTags:
+..  _parsefunc-allowTags:
 
 allowTags
-=========
+---------
 
-:aspect:`Property`
-   allowTags
+..  confval:: allowTags
+    :name: parsefunc-allowTags
+    :type: list of strings or "*"
+    :default: Empty
 
-:aspect:`Data type`
-   list of strings
+    ..  versionchanged:: 14.0
 
-:aspect:`Description`
-   List of tags, which are allowed to exist in code!
+        `lib.parseFunc.allowTags` and `lib.parseFunc_RTE.allowTags` do not contain
+        default values anymore. HTML sanitization is continued to be  handled by
+        the htmlSanitizer.
 
-   Highest priority: If a tag is found in :ref:`parsefunc-allowTags`,
-   :ref:`parsefunc-denyTags` is ignored!
+        See also: `Breaking: #107438 - Default parseFunc configuration for Fluid
+        Styled Content <https://docs.typo3.org/permalink/changelog:breaking-107438-1736592000>`_
 
-.. _parsefunc-denyTags:
+    HTML sanitization is handled by the htmlSanitizer in general. `allowTags`
+    and `denyTags` can be used to further limit the allowed HTML tags.
+
+    List of tags, which are allowed to exist in code, use "*" for all.
+    Security aspects are considered automatically by the HTML sanitizer,
+    unless :typoscript:`htmlSanitize` is disabled explicitly.
+
+    If a tag is found in :typoscript:`allowTags`, the corresponding tag in
+    :ref:`parsefunc-denyTags` is ignored!
+
+    ..  rubric:: Example
+
+    The example allows any tag, except :html:`<u>` which will be encoded:
+
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+
+        10 = TEXT
+        10.value = <p><em>Example</em> <u>underlined</u> text</p>
+        10.parseFunc = 1
+        10.parseFunc {
+          allowTags = *
+          denyTags = u
+        }
+
+    ..  rubric:: Migration
+
+    If you need to allow specific HTML tags, fully configure the allowTags option
+    without relying on prior default configuration:
+
+    ..  code-block:: diff
+
+        - lib.parseFunc_RTE.allowTags := addToList(wbr)
+        + lib.parseFunc_RTE.allowTags = b,span,i,em,wbr..
+
+
+..  _parsefunc-denyTags:
 
 denyTags
-========
+--------
 
-:aspect:`Property`
-   denyTags
+..  confval:: denyTags
+    :name: parsefunc-denyTags
+    :type: list of strings
 
-:aspect:`Data type`
-   list of strings
+    List of tags, which may **not** exist in code! (use :typoscript:`*` for all.)
 
-:aspect:`Description`
-   List of tags, which may **not** exist in code! (use :ts:`*` for all.)
+    Lowest priority: If a tag is **not** found in :ref:`parsefunc-allowTags`,
+    :typoscript:`denyTags` is checked.
+    If denyTags is not :typoscript:`*` and the tag is not found in the list, the tag may exist!
 
-   Lowest priority: If a tag is **not** found in :ref:`parsefunc-allowTags`,
-   :ref:`parsefunc-denyTags` is checked.
-   If denyTags is not :ts:`*` and the tag is not found in the list, the tag may exist!
+    ..  rubric:: Example
 
-:aspect:`Example`
+    This allows :html:`<b>`, :html:`<i>`, :html:`<a>` and :html:`<img>` -tags to exist:
 
-   This allows :html:`<b>`, :html:`<i>`, :html:`<a>` and :html:`<img>` -tags to exist ::
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-      .allowTags = b,i,a,img
-      .denyTags = *
+        tt_content.text.20.parseFunc {
+            allowTags = b,i,a,img
+            denyTags = *
+        }
 
-.. _parsefunc-if:
+
+..  _parsefunc-if:
 
 if
-==
+--
 
-:aspect:`Property`
-   if
+.. confval:: if
+    :name: parsefunc-if
+    :type: :ref:`if`
 
-:aspect:`Data type`
-   :ref:`if`
+    if "if" returns false, the input value is not parsed, but returned
+    directly.
 
-:aspect:`Description`
-   if "if" returns false, the input value is not parsed, but returned
-   directly.
-
-
-.. _parsefunc-examples:
+..  _parsefunc-examples:
 
 Example
 =======
 
 This example takes the content of the field "bodytext" and parses it
 through the :ref:`parsefunc-makelinks`-functions and substitutes all
-:html:`<LINK>` and :html:`<TYPOLIST>`-tags with something else. ::
+:html:`<LINK>` and :html:`<TYPOLIST>`-tags with something else.
 
-   tt_content.text.default {
-       20 = TEXT
-       20.stdWrap.field = bodytext
-       20.stdWrap.wrap = | <br>
-       20.stdWrap.brTag = <br>
-       20.stdWrap.parseFunc {
-           makelinks = 1
-           makelinks.http.keep = path
-           makelinks.http.extTarget = _blank
-           makelinks.mailto.keep = path
-           tags {
-               link = TEXT
-               link {
-                   stdWrap.current = 1
-                   stdWrap.typolink.extTarget = _blank
-                   stdWrap.typolink.target = {$cLinkTagTarget}
-                   stdWrap.typolink.wrap = <p style="color: red; font-weight: bold;">|</p>
-                   stdWrap.typolink.parameter.data = parameters : allParams
-               }
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-               typolist < tt_content.bullets.default.20
-               typolist.trim = 1
-               typolist.field >
-               typolist.current = 1
-           }
-       }
+    tt_content.text.default {
+        20 = TEXT
+        20.stdWrap.field = bodytext
+        20.stdWrap.wrap = | <br>
+        20.stdWrap.brTag = <br>
+        20.stdWrap.parseFunc {
+            makelinks = 1
+            makelinks.http.keep = path
+            makelinks.http.extTarget = _blank
+            makelinks.mailto.keep = path
+            tags {
+                link = TEXT
+                link {
+                    stdWrap.current = 1
+                    stdWrap.typolink.extTarget = _blank
+                    stdWrap.typolink.target = {$cLinkTagTarget}
+                    stdWrap.typolink.wrap = <p style="color: red; font-weight: bold;">|</p>
+                    stdWrap.typolink.parameter.data = parameters : allParams
+                }
 
+                typolist < tt_content.bullets.default.20
+                typolist.trim = 1
+                typolist.field >
+                typolist.current = 1
+            }
+        }

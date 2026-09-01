@@ -1,314 +1,346 @@
-.. include:: ../Includes.txt
-
-
-.. _encapslines:
+..  include:: /Includes.rst.txt
+..  index::
+    Functions; encapsLines
+    encapsLines
+..  _encapslines:
 
 ===========
 encapsLines
 ===========
 
-.. _encapstaglist:
+This function is a sub-function of :ref:`stdWrap <stdwrap>` and can be used
+like this:
+
+..  code-block:: typoscript
+    :caption: EXT:my_extension/Configuration/TypoScript/setup.typoscript
+
+    page.20 = TEXT
+    page.20 {
+        value (
+            First line of text
+            Some <div>text</div>
+            <p>Some text</p>
+            <div>Some text</div>
+            <B>Some text</B>
+        )
+        stdWrap.encapsLines {
+            encapsTagList = div, p
+            remapTag.P=DIV
+        }
+    }
+
+
+..  contents::
+    :local:
+
+..  _encapslines-properties:
+
+Properties
+==========
+
+..  _encapslines-encapsTagList:
 
 encapsTagList
-=============
+-------------
 
-:aspect:`Property`
-   encapsTagList
+..  confval:: encapsTagList
+    :name: encapslines-encapsTagList
+    :type: list of :ref:`data-type-string`
 
-:aspect:`Data type`
-   list of strings
+    List of tags which qualify as encapsulating tags. Must be lowercase.
 
-:aspect:`Description`
-   List of tags which qualify as encapsulating tags. Must be lowercase.
+    ..  rubric:: Example
 
-:aspect:`Example`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+        encapsTagList = div, p
 
-      encapsTagList = div, p
+    This setting will recognize the highlighted lines below as encapsulated lines:
 
-   This setting will recognize the red line below as encapsulated lines:
+    ..  code-block:: html
+        :caption: Example Output
+        :emphasize-lines: 3,4
 
-   .. code-block:: html
+        First line of text
+        Some <div>text</div>
+        <p>Some text</p>
+        <div>Some text</div>
+        <B>Some text</B>
 
-      First line of text
-      Some <div>text</div>
-      <p>Some text</p>
-      <div>Some text</div>
-      <B>Some text</B>
+
+..  _encapslines-remapTag:
 
 remapTag.[*tagname*]
-====================
+--------------------
 
-:aspect:`Property`
-   remapTag.[*tagname*]
+..  confval:: remapTag
+    :name: encapslines-remapTag
+    :type: array of :ref:`data-type-string`
 
-:aspect:`Data type`
-   :ref:`data-type-string`
+    Enter a new tag name here if you wish the tag name of any encapsulation
+    to be unified to a single tag name.
 
-:aspect:`Description`
-   Enter a new tag name here if you wish the tagname of any encapsulation
-   to be unified to a single tag name.
+    For instance, setting this value to :typoscript:`remapTag.P=DIV` would convert:
 
-   For instance, setting this value to :ts:`remapTag.P=DIV` would convert:
+    ..  code-block:: html
 
-   .. code-block:: html
+        <p>Some text</p>
+        <div>Some text</div>
 
-      <p>Some text</p>
-      <div>Some text</div>
+    to :
 
-   to :
+    ..  code-block:: html
 
-   .. code-block:: html
+        <div>Some text</div>
+        <div>Some text</div>
 
-      <div>Some text</div>
-      <div>Some text</div>
+    ([*tagname*] is in uppercase.)
 
-   ([*tagname*] is in uppercase.)
 
-.. _addattributes.[*tagname*]:
+..  _encapslines-addAttributes:
 
 addAttributes.[*tagname*]
-=========================
+-------------------------
 
-:aspect:`Property`
-   addAttributes.[*tagname*]
+..  confval:: addAttributes
+    :name: encapslines-addAttributes
+    :type: array of :ref:`data-type-string`
+    :Default: Always override/set the value of the attributes.
 
-:aspect:`Data type`
-   *(array of strings)*
+    Attributes to set in the encapsulation tag.
 
-:aspect:`Description`
-   Attributes to set in the encapsulation tag.
+    ([*tagname*] is in uppercase.)
 
-   ([*tagname*] is in uppercase.) ::
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-      .setOnly =
+        addAttributes.P.setOnly = exists
 
-   exists
-      This will set the value ONLY if the property does not already exist.
+    exists
+        This will set the value ONLY if the property does not already exist.
 
-   blank
-      This will set the value ONLY if the property does not already exist OR is
-      blank ("").
+    blank
+        This will set the value ONLY if the property does not already exist OR is
+        blank ("").
 
-:aspect:`Default`
-   Always override/set the value of the attributes.
+    ..  rubric:: Example
 
-:aspect:`Example`
-   ::
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-      addAttributes.P {
+        addAttributes.P {
             style = padding-bottom: 0px; margin-top: 1px; margin-bottom: 1px;
             align = center
-      }
+        }
 
-.. _removewrapping:
+
+..  _encapslines-removeWrapping:
 
 removeWrapping
-==============
+--------------
 
-:aspect:`Property`
-   removeWrapping
+..  confval:: removeWrapping
+    :name: encapslines-removeWrapping
+    :type: :ref:`data-type-boolean`
 
-:aspect:`Data type`
-   :ref:`data-type-boolean`
+    If set, then all existing wrapping will be removed.
 
-:aspect:`Description`
-   If set, then all existing wrapping will be removed.
+    This:
 
-   This:
+    ..  code-block:: html
 
-   .. code-block:: html
+        First line of text
+        Some <div>text</div>
+        <p>Some text</p>
+        <div>Some text</div>
+        <b>Some text</b>
 
-      First line of text
-      Some <div>text</div>
-      <p>Some text</p>
-      <div>Some text</div>
-      <b>Some text</b>
+    becomes this:
 
-   becomes this:
+    ..  code-block:: html
 
-   .. code-block:: html
+        First line of text
+        Some <div>text</div>
+        Some text
+        Some text
+        <b>Some text</b>
 
-      First line of text
-      Some <div>text</div>
-      Some text
-      Some text
-      <b>Some text</b>
 
-.. _wrapnonwrappedlines:
+..  _encapslines-wrapNonWrappedLines:
 
 wrapNonWrappedLines
-===================
+-------------------
 
-:aspect:`Property`
-   wrapNonWrappedLines
+..  confval:: wrapNonWrappedLines
+    :name: encapslines-wrapNonWrappedLines
+    :type: :ref:`stdwrap-wrap`
 
-:aspect:`Data type`
-   :ref:`stdwrap-wrap`
+    Wrapping for non-encapsulated lines
 
-:aspect:`Description`
-   Wrapping for non-encapsulated lines
+    ..  rubric:: Example
 
-:aspect:`Example`
+    ..  code-block:: typoscript
+        :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-   ::
+        wrapNonWrappedLines = <p>|</p>
 
-      wrapNonWrappedLines = <p>|</p>
+    This:
 
-   This:
+    ..  code-block:: html
 
-   .. code-block:: html
+        First line of text
+        <p>Some text</p>
 
-      First line of text
-      <p>Some text</p>
+    becomes this:
 
-   becomes this:
+    ..  code-block:: html
 
-   .. code-block:: html
+        <P>First line of text</P>
+        <p>Some text</p>
 
-      <P>First line of text</P>
-      <p>Some text</p>
 
-.. _innerstdwrap\_all:
+..  _encapslines-innerStdWrap-all:
 
 innerStdWrap\_all
-=================
+-----------------
 
-:aspect:`Property`
-   innerStdWrap\_all
+..  confval:: innerStdWrap_all
+    :name: encapslines-innerStdWrap-all
+    :type: :ref:`stdWrap`
 
-:aspect:`Data type`
-   :ref:`stdWrap`
+    Wraps the content inside all lines, whether they are encapsulated or
+    not.
 
-:aspect:`Description`
-   Wraps the content inside all lines, whether they are encapsulated or
-   not.
 
-.. _encapslinesstdwrap.[*tagname*]:
+..  _encapslines-encapsLinesStdWrap:
 
 encapsLinesStdWrap.[*tagname*]
-==============================
+------------------------------
 
-:aspect:`Property`
-   encapsLinesStdWrap.[*tagname*]
+..  confval:: encapsLinesStdWrap
+    :name: encapslines-encapsLinesStdWrap
+    :type: array of :ref:`data-type-string` / :ref:`stdWrap`
 
-:aspect:`Data type`
-   :ref:`stdWrap`
+    Wraps the content inside all encapsulated lines.
 
-:aspect:`Description`
-   Wraps the content inside all encapsulated lines.
-
-   ([*tagname*] is in uppercase.)
+    ([*tagname*] is in uppercase.)
 
 
-.. _defaultalign:
+..  _encapslines-defaultAlign:
 
 defaultAlign
-============
+------------
 
-:aspect:`Property`
-   defaultAlign
+..  confval:: defaultAlign
+    :name: encapslines-defaultAlign
+    :type: :ref:`data-type-string` / :ref:`stdWrap`
 
-:aspect:`Data type`
-   :ref:`data-type-string` / :ref:`stdWrap`
+    If set, this value is set as the default "align" value of the wrapping
+    tags, both from :ref:`encapslines-encapsTagList` and
+    :ref:`encapslines-nonWrappedTag`
 
-:aspect:`Description`
-   If set, this value is set as the default "align" value of the wrapping
-   tags, both from :ref:`encapsTagList`, :ts:`bypassEncapsTagList` and
-   :ref:`nonWrappedTag`
 
-.. _nonwrappedtag:
+..  _encapslines-nonWrappedTag:
 
 nonWrappedTag
-=============
+-------------
 
-:aspect:`Property`
-   nonWrappedTag
+..  confval:: nonWrappedTag
+    :name: encapslines-nonWrappedTag
+    :type: :typoscript:`tagname`
 
-:aspect:`Data type`
-   :ts:`tagname`
-
-:aspect:`Description`
-   For all non-wrapped lines, you can here set a tag in which they
-   should be wrapped. Example would be "p". This is an alternative to
-   :ts:`wrapNonWrappedLines` and has the advantage that its attributes are
-   set by :ts:`addAttributes` as well as :ts:`defaultAlign`.
-   Thus you can match the wrapping tags used for non-wrapped and wrapped
-   lines more easily.
+    For all non-wrapped lines, you can set a tag here in which they
+    should be wrapped. Example would be "p". This is an alternative to
+    :typoscript:`wrapNonWrappedLines` and has the advantage that its attributes are
+    set by :typoscript:`addAttributes` as well as :typoscript:`defaultAlign`.
+    Thus you can match the wrapping tags used for non-wrapped and wrapped
+    lines more easily.
 
 
+..  _encapslines-examples:
 
-.. _encapslines-examples:
+Examples
+========
 
-Example
-=======
+..  _encapslines-examples-tag-used-encapsulate:
 
-::
+:html:`<p>` tag is used to encapsulate each line
+------------------------------------------------
 
-   encapsLines {
-       encapsTagList = div,p
-       remapTag.DIV = P
-       wrapNonWrappedLines = <p>|</p>
-       innerStdWrap_all.ifEmpty = &nbsp;
-   }
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
+
+    encapsLines {
+        encapsTagList = div,p
+        remapTag.DIV = P
+        wrapNonWrappedLines = <p>|</p>
+        innerStdWrap_all.ifEmpty = &nbsp;
+    }
 
 This example shows how to handle content rendered by TYPO3 and
-stylesheets where the <p> tag is used to encapsulate each line.
+stylesheets where the :html:`<p>` tag is used to encapsulate each line.
 
-Say, you have made this content with the Rich Text Editor::
+Say, you have made this content with the rich text editor:
 
-   This is line # 1
+..  code-block:: none
+    :caption: Example input
 
-   [Above is an empty line!]
-   <div style="text-align: right;">This line is right-aligned.</div>
+    This is line # 1
+
+    [Above is an empty line!]
+    <div style="text-align: right;">This line is right-aligned.</div>
 
 After being processed by encapsLines with the above configuration, the
 content looks like this:
 
-.. code-block:: html
+..  code-block:: html
+    :caption: Example output
 
-   <p>This is line # 1 </p>
-   <p>&nbsp;</p>
-   <p>[Above is an empty line!] </p>
-   <p style="text-align: right;">This line is right-aligned.</p>
+    <p>This is line # 1 </p>
+    <p>&nbsp;</p>
+    <p>[Above is an empty line!] </p>
+    <p style="text-align: right;">This line is right-aligned.</p>
 
 Each line is nicely wrapped with :html:`<p>` tags. The line from the database
-which was *already* wrapped (but in :html:`<div>`-tags) has been converted to
-:html:`<p>`, but keeps it's alignment. Overall, notice that the Rich Text Editor
+which was *already* wrapped (but in :html:`<div>` tags) has been converted to
+:html:`<p>`, but keeps its alignment. Overall, notice that the rich text editor
 ONLY stored the line which was in fact right-aligned - every other line from the
 RTE was stored without any wrapping tags, so that the content in the database
 remains as human readable as possible.
 
 
-Example
-=======
+..  _encapslines-examples-advanced-example:
 
-::
+Advanced example
+----------------
 
-   # Make sure nonTypoTagStdWrap operates
-   # on content outside <typolist> and <typohead> only:
-   tt_content.text.20.parseFunc.tags.typolist.breakoutTypoTagContent = 1
-   tt_content.text.20.parseFunc.tags.typohead.breakoutTypoTagContent = 1
-   # ... and no <br> before typohead.
-   tt_content.text.20.parseFunc.tags.typohead.stdWrap.wrap >
-   # Setting up nonTypoTagStdWrap to wrap the text with p-tags
-   tt_content.text.20.parseFunc.nonTypoTagStdWrap >
-   tt_content.text.20.parseFunc.nonTypoTagStdWrap.encapsLines {
-       encapsTagList = div,p
-       remapTag.DIV = P
-       wrapNonWrappedLines = <p style="margin: 0 0 0;">|</p>
+..  code-block:: typoscript
+    :caption: EXT:site_package/Configuration/TypoScript/setup.typoscript
 
-       # Forcing these attributes onto the encapsulation-tags if any
-       addAttributes.P {
-           style=margin: 0 0 0;
-       }
-       innerStdWrap_all.ifEmpty = &nbsp;
-   }
-   # Finally removing the <br>-tag after the content...
-   tt_content.text.20.wrap >
+    # Make sure nonTypoTagStdWrap operates
+    # on content outside <typolist> and <typohead> only:
+    tt_content.text.20.parseFunc.tags.typolist.breakoutTypoTagContent = 1
+    tt_content.text.20.parseFunc.tags.typohead.breakoutTypoTagContent = 1
+    # ... and no <br> before typohead.
+    tt_content.text.20.parseFunc.tags.typohead.stdWrap.wrap >
+    # Setting up nonTypoTagStdWrap to wrap the text with p tags
+    tt_content.text.20.parseFunc.nonTypoTagStdWrap >
+    tt_content.text.20.parseFunc.nonTypoTagStdWrap.encapsLines {
+        encapsTagList = div,p
+        remapTag.DIV = P
+        wrapNonWrappedLines = <p style="margin: 0 0 0;">|</p>
 
-This is an example of how to wrap traditional tt\_content bodytext
-with :html:`<p>` tags, setting the line-distances to regular space like that
+        # Forcing these attributes onto the encapsulation tags if any
+        addAttributes.P {
+            style=margin: 0 0 0;
+        }
+        innerStdWrap_all.ifEmpty = &nbsp;
+    }
+    # Finally removing the <br> tag after the content...
+    tt_content.text.20.wrap >
+
+This is an example of how to wrap the table field :sql:`tt_content.bodytext`
+with :html:`<p>` tags, setting the line distances to regular space like that
 generated by a :html:`<br>` tag, but staying compatible with the RTE features
 such as assigning classes and alignment to paragraphs.
